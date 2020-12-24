@@ -148,7 +148,8 @@ function mod:EvaluateBorder(frame)
 		})
 		
 		frame.LevelText:SetParent(frame.elite_border)
-		frame.HealthText:SetParent(frame.elite_border)
+ 		frame.HealthText:SetParent(frame.elite_border)
+		frame.NameText:SetParent(frame.elite_border)
 		frame.elite_border:SetFrameLevel(1)
 	end
 	
@@ -169,6 +170,7 @@ function mod:EvaluateBorder(frame)
 	
 		if (classification == "worldboss") or (classification == "rareelite") or (classification == "elite") then
 			frame.elite_border:SetBackdropBorderColor(opt.env.EliteBorderColor.r, opt.env.EliteBorderColor.g, opt.env.EliteBorderColor.b, opt.env.EliteBorderColor.a);	
+			frame.NameText:SetParent(frame.elite_border)
 		else
 			HideEliteBorder(frame)
 		end
