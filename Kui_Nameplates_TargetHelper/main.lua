@@ -9,7 +9,10 @@ local opt = KuiConfigTargetHelper
 -- enable this to use 'DevTools_Dump'
 -- LoadAddOn("Blizzard_DebugTools")
 	
-local PRIORITY = 2
+local PRIORITY = 50
+
+plugin_tank = nil
+local tank_spec
 
 --------- Plugin Registration -----------------
 -- priority         = Any number. Defines the load order. Default of 5. Plugins with a higher priority are executed later.
@@ -20,9 +23,9 @@ if not mod then return end
 
 -- UTILITIES ####################################################
 
-local function CanOverwriteHealthColor(f)
+local function CanOverwriteHealthColor(f, priority)
     return not f.state.health_colour_priority or
-           f.state.health_colour_priority <= PRIORITY
+           f.state.health_colour_priority <= priority
 end
 
 function mod:LoadClassData()
@@ -31,6 +34,16 @@ function mod:LoadClassData()
 	opt.class.specId, opt.class.specName = GetSpecializationInfo(opt.class.spec)
 	
 	rlPrintf('Now loading aura data for ' .. opt.class.specName .. ' ' .. opt.class.name  .. ' ( ' .. opt.class.specId .. ').')
+end
+
+function mod:SpecUpdate()
+
+    local was_enabled = tank_spec
+	
+    local spec = GetSpecialization()
+    local role = spec and GetSpecializationRole(spec) or nil
+
+    tank_spec = role == 'TANK'
 end
 
 function mod.Fading_FadeRulesReset()
@@ -89,7 +102,7 @@ end
 function mod:UpdateTargetFrame(frame)
 	
 	-- only adjust non-target (we have a bespoke colour for our target)
-	if opt.env.ColorTarget and frame.handler:IsTarget() then 
+	if opt.env.ColorTarget and frame.handler:IsTarget() and frame.state.bar_is_name_coloured then 
 		--DevTools_Dump(frame.state)
 		return
 	end
@@ -121,12 +134,17 @@ function mod:UpdateTargetFrame(frame)
 	-- no matching colour - clear our our colour data?
 	if not col and frame.state.bar_is_name_coloured then
         frame.state.bar_is_name_coloured = nil
-        if CanOverwriteHealthColor(frame) then
+        if CanOverwriteHealthColor(frame, PRIORITY) then
             frame.state.health_colour_priority = nil
-            frame.HealthBar:SetStatusBarColor(unpack(frame.state.healthColour))
+			frame.HealthBar:SetStatusBarColor(unpack(frame.state.healthColour))
+			
+			-- let tank mode do its thing
+			if (plugin_tank) then
+				plugin_tank:GlowColourChange(frame)
+			end
         end
     elseif col then
-        if CanOverwriteHealthColor(frame) then
+        if CanOverwriteHealthColor(frame, PRIORITY) then
             frame.state.bar_is_name_coloured = true
             frame.state.health_colour_priority = PRIORITY
             frame.HealthBar:SetStatusBarColor(unpack(col))
@@ -188,7 +206,17 @@ function mod:GainedTarget(frame)
 			end
 		end
 		
-		if CanOverwriteHealthColor(frame) then
+		-- tank mode - if we don't have threat, don't change the target color
+		if (plugin_tank) and (plugin_tank.enabled) and UnitAffectingCombat(frame.unit) and tank_spec then
+			local hasThreat = (frame.state.threat and frame.state.threat > 0)
+			if not hasThreat then
+				mod:EvaluateBorder(frame)
+				return
+			end
+		end
+		
+		-- can we update colour?
+		if CanOverwriteHealthColor(frame, PRIORITY) then
 			frame.state.bar_is_name_coloured = true
 			frame.state.health_colour_priority = PRIORITY
 			frame.HealthBar:SetStatusBarColor(opt.env['TargetColor'].r,opt.env['TargetColor'].g,opt.env['TargetColor'].b)
@@ -197,6 +225,12 @@ function mod:GainedTarget(frame)
 	
 	mod:EvaluateBorder(frame)
 	
+end
+
+function mod:GlowColourChange(frame)
+	if frame.handler:IsTarget() then
+		mod:GainedTarget(frame)
+	end
 end
 
 function mod:LostTarget(frame)		
@@ -258,13 +292,21 @@ function mod:Initialise()
     self:RegisterMessage('GainedTarget')
     self:RegisterMessage('LostTarget')
     self:RegisterMessage('Hide','LostTarget')
+	self:RegisterMessage('GlowColourChange')
 		
 	-- auras
 	self:RegisterUnitEvent('UNIT_AURA')
-
+	
+	-- spec
+	self:RegisterEvent('PLAYER_SPECIALIZATION_CHANGED','SpecUpdate')
+    self:RegisterEvent('PLAYER_ENTERING_WORLD','SpecUpdate')
+	self:SpecUpdate()
+	
 	-- fades
 	plugin_fading = addon:GetPlugin('Fading')
     self:AddCallback('Fading','FadeRulesReset',self.Fading_FadeRulesReset)
     self.Fading_FadeRulesReset()
 	
+	-- tank
+	plugin_tank = addon:GetPlugin('TankMode')
 end

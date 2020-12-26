@@ -19,7 +19,7 @@ InterfaceOptions_AddCategory(opt)
 -- addon info
 opt.info = {
 	name = 'KuiNameplates: Target Helper',
-	version = '1.0.8',
+	version = '1.0.9',
 	header = '%s (%s) by rljohn'
 }
 
