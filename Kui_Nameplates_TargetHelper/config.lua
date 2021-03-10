@@ -19,7 +19,7 @@ InterfaceOptions_AddCategory(opt)
 -- addon info
 opt.info = {
 	name = 'KuiNameplates: Target Helper',
-	version = '1.0.9',
+	version = '1.0.10',
 	header = '%s (%s) by rljohn'
 }
 
@@ -505,15 +505,15 @@ function events:ADDON_LOADED(addon_name)
 		opt.ui.addSlBtn:SetScript("OnClick", addShadowlandsTargets)
 		AddTooltip(opt.ui.addSlBtn, opt.titles.AddSLTooltipTitle, opt.titles.AddSLTooltipText)
 		
-		opt.ui.addSlRaidBtn = CreateButton(opt, nil, 200, 24, opt.titles.AddSLRaidTargets)
-		opt.ui.addSlRaidBtn:SetPoint('TOPLEFT', opt.ui.addSlBtn, 'BOTTOMLEFT', 0, -4)
-		opt.ui.addSlRaidBtn:SetScript("OnClick", addShadowlandsRaidTargets)
-		AddTooltip(opt.ui.addSlRaidBtn, opt.titles.AddSLRaidTooltipTitle, opt.titles.AddSLRaidTooltipText)
+		-- opt.ui.addSlRaidBtn = CreateButton(opt, nil, 200, 24, opt.titles.AddSLRaidTargets)
+		-- opt.ui.addSlRaidBtn:SetPoint('TOPLEFT', opt.ui.addSlBtn, 'BOTTOMLEFT', 0, -4)
+		-- opt.ui.addSlRaidBtn:SetScript("OnClick", addShadowlandsRaidTargets)
+		-- AddTooltip(opt.ui.addSlRaidBtn, opt.titles.AddSLRaidTooltipTitle, opt.titles.AddSLRaidTooltipText)
 		
 		-- elite/boss borders
 		
 		opt.ui.enableeliteborder = CreateCheckBox(opt, "EnableEliteBorder")
-		opt.ui.enableeliteborder:SetPoint('TOPLEFT', opt.ui.addSlRaidBtn, "BOTTOMLEFT", 0, -4)
+		opt.ui.enableeliteborder:SetPoint('TOPLEFT', opt.ui.addSlBtn, "BOTTOMLEFT", 0, -4)
 		AddTooltip(opt.ui.enableeliteborder, opt.titles.EnableEliteBorder, opt.titles.EnableEliteBorderTooltip)
 		
 		opt.ui.elitebordercolor = CreateColorTexture(opt, 'EliteBorderColor', 20, 20, opt.env.EliteBorderColor.r, opt.env.EliteBorderColor.g, opt.env.EliteBorderColor.b, opt.env.EliteBorderColor.a)
@@ -537,21 +537,6 @@ function events:ADDON_LOADED(addon_name)
 		
 		
 		AddCVarSliders(opt.ui.cvarpanel)
-				
-		-- reset box
-		
-		--local playerName = UnitName("player");
-		--if (playerName == "Maladizzle") and (GetRealmName() == "Area 52") then
-		--	local f = CreateFrame("Button", nil, opt, "UIPanelButtonTemplate")
-		--	f:SetPoint("BOTTOMRIGHT", -100, 10)
-		--	f:SetWidth(80)
-		--	f:SetHeight(30)
-		--	f:SetText("Reload UI")
-		--	
-		--	f:SetScript("OnClick", function(self, arg1)
-		--		ReloadUI();
-		--	end)
-		--end
 		
 		local f = CreateFrame("Button", "test2", opt, "UIPanelButtonTemplate")
 		f:SetPoint("BOTTOMRIGHT", -10, 10)

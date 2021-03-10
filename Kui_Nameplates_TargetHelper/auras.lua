@@ -16,9 +16,17 @@ KuiTargetAuraList = {
 	[102] = {	-- BALANCE DRUID
 		164815,	--	Sunfire
 		8921,	-- 	Moonfire
+		155625,	--  Moonfire?
+		1822,	-- 	Rake
+		231052, --  Rake?
+		1079,	--	Rip
 	},
 	[103] = {	-- FERAL DRUID
+		164815,	--	Sunfire
+		8921,	-- 	Moonfire
+		155625,	--  Moonfire?
 		1822,	-- 	Rake
+		231052, --  Rake?
 		1079,	--	Rip
 	},
 	[250] = { 	-- BLOOD DK
