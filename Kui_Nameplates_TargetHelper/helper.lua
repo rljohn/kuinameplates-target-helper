@@ -106,6 +106,12 @@ local function CheckBoxOnClick(self)
 		end
 	end
 	
+	if (self:GetName() == "EnableGlobalData") then
+		if self:GetChecked() then
+			ReloadGlobalData()
+		end
+	end
+	
 	ResetFrames()
 end
 
@@ -369,6 +375,38 @@ StaticPopupDialogs["KUI_TargetHelper_DeleteConfirm"] = {
   timeout = 0,
   whileDead = true,
   hideOnEscape = true,
+  preferredIndex = 3,
+}
+
+StaticPopupDialogs["KUI_TargetHelper_LoadFromGlobal"] = {
+  text = "Would you like to override this character's settings with the Global Settings? WARNING: This cannot be undone.",
+  button1 = "Yes",
+  button2 = "No",
+  OnAccept = function(self, data, data2)
+      ConfirmGlobalLoad()
+  end,
+  OnCancel = function(self, data, data2)
+      StaticPopup_Show("KUI_TargetHelper_SetNewGlobal")
+  end,
+  timeout = 0,
+  whileDead = true,
+  hideOnEscape = false,
+  preferredIndex = 3,
+}
+
+StaticPopupDialogs["KUI_TargetHelper_SetNewGlobal"] = {
+  text = "Would you like to use this profile's settings for Global Settings? WARNING: This will override existing global settings.",
+  button1 = "Yes",
+  button2 = "No",
+  OnAccept = function(self, data, data2)
+      ConfirmGlobalSave()
+  end,
+  OnCancel = function(self, data, data2)
+      CancelGlobal()
+  end,
+  timeout = 0,
+  whileDead = true,
+  hideOnEscape = false,
   preferredIndex = 3,
 }
 

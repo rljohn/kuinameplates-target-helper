@@ -19,7 +19,7 @@ InterfaceOptions_AddCategory(opt)
 -- addon info
 opt.info = {
 	name = 'KuiNameplates: Target Helper',
-	version = '1.0.10',
+	version = '1.0.11',
 	header = '%s (%s) by rljohn'
 }
 
@@ -33,9 +33,7 @@ opt.global = {}
 opt.env = {}
 
 opt.titles = {
-	TargetOptions = 'Target Options',
-	EnlargeTarget = 'Enlarge Target Frame',
-	EnlargeTargetTooltip = 'Scale the target frame by a percentage.',
+	TargetOptions = 'Target Options',	
 	TargetScale = 'Target Frame Scale',
 	ColorTarget = 'Enable Target Color',
 	ColorTargetTooltip = "Override the color of your target's health bar.",
@@ -66,6 +64,8 @@ opt.titles = {
 	EnableEliteBorderTooltip = 'Adds a border around Elite and Boss targets',
 	EnableCVars = "Enable CVar Modification",
 	EnableCVarsTooltip = "Enables the CVar panel, allowing KUI |cff9966ffTarget Helper|r to modify CVars.",
+	EnableGlobalData = "Global Settings",
+	EnableGlobalDataTooltip = "Share settings data across all characters.",
 	ResetTooltip = "Reset the |cff9966ffTarget Helper|r to base settings.",
 	EditTitle = "Edit Target",
 	EditTooltip = "Change the name of this target",
@@ -74,7 +74,6 @@ opt.titles = {
 }
 
 opt.ui = {
-	enlargetarget = nil,
 	colortarget = nil,
 	colorauras = nil,
 	targetscale = nil,
@@ -113,9 +112,6 @@ function mod:LoadMissingValues()
 		opt.env.TargetScale = 1.0
 	end
 	
-	if (opt.env.EnlargeTarget == nil) then
-		opt.env.EnlargeTarget = false
-	end
 	if (opt.env.ColorTarget == nil) then
 		opt.env.ColorTarget = false
 	end
@@ -134,6 +130,12 @@ function mod:LoadMissingValues()
 	if (opt.env.EnableCVars == nil) then
 		opt.env.EnableCVars = false
 	end
+	if (opt.env.EnableGlobalData == nil) then
+		opt.env.EnableGlobalData = false
+	end
+	if (opt.env.HasSetGlobalData == nil) then
+		opt.env.HasSetGlobalData = false
+	end
 end
 
 function mod:SetDefaultValues()
@@ -142,32 +144,90 @@ function mod:SetDefaultValues()
 end
 
 function mod:ResetUi()
-	opt.ui.enlargetarget:SetChecked(false)
 	opt.ui.colortarget:SetChecked(false)
 	opt.ui.colorauras:SetChecked(false)
 	opt.ui.disablepvp:SetChecked(false)
 	opt.ui.enableeliteborder:SetChecked(false)
-	opt.ui.targetscale:SetValue(1.0)
 	opt.ui.targetcolor:SetBackdropColor(1, 1, 1, 1)
 	opt.ui.auracolor:SetBackdropColor(1, 1, 1, 1)
 	opt.ui.addtargetcolor:SetBackdropColor(1, 1, 1, 1)
 	opt.ui.elitebordercolor:SetBackdropColor(1, 1, 1, 0.5)
 	
 	opt.ui.EnableCVars:SetChecked(false)
+	opt.ui.EnableGlobalData:SetChecked(false)
 	
 	mod:RefreshCustomTargets()
 	DisableCVars()
 	-- opt.ui.targets
 end
 
--- Load saved data, or fall back to default data
-function mod:LoadSavedData()
+function mod:ReloadValues()
+	opt.ui.colortarget:SetChecked(opt.env.ColorTarget)
+	opt.ui.colorauras:SetChecked(opt.env.ColorAuras)
+	opt.ui.disablepvp:SetChecked(opt.env.DisablePvP)
+	opt.ui.enableeliteborder:SetChecked(opt.env.EnableEliteBorder)
+	opt.ui.targetcolor:SetBackdropColor(opt.env.TargetColor.r, opt.env.TargetColor.g, opt.env.TargetColor.b, opt.env.TargetColor.a)
+	opt.ui.auracolor:SetBackdropColor(opt.env.AuraColor.r, opt.env.AuraColor.g, opt.env.AuraColor.b, opt.env.AuraColor.a)
+	opt.ui.addtargetcolor:SetBackdropColor(opt.env.NewColor.r, opt.env.NewColor.g, opt.env.NewColor.b, opt.env.NewColor.a)
+	opt.ui.elitebordercolor:SetBackdropColor(opt.env.EliteBorderColor.r, opt.env.EliteBorderColor.g, opt.env.EliteBorderColor.b, opt.env.EliteBorderColor.a)
+	
+	opt.ui.EnableCVars:SetChecked(opt.env.EnableCVars)
+	opt.ui.EnableGlobalData:SetChecked(opt.env.EnableGlobalData)
+	
+	mod:RefreshCustomTargets()
+	UpdateCVars()
+	
+	if (opt.env.EnableCVars) then
+		EnableCVars()
+	else
+		DisableCVars()
+	end
+end
+
+function mod:LoadPerCharacterData()
+	-- per character
 	if KuiTargetHelperConfigCharSaved == nil then
 		mod:SetDefaultValues()
 		KuiTargetHelperConfigCharSaved = opt.env
 	else
 		opt.env = KuiTargetHelperConfigCharSaved
 	end
+end
+
+function mod:LoadGlobalData()
+	-- global, already nil checked
+	opt.env = KuiTargetHelperConfigSaved
+end
+
+-- Load saved data, or fall back to default data
+function mod:LoadSavedData()
+
+	-- check if we have any global data yet
+	if KuiTargetHelperConfigSaved == nil then
+		KuiTargetHelperConfigSaved = {}
+		KuiTargetHelperConfigSaved.HasSetGlobalData = false
+	end
+	
+	-- global data wasn't valid
+	if (KuiTargetHelperConfigSaved.HasSetGlobalData == nil) then
+		KuiTargetHelperConfigCharSaved.EnableGlobalData = false
+	end
+	
+	-- global data wasn't set
+	if (KuiTargetHelperConfigSaved.HasSetGlobalData == false) then
+		KuiTargetHelperConfigCharSaved.EnableGlobalData = false
+	end
+	
+	-- if nil, or unset, just load per-character data
+	-- otherwise, load global data
+	if (KuiTargetHelperConfigCharSaved.EnableGlobalData == nil) then
+		mod:LoadPerCharacterData()
+	elseif (KuiTargetHelperConfigCharSaved.EnableGlobalData == false) then
+		mod:LoadPerCharacterData()
+	else
+		mod:LoadGlobalData()
+	end
+	
 end
 
 function mod:ClearEditBoxTargetName()
@@ -526,6 +586,12 @@ function events:ADDON_LOADED(addon_name)
 		opt.ui.EnableCVars:SetPoint("TOPLEFT", opt.ui.enableeliteborder, "BOTTOMLEFT", 0, -4)
 		AddTooltip(opt.ui.EnableCVars, opt.titles.EnableCVars, opt.titles.EnableCVarsTooltip)
 		
+		-- enable global profile data
+		
+		opt.ui.EnableGlobalData = CreateCheckBox(opt, 'EnableGlobalData')
+		opt.ui.EnableGlobalData:SetPoint("TOPLEFT", opt.ui.EnableCVars, "BOTTOMLEFT", 0, -4)
+		AddTooltip(opt.ui.EnableGlobalData, opt.titles.EnableGlobalData, opt.titles.EnableGlobalDataTooltip)
+		
 		-- cvar frame
 		
 		opt.ui.cvarpanel = CreateScrollArea(opt, "CVarFrame", 180, 310)
@@ -554,6 +620,45 @@ function events:ADDON_LOADED(addon_name)
 		opt:HookScript("OnUpdate", UpdateTick)
 		opt:HookScript("OnShow", ShowEvent)
 	end                          
+end
+
+function ReloadGlobalData()
+
+	-- no global data set, so nothing to do
+	if (KuiTargetHelperConfigSaved.HasSetGlobalData == false) then
+		print("KuiTargetHelper global data settings saved.");
+		KuiTargetHelperConfigSaved.HasSetGlobalData = true
+		return
+	end
+	
+	-- ask the user to load from global.
+	-- if they decline, we'll ask them to save from global instead
+	StaticPopup_Show("KUI_TargetHelper_LoadFromGlobal")	
+end
+
+function ConfirmGlobalLoad()
+	-- use global values
+	opt.env = KuiTargetHelperConfigSaved
+	KuiTargetHelperConfigCharSaved = KuiTargetHelperConfigSaved
+
+	print("KuiTargetHelper global data settings loaded.");
+	opt.env.EnableGlobalData = true
+	mod:ReloadValues()
+end
+
+function ConfirmGlobalSave()
+	KuiTargetHelperConfigSaved = opt.env
+	KuiTargetHelperConfigSaved.HasSetGlobalData = true
+	
+	print("KuiTargetHelper global data settings saved.");
+	opt.env.EnableGlobalData = true
+	mod:ReloadValues()
+end
+
+function CancelGlobal()
+	print("KuiTargetHelper global data settings not applied.");
+	opt.env.EnableGlobalData = false
+	mod:ReloadValues()
 end
 
 function TargetEdit(new)
@@ -600,6 +705,24 @@ end
 
 -- Save Player data on logout
 function events:PLAYER_LOGOUT()
+
+	-- ensure global data is a valid object
+	if (KuiTargetHelperConfigSaved == nil) then
+		KuiTargetHelperConfigSaved = {}
+		HasSetGlobalData = false
+	end
+	
+	-- store the 'enable global data' flag in both locations. we'll only read from per-character.
+	KuiTargetHelperConfigCharSaved.EnableGlobalData = opt.env.EnableGlobalData
+	KuiTargetHelperConfigSaved.EnableGlobalData = opt.env.EnableGlobalData
+	
+	-- do we need to save global data?
+	if (opt.env.EnableGlobalData == true) then
+		KuiTargetHelperConfigSaved = opt.env
+		KuiTargetHelperConfigSaved.HasSetGlobalData = true
+	end
+	
+	-- always save a copy out to local character data too
 	KuiTargetHelperConfigCharSaved = opt.env
 end
 

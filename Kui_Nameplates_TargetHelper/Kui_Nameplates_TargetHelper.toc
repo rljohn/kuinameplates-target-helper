@@ -1,4 +1,4 @@
-## Interface: 90005
+## Interface: 90100
 ## Author: rljohn
 ## Title: Kui |cff9966ffNameplates:|r |cffffffffTarget Helper|r
 ## Notes: Target Helper for Kui Nameplates Core
