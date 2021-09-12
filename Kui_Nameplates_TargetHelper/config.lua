@@ -19,7 +19,7 @@ InterfaceOptions_AddCategory(opt)
 -- addon info
 opt.info = {
 	name = 'KuiNameplates: Target Helper',
-	version = '1.0.11',
+	version = '1.0.12',
 	header = '%s (%s) by rljohn'
 }
 
@@ -70,7 +70,9 @@ opt.titles = {
 	EditTitle = "Edit Target",
 	EditTooltip = "Change the name of this target",
 	DisablePvP = "Disable colors in PvP",
-	DisablePvPTooltip = "Disable target and debuff colors for player frames"
+	DisablePvPTooltip = "Disable target and debuff colors for player frames",
+	NameText = "Name Color",
+	NameTextTooltip = "Name text color will be updated for custom targets."
 }
 
 opt.ui = {
@@ -82,6 +84,7 @@ opt.ui = {
 	addtargetcolor = nil,
 	elitebordercolor = nil,
 	disablepvp = nil,
+	nametext = nil,
 	targets = {},
 	cvarframes = {}
 }
@@ -127,6 +130,9 @@ function mod:LoadMissingValues()
 	if (opt.env.DisablePvp == nil) then
 		opt.env.DisablePvp = false
 	end
+	if (opt.env.NameText == nil) then
+		opt.env.NameText = true
+	end
 	if (opt.env.EnableCVars == nil) then
 		opt.env.EnableCVars = false
 	end
@@ -147,6 +153,7 @@ function mod:ResetUi()
 	opt.ui.colortarget:SetChecked(false)
 	opt.ui.colorauras:SetChecked(false)
 	opt.ui.disablepvp:SetChecked(false)
+	opt.ui.nametext:SetChecked(false)
 	opt.ui.enableeliteborder:SetChecked(false)
 	opt.ui.targetcolor:SetBackdropColor(1, 1, 1, 1)
 	opt.ui.auracolor:SetBackdropColor(1, 1, 1, 1)
@@ -165,6 +172,7 @@ function mod:ReloadValues()
 	opt.ui.colortarget:SetChecked(opt.env.ColorTarget)
 	opt.ui.colorauras:SetChecked(opt.env.ColorAuras)
 	opt.ui.disablepvp:SetChecked(opt.env.DisablePvP)
+	opt.ui.nametext:SetChecked(opt.env.NameText)
 	opt.ui.enableeliteborder:SetChecked(opt.env.EnableEliteBorder)
 	opt.ui.targetcolor:SetBackdropColor(opt.env.TargetColor.r, opt.env.TargetColor.g, opt.env.TargetColor.b, opt.env.TargetColor.a)
 	opt.ui.auracolor:SetBackdropColor(opt.env.AuraColor.r, opt.env.AuraColor.g, opt.env.AuraColor.b, opt.env.AuraColor.a)
@@ -208,21 +216,25 @@ function mod:LoadSavedData()
 		KuiTargetHelperConfigSaved.HasSetGlobalData = false
 	end
 	
-	-- global data wasn't valid
+	-- global data wasn't valid, disable any local opt-in to global data
 	if (KuiTargetHelperConfigSaved.HasSetGlobalData == nil) then
-		KuiTargetHelperConfigCharSaved.EnableGlobalData = false
+		if (KuiTargetHelperConfigCharSaved ~= nil) then
+			KuiTargetHelperConfigCharSaved.EnableGlobalData = false
+		end
 	end
 	
-	-- global data wasn't set
+	-- global data wasn't set, disable any local opt-in to global data
 	if (KuiTargetHelperConfigSaved.HasSetGlobalData == false) then
-		KuiTargetHelperConfigCharSaved.EnableGlobalData = false
+		if (KuiTargetHelperConfigCharSaved ~= nil) then
+			KuiTargetHelperConfigCharSaved.EnableGlobalData = false
+		end
 	end
 	
 	-- if nil, or unset, just load per-character data
 	-- otherwise, load global data
-	if (KuiTargetHelperConfigCharSaved.EnableGlobalData == nil) then
-		mod:LoadPerCharacterData()
-	elseif (KuiTargetHelperConfigCharSaved.EnableGlobalData == false) then
+	if ((KuiTargetHelperConfigCharSaved == nil) or 
+		(KuiTargetHelperConfigCharSaved.EnableGlobalData == nil) or 
+		(KuiTargetHelperConfigCharSaved.EnableGlobalData == false)) then
 		mod:LoadPerCharacterData()
 	else
 		mod:LoadGlobalData()
@@ -524,6 +536,10 @@ function events:ADDON_LOADED(addon_name)
 		opt.ui.disablepvp = CreateCheckBox(opt, 'DisablePvP')
 		opt.ui.disablepvp:SetPoint("TOPLEFT", opt.ui.colorauras, "BOTTOMLEFT", 0, -15)
 		AddTooltip2(opt.ui.disablepvp, opt.titles.DisablePvP, opt.titles.DisablePvPTooltip)
+		
+		opt.ui.nametext = CreateCheckBox(opt, 'NameText')
+		opt.ui.nametext:SetPoint("TOPLEFT", opt.ui.disablepvp, "TOPRIGHT", 160, 0)
+		AddTooltip2(opt.ui.nametext, opt.titles.NameText, opt.titles.NameTextTooltip)
 				
 		-- custom enemies
 		

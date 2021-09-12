@@ -9,7 +9,7 @@ local opt = KuiConfigTargetHelper
 -- enable this to use 'DevTools_Dump'
 -- LoadAddOn("Blizzard_DebugTools")
 	
-local PRIORITY = 50
+local PRIORITY = 4
 
 plugin_tank = nil
 local tank_spec
@@ -44,6 +44,32 @@ function mod:SpecUpdate()
     local role = spec and GetSpecializationRole(spec) or nil
 
     tank_spec = role == 'TANK'
+end
+
+function mod:NameTextColourChange(frame)
+
+	if (opt.env.NameText == false) then
+		return
+	end
+	
+	if (opt.env.DisablePvP) then
+		if (UnitPlayerControlled(frame.unit) or frame.state.player == true) then
+			return
+		end
+	end
+	
+	local col = nil
+	
+	-- check if we defined a colour for this name
+	if opt.env.CustomTargets[frame.state.name] then
+		local tmpColor = opt.env.CustomTargets[frame.state.name]
+		col = { tmpColor.r, tmpColor.g, tmpColor.b }
+		plugin_fading:UpdateFrame(frame)
+	end
+		
+	if (col ~= nil) then
+		frame.NameText:SetTextColor(unpack(col))
+	end
 end
 
 function mod.Fading_FadeRulesReset()
@@ -101,6 +127,8 @@ end
 -- NAME #############################################################
 function mod:UpdateTargetFrame(frame)
 	
+	self:NameTextColourChange(frame)
+	
 	-- only adjust non-target (we have a bespoke colour for our target)
 	if opt.env.ColorTarget and frame.handler:IsTarget() and frame.state.bar_is_name_coloured then 
 		--DevTools_Dump(frame.state)
@@ -152,6 +180,10 @@ function mod:UpdateTargetFrame(frame)
     end
 end
 
+function mod:HealthColourChange(frame)
+	self:UpdateTargetFrame(frame)
+end
+
 function mod:EvaluateBorder(frame)
 
 	if (frame.elite_border == nil) then
@@ -179,10 +211,11 @@ function mod:EvaluateBorder(frame)
 			return
 		end
 		
-		if frame.handler:IsTarget() then
-			HideEliteBorder(frame)
-			return
-		end
+		-- Deleted this - why not keep elite border for primary target?
+		--if frame.handler:IsTarget() then
+		--	HideEliteBorder(frame)
+		--	return
+		--end
 
 		local classification = UnitClassification(frame.unit);
 	
@@ -231,6 +264,7 @@ function mod:GlowColourChange(frame)
 	if frame.handler:IsTarget() then
 		mod:GainedTarget(frame)
 	end
+	self:NameTextColourChange(frame)
 end
 
 function mod:LostTarget(frame)		
@@ -284,7 +318,7 @@ function mod:Initialise()
 	self:RegisterMessage('Show')
 	
 	-- fade update
-    self:RegisterMessage('HealthColourChange','UpdateTargetFrame')
+    self:RegisterMessage('HealthColourChange')
 	self:RegisterUnitEvent('UNIT_NAME_UPDATE')
 	self:RegisterEvent('PLAYER_SPECIALIZATION_CHANGED')
 	
@@ -307,6 +341,10 @@ function mod:Initialise()
     self:AddCallback('Fading','FadeRulesReset',self.Fading_FadeRulesReset)
     self.Fading_FadeRulesReset()
 	
+	-- text
+	self:RegisterMessage('NameTextColourChange')
+	
 	-- tank
 	plugin_tank = addon:GetPlugin('TankMode')
+	
 end
