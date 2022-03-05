@@ -11,6 +11,10 @@ ShadowlandsDungeonTargets = {
 		"Forsworn Squad-Leader",
 		"Ancient Captain",
 		"Nefarious Darkspeaker",
+		"Urh Relic",
+		"Urh Dismantler",
+		"Wo Drifter",
+		"Vy Interceptor",
 	},
 	deDE = {
 		"Sprengstoff",
@@ -23,7 +27,11 @@ ShadowlandsDungeonTargets = {
 		"Oberaufseher",
 		"Schwadronsführer der Verschmähten",
 		"Uralter Hauptmann",
-		"Ruchloser Dunkelsprecher"
+		"Ruchloser Dunkelsprecher",
+		"Relikt Urh",
+		"Urh-Zerleger",
+		"Wo-Treiber",
+		"Vy-Abfangjäger",
 	},
 	esMX = {
 		"Explosivos",
@@ -37,6 +45,10 @@ ShadowlandsDungeonTargets = {
 		"Líder de escuadrón abjurante",
 		"Capitán ancestral",
 		"Hablaoscuro nefario",
+		"Reliquia Urh",
+		"Desmontador Urh",
+		"Morador Wo",
+		"Interceptor Vy",
 	},
 	frFR = {
 		"Explosifs",
@@ -49,7 +61,11 @@ ShadowlandsDungeonTargets = {
 		"Surveillant suprême",
 		"Chef d'escouade désavoué",
 		"Ancien capitaine",
-		"Sombre orateur néfaste"
+		"Sombre orateur néfaste",
+		"Relique d'Urh",
+		"Démanteleur d'Urh",
+		"Ouvrier de Wo",
+		"Intercepteur de Vy",
 	},
 	itIT = {
 		"Esplosivi",
@@ -62,7 +78,11 @@ ShadowlandsDungeonTargets = {
 		"Gran Sovrintendente",
 		"Capo-Squadra Indegno",
 		"Capitano Antico",
-		"Oratore Oscuro Nefasto"
+		"Oratore Oscuro Nefasto",
+		"Reliquia Urh",
+		"Smantellatore Urh",
+		"Errante Wo",
+		"Intercettore Vy",
 	},
 	ptBR = {
 		"Explosivos",
@@ -75,7 +95,11 @@ ShadowlandsDungeonTargets = {
 		"Grão-feitor",
 		"Líder de Esquadrão Perjuro",
 		"Capitão Ancestral",
-		"Orador Sombrio Nefasto"
+		"Orador Sombrio Nefasto",
+		"Relíquia Urh",
+		"Desmantelador Urh",
+		"Andarilho Wo",
+		"Interceptador Vy",
 	},
 	ruRU = {
 		"Взрывчатка",
@@ -88,7 +112,11 @@ ShadowlandsDungeonTargets = {
 		"Старший смотритель",
 		"Раскольник-офицер",
 		"Древний капитан",
-		"Пагубный темный проповедник"
+		"Пагубный темный проповедник",
+		"Реликвия Урт",
+		"Разоружитель Урт",
+		"Левитатор Во",
+		"Перехватчик Ви"
 	},
 	koKR = {
 		"폭발물",
@@ -101,7 +129,11 @@ ShadowlandsDungeonTargets = {
 		"고위 감시자",
 		"이탈자 분대장",
 		"고대의 대장",
-		"사악한 암흑예언자"
+		"사악한 암흑예언자",
+		"우르 유물",
+		"우르 분해자",
+		"워오 떠돌이 정령",
+		"바이-요격병"
 	}
 }
 

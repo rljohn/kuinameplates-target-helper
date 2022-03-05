@@ -52,6 +52,9 @@ KuiTargetAuraList = {
 	[262] = {	-- ELEMENTAL SHAMAN
 		188389	--	Flame Shock
 	},
+	[263] = {	-- ENHANCE SHAMAN
+		188389	--	Flame Shock
+	},
 	[71] = {	-- ARMS WARRIOR
 		262111,	--	Mastery: Deep Wounds
 		262115	--  Deep Wounds
