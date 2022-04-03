@@ -36,7 +36,8 @@ KuiTargetAuraList = {
 		191587	-- 	Viralent Plague
 	},
 	[255] = {	-- SURVIVAL HUNTER
-		185855	-- 	Lacerate
+		185855,	-- 	Lacerate,
+		259491	--  Serpent Sting
 	},
 	[63] = {	-- FIRE MAGE
 		12846,	--	Mastery: Ignite

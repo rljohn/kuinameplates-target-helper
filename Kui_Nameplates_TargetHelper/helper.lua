@@ -2,6 +2,7 @@ local folder,ns = ...
 local addon = KuiNameplates
 local core = KuiNameplatesCore
 local opt = KuiConfigTargetHelper
+local ReloadWarningShown = false
 
 -- LOGGING
 function rlPrintf(...)
@@ -138,14 +139,14 @@ local function slider_OnValueChanged(self, value)
 	self.label:SetText(strval)
 end
 	
-function CreateSlider(parent, name, minval, maxval)
+function CreateSlider(parent, name, minval, maxval, stepvalue, width)
 	local slider = CreateFrame("Slider", name, parent, "OptionsSliderTemplate")
 	slider:SetOrientation("HORIZONTAL")
 	slider:SetThumbTexture([[Interface\Buttons\UI-SliderBar-Button-Vertical]])
 	slider:SetMinMaxValues(minval, maxval)
-	slider:SetWidth(170)
+	slider:SetWidth(width)
 	slider:SetHeight(16)
-	slider:SetValueStep(0.05)
+	slider:SetValueStep(stepvalue)
 	slider:SetObeyStepOnDrag(true)
 	slider.title = opt.titles[name]
 	
@@ -162,6 +163,8 @@ function CreateSlider(parent, name, minval, maxval)
 	slider.label:SetPoint('BOTTOM', slider, 0, -10)
 	return slider;
 end
+
+
 
 -- Color Picker
 
@@ -348,6 +351,15 @@ function CreatePanel(parent, name, width, height)
 	return panel
 end
 
+function ConfirmReloadUI()
+	ReloadWarningShown = false
+	ReloadUI();
+end
+
+function CancelReloadUI()
+	ReloadWarningShown = false
+end
+
 -- Static Dialogs
 
 StaticPopupDialogs["KUI_TargetHelper_EditBox"] = {
@@ -422,3 +434,59 @@ StaticPopupDialogs["KUI_TargetHelper_DeleteTargetConfirm"] = {
   hideOnEscape = true,
   preferredIndex = 3,
 }
+
+StaticPopupDialogs["KUI_TargetHelper_ReloadUiConfirm"] = {
+  text = "A UI reload is required to apply this value. Reload now?",
+  button1 = "Yes",
+  button2 = "No",
+  OnAccept = function(self, data, data2)
+     ConfirmReloadUI()
+  end,
+  OnCancel = function(self, data, data2)
+     CancelReloadUI()
+  end,
+  timeout = 0,
+  whileDead = true,
+  hideOnEscape = true,
+  preferredIndex = 3,
+}
+
+-- Slider with Reload Required
+
+local function slider_OnValueChangedReload(self, value)
+	local strval = string.format("%.2f", value)
+	
+	opt.env[self:GetName()] = value
+	self.label:SetText(strval)
+	
+	
+	if (ReloadWarningShown == false) then
+		ReloadWarningShown = true
+		StaticPopup_Show("KUI_TargetHelper_ReloadUiConfirm")
+	end
+end
+	
+function CreateSliderWithReload(parent, name, minval, maxval, stepvalue, width)
+	local slider = CreateFrame("Slider", name, parent, "OptionsSliderTemplate")
+	slider:SetOrientation("HORIZONTAL")
+	slider:SetThumbTexture([[Interface\Buttons\UI-SliderBar-Button-Vertical]])
+	slider:SetMinMaxValues(minval, maxval)
+	slider:SetWidth(width)
+	slider:SetHeight(16)
+	slider:SetValueStep(stepvalue)
+	slider:SetObeyStepOnDrag(true)
+	slider.title = opt.titles[name]
+	
+	getglobal(name .. 'Low'):SetText(tostring(minval)); --Sets the left-side slider text (default is "Low").
+	getglobal(name .. 'High'):SetText(tostring(maxval)); --Sets the right-side slider text (default is "High").
+	getglobal(name .. 'Text'):SetText(opt.titles[name] or name or '!MissingTitle'); --Sets the "title" text (top-centre of slider).
+ 
+ 	slider:SetValue(opt.env[name])
+	slider:SetScript("OnValueChanged", slider_OnValueChangedReload)
+	
+	local strval = string.format("%.2f", opt.env[name])
+	slider.label = parent:CreateFontString(nil, 'OVERLAY', 'GameFontHighlight')
+	slider.label:SetText(strval)
+	slider.label:SetPoint('BOTTOM', slider, 0, -10)
+	return slider;
+end

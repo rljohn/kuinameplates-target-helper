@@ -9,8 +9,6 @@ local opt = KuiConfigTargetHelper
 -- enable this to use 'DevTools_Dump'
 -- LoadAddOn("Blizzard_DebugTools")
 	
-local PRIORITY = 4
-
 plugin_tank = nil
 local tank_spec
 
@@ -162,7 +160,7 @@ function mod:UpdateTargetFrame(frame)
 	-- no matching colour - clear our our colour data?
 	if not col and frame.state.bar_is_name_coloured then
         frame.state.bar_is_name_coloured = nil
-        if CanOverwriteHealthColor(frame, PRIORITY) then
+        if CanOverwriteHealthColor(frame, opt.env.Priority) then
             frame.state.health_colour_priority = nil
 			frame.HealthBar:SetStatusBarColor(unpack(frame.state.healthColour))
 			
@@ -172,9 +170,9 @@ function mod:UpdateTargetFrame(frame)
 			end
         end
     elseif col then
-        if CanOverwriteHealthColor(frame, PRIORITY) then
+        if CanOverwriteHealthColor(frame, opt.env.Priority) then
             frame.state.bar_is_name_coloured = true
-            frame.state.health_colour_priority = PRIORITY
+            frame.state.health_colour_priority = opt.env.Priority
             frame.HealthBar:SetStatusBarColor(unpack(col))
         end
     end
@@ -249,9 +247,9 @@ function mod:GainedTarget(frame)
 		end
 		
 		-- can we update colour?
-		if CanOverwriteHealthColor(frame, PRIORITY) then
+		if CanOverwriteHealthColor(frame, opt.env.Priority) then
 			frame.state.bar_is_name_coloured = true
-			frame.state.health_colour_priority = PRIORITY
+			frame.state.health_colour_priority = opt.env.Priority
 			frame.HealthBar:SetStatusBarColor(opt.env['TargetColor'].r,opt.env['TargetColor'].g,opt.env['TargetColor'].b)
 		end
 	end

@@ -4,23 +4,35 @@ local core = KuiNameplatesCore
 
 local frame_name = 'KuiConfigTargetHelper'
 local mod = addon:NewPlugin(frame_name,101)
-local opt = CreateFrame('FRAME',frame_name,InterfaceOptionsFramePanelContainer)
 local events = {}
 local currentEditName = nil
 local currentRemoveName
 
+local opt = CreateFrame('FRAME',frame_name,InterfaceOptionsFramePanelContainer)
 opt.name = 'Kui |cff9966ffTarget Helper'
 opt.ShouldResetFrames = false
 opt.UpdateInterval = 1.0
 opt.TimeSinceLastUpdate = 0
-
 InterfaceOptions_AddCategory(opt)
+
+local custom_targets = CreateFrame('FRAME', 'knpthcustomtargets', opt)
+custom_targets.name = 'Kui |cff9966ffTarget Helper'
+custom_targets.ShouldResetFrames = false
+custom_targets.UpdateInterval = 1.0
+custom_targets.TimeSinceLastUpdate = 0
+custom_targets.parent = opt.name
+custom_targets.name = 'Custom Targets'
+InterfaceOptions_AddCategory(custom_targets)
 
 -- addon info
 opt.info = {
 	name = 'KuiNameplates: Target Helper',
-	version = '1.0.14',
+	version = '1.0.15',
 	header = '%s (%s) by rljohn'
+}
+
+custom_targets.info = {
+	name = 'KuiNameplates: Target Helper (Targets)',
 }
 
 -- class info
@@ -64,15 +76,18 @@ opt.titles = {
 	EnableEliteBorderTooltip = 'Adds a border around Elite and Boss targets',
 	EnableCVars = "Enable CVar Modification",
 	EnableCVarsTooltip = "Enables the CVar panel, allowing KUI |cff9966ffTarget Helper|r to modify CVars.",
-	EnableGlobalData = "Global Settings",
-	EnableGlobalDataTooltip = "Share settings data across all characters.",
+	EnableGlobalData = "Global Character Settings",
+	EnableGlobalDataTooltip = "When enabled, all characters will share the same global settings.",
 	ResetTooltip = "Reset the |cff9966ffTarget Helper|r to base settings.",
 	EditTitle = "Edit Target",
 	EditTooltip = "Change the name of this target",
 	DisablePvP = "Disable colors in PvP",
 	DisablePvPTooltip = "Disable target and debuff colors for player frames",
 	NameText = "Name Color",
-	NameTextTooltip = "Name text color will be updated for custom targets."
+	NameTextTooltip = "Name text color will be updated for custom targets.",
+	PriorityText = "Plugin Priority",
+	PriorityTooltip = "Plugins with a higher priority value will take precedence over lower priority plugins.",
+	PriorityTankMode = "Any value over '5' will override tank mode.\nReload UI to apply changes."
 }
 
 opt.ui = {
@@ -84,6 +99,7 @@ opt.ui = {
 	addtargetcolor = nil,
 	elitebordercolor = nil,
 	disablepvp = nil,
+	priority = nil,
 	nametext = nil,
 	targets = {},
 	cvarframes = {}
@@ -113,6 +129,10 @@ function mod:LoadMissingValues()
 	
 	if (opt.env.TargetScale == nil) then
 		opt.env.TargetScale = 1.0
+	end
+	
+	if (opt.env.Priority == nil) then
+		opt.env.Priority = 6
 	end
 	
 	if (opt.env.ColorTarget == nil) then
@@ -159,6 +179,7 @@ function mod:ResetUi()
 	opt.ui.auracolor:SetBackdropColor(1, 1, 1, 1)
 	opt.ui.addtargetcolor:SetBackdropColor(1, 1, 1, 1)
 	opt.ui.elitebordercolor:SetBackdropColor(1, 1, 1, 0.5)
+	opt.ui.priority:SetValue(6)
 	
 	opt.ui.EnableCVars:SetChecked(false)
 	opt.ui.EnableGlobalData:SetChecked(false)
@@ -178,6 +199,7 @@ function mod:ReloadValues()
 	opt.ui.auracolor:SetBackdropColor(opt.env.AuraColor.r, opt.env.AuraColor.g, opt.env.AuraColor.b, opt.env.AuraColor.a)
 	opt.ui.addtargetcolor:SetBackdropColor(opt.env.NewColor.r, opt.env.NewColor.g, opt.env.NewColor.b, opt.env.NewColor.a)
 	opt.ui.elitebordercolor:SetBackdropColor(opt.env.EliteBorderColor.r, opt.env.EliteBorderColor.g, opt.env.EliteBorderColor.b, opt.env.EliteBorderColor.a)
+	opt.ui.priority:SetValue(opt.env.Priority)
 	
 	opt.ui.EnableCVars:SetChecked(opt.env.EnableCVars)
 	opt.ui.EnableGlobalData:SetChecked(opt.env.EnableGlobalData)
@@ -307,12 +329,12 @@ function mod:CreateTargetFrame(name, color, active)
 		
 		f.name = f:CreateFontString(nil, 'ARTWORK', 'GameFontNormal')
         -- f.name:SetFont(STANDARD_TEXT_FONT, 12)
-		f.name:SetSize(260, 18)
+		f.name:SetSize(400, 18)
         f.name:SetPoint('LEFT', f.icon, 'RIGHT', 10, 0)
         f.name:SetJustifyH('LEFT')
 		
-		local editBtn = CreateButton(f, nil, 40, 20, "Edit")
-		editBtn:SetPoint('LEFT', f, 'RIGHT', 10, 0)
+		local editBtn = CreateButton(f, nil, 50, 20, "Edit")
+		editBtn:SetPoint('LEFT', f, 'RIGHT', 210, 0)
 		editBtn:SetScript('OnClick', function(self, arg1)
 			currentEditName = self:GetParent().id
 			StaticPopup_Show("KUI_TargetHelper_EditBox", self:GetParent().id)
@@ -507,7 +529,7 @@ function events:ADDON_LOADED(addon_name)
 		
 		opt.ui.topPanelTitle = opt:CreateFontString(nil, 'ARTWORK', 'GameFontNormalLarge')
 		opt.ui.topPanelTitle:SetText(opt.titles.TargetOptions)
-		opt.ui.topPanelTitle:SetPoint('BOTTOMLEFT', opt.ui.toppanel, 'TOPLEFT', 0, 12)
+		opt.ui.topPanelTitle:SetPoint('BOTTOMLEFT', opt.ui.toppanel, 'TOPLEFT', 0, 14)
 		
 		-- top options
 		
@@ -540,56 +562,38 @@ function events:ADDON_LOADED(addon_name)
 		opt.ui.nametext = CreateCheckBox(opt, 'NameText')
 		opt.ui.nametext:SetPoint("TOPLEFT", opt.ui.disablepvp, "TOPRIGHT", 160, 0)
 		AddTooltip2(opt.ui.nametext, opt.titles.NameText, opt.titles.NameTextTooltip)
-				
-		-- custom enemies
 		
-		opt.ui.scroll = CreateScrollArea(opt, 'NameArea', 330, 310)
-		opt.ui.scroll:SetPoint('TOPLEFT', opt.ui.toppanel, 'BOTTOMLEFT', 0, -44)
+		-- other panel
 		
-		opt.ui.listEnemiesTitle = opt:CreateFontString(nil, 'ARTWORK', 'GameFontNormalLarge')
-		opt.ui.listEnemiesTitle:SetText(opt.titles["CustomTarget"])
-		opt.ui.listEnemiesTitle:SetPoint('BOTTOMLEFT', opt.ui.scroll, 'TOPLEFT', 0, 12)
-		
-		opt.ui.addtargetcolor = CreateColorTexture(opt, 'NewColor', 20, 20, opt.env.NewColor.r, opt.env.NewColor.g, opt.env.NewColor.b, opt.env.NewColor.a)
-		opt.ui.addtargetcolor:SetPoint("TOPLEFT", opt.ui.scroll, "BOTTOMLEFT", 0, -18)
-		AddTooltip(opt.ui.addtargetcolor, opt.titles.CustomColorTooltipTitle, opt.titles.CustomColorTooltipText)
-		
-		opt.ui.addtargettext = CreateEditBox(opt, "AddTargetText", 100, 220, 25)
-		opt.ui.addtargettext:SetPoint('TOPLEFT', opt.ui.addtargetcolor, "TOPRIGHT", 15, 4)
-		opt.ui.addtargettext:SetScript('OnEnterPressed', addTargetEnterCallback)
-		opt.ui.addtargettext:SetScript('OnEscapePressed', addTargetEscapeCallback)
-		AddTooltip(opt.ui.addtargettext, opt.titles.AddTargetTooltipTitle, opt.titles.AddTargetTooltipText)
-		
-		opt.ui.addtargetbtn = CreateButton(opt, 'AddTarget', 100, 30, opt.titles.AddTarget)
-		opt.ui.addtargetbtn:SetPoint("TOPLEFT", opt.ui.addtargettext, "TOPRIGHT", 4, 0)
-		opt.ui.addtargetbtn:SetScript("OnClick", addTargetOnClick)
-		AddTooltip(opt.ui.addtargetbtn, opt.titles.AddTarget, opt.titles.AddTargetBtnTooltip)
-		
-		-- side panel
-		
-		opt.ui.sidepanel = CreatePanel(opt, "SideFrame", 180, 120)
-		opt.ui.sidepanel:SetPoint('TOPLEFT', opt.ui.toppanel, 'TOPRIGHT', 45, 0)
+		opt.ui.sidepanel = CreatePanel(opt, "SideFrame", 330, 90)
+		opt.ui.sidepanel:SetPoint('TOPLEFT', opt.ui.toppanel, 'BOTTOMLEFT', 0, -55)
 	
 		opt.ui.sidePanelTitle = opt:CreateFontString(nil, 'ARTWORK', 'GameFontNormalLarge')
 		opt.ui.sidePanelTitle:SetText(opt.titles.OtherOptions)
-		opt.ui.sidePanelTitle:SetPoint('BOTTOMLEFT', opt.ui.sidepanel, 'TOPLEFT', 0, 12)
+		opt.ui.sidePanelTitle:SetPoint('BOTTOMLEFT', opt.ui.sidepanel, 'TOPLEFT', 0, 14)
+			
+		-- priority slider
 		
-		-- sl mobs
+		opt.ui.prioritypanel = CreatePanel(opt, "PriorityFrame", 330, 80)
+		opt.ui.prioritypanel:SetPoint('TOPLEFT', opt.ui.sidepanel, "BOTTOMLEFT", 0, -55)
 		
-		opt.ui.addSlBtn = CreateButton(opt, nil, 200, 24, opt.titles.AddSLTargets)
-		opt.ui.addSlBtn:SetPoint('TOPLEFT', opt.ui.sidepanel, 'TOPLEFT', 0, 0)
-		opt.ui.addSlBtn:SetScript("OnClick", addShadowlandsTargets)
-		AddTooltip(opt.ui.addSlBtn, opt.titles.AddSLTooltipTitle, opt.titles.AddSLTooltipText)
+		opt.ui.priorityPanelTitle = opt:CreateFontString(nil, 'ARTWORK', 'GameFontNormalLarge')
+		opt.ui.priorityPanelTitle:SetText(opt.titles.PriorityText)
+		opt.ui.priorityPanelTitle:SetPoint('BOTTOMLEFT', opt.ui.prioritypanel, 'TOPLEFT', 0, 14)
 		
-		-- opt.ui.addSlRaidBtn = CreateButton(opt, nil, 200, 24, opt.titles.AddSLRaidTargets)
-		-- opt.ui.addSlRaidBtn:SetPoint('TOPLEFT', opt.ui.addSlBtn, 'BOTTOMLEFT', 0, -4)
-		-- opt.ui.addSlRaidBtn:SetScript("OnClick", addShadowlandsRaidTargets)
-		-- AddTooltip(opt.ui.addSlRaidBtn, opt.titles.AddSLRaidTooltipTitle, opt.titles.AddSLRaidTooltipText)
+		opt.ui.priority = CreateSliderWithReload(opt, 'Priority', 1, 50, 1, 330)
+		opt.ui.priority:SetPoint("TOPLEFT", opt.ui.prioritypanel, "TOPLEFT", 12, -15)
+		AddTooltip(opt.ui.priority, opt.titles.PriorityText, opt.titles.PriorityTooltip)
+		
+		opt.ui.priorityhelp = opt:CreateFontString(nil, 'ARTWORK', 'GameFontWhite')
+		opt.ui.priorityhelp:SetText(opt.titles.PriorityTankMode)
+		opt.ui.priorityhelp:SetPoint('TOPLEFT', opt.ui.priority, 'BOTTOMLEFT', -4, -16)
+		opt.ui.priorityhelp:SetJustifyH("LEFT")
 		
 		-- elite/boss borders
 		
 		opt.ui.enableeliteborder = CreateCheckBox(opt, "EnableEliteBorder")
-		opt.ui.enableeliteborder:SetPoint('TOPLEFT', opt.ui.addSlBtn, "BOTTOMLEFT", 0, -4)
+		opt.ui.enableeliteborder:SetPoint('TOPLEFT', opt.ui.sidepanel, "TOPLEFT", 0, -4)
 		AddTooltip(opt.ui.enableeliteborder, opt.titles.EnableEliteBorder, opt.titles.EnableEliteBorderTooltip)
 		
 		opt.ui.elitebordercolor = CreateColorTexture(opt, 'EliteBorderColor', 20, 20, opt.env.EliteBorderColor.r, opt.env.EliteBorderColor.g, opt.env.EliteBorderColor.b, opt.env.EliteBorderColor.a)
@@ -610,15 +614,16 @@ function events:ADDON_LOADED(addon_name)
 		
 		-- cvar frame
 		
-		opt.ui.cvarpanel = CreateScrollArea(opt, "CVarFrame", 180, 310)
-		opt.ui.cvarpanel:SetPoint('TOPLEFT', opt.ui.sidepanel, 'BOTTOMLEFT', 0, -44)
+		opt.ui.cvarpanel = CreateScrollArea(opt, "CVarFrame", 180, 460)
+		opt.ui.cvarpanel:SetPoint('TOPLEFT', opt.ui.toppanel, 'TOPRIGHT', 45, 0)
 		
 		opt.ui.cvarpanelTitle = opt:CreateFontString(nil, 'ARTWORK', 'GameFontNormalLarge')
 		opt.ui.cvarpanelTitle:SetText(opt.titles.CVarTitle)
 		opt.ui.cvarpanelTitle:SetPoint('BOTTOMLEFT', opt.ui.cvarpanel, 'TOPLEFT', 0, 12)
 		
-		
 		AddCVarSliders(opt.ui.cvarpanel)
+		
+		-- reset button
 		
 		local f = CreateFrame("Button", "test2", opt, "UIPanelButtonTemplate")
 		f:SetPoint("BOTTOMRIGHT", -10, 10)
@@ -631,8 +636,38 @@ function events:ADDON_LOADED(addon_name)
 			StaticPopup_Show("KUI_TargetHelper_DeleteConfirm")
 		end)
 		
-		mod:RefreshCustomTargets()
+		-- custom enemies
 		
+		opt.ui.scroll = CreateScrollArea(custom_targets, 'NameArea', 550, 470)
+		opt.ui.scroll:SetPoint('TOPLEFT', custom_targets, 'TOPLEFT', 25, -44)
+		
+		opt.ui.listEnemiesTitle = custom_targets:CreateFontString(nil, 'ARTWORK', 'GameFontNormalLarge')
+		opt.ui.listEnemiesTitle:SetText(opt.titles["CustomTarget"])
+		opt.ui.listEnemiesTitle:SetPoint('BOTTOMLEFT', opt.ui.scroll, 'TOPLEFT', 0, 12)
+		
+		opt.ui.addtargetcolor = CreateColorTexture(custom_targets, 'NewColor', 20, 20, opt.env.NewColor.r, opt.env.NewColor.g, opt.env.NewColor.b, opt.env.NewColor.a)
+		opt.ui.addtargetcolor:SetPoint("TOPLEFT", opt.ui.scroll, "BOTTOMLEFT", 0, -18)
+		AddTooltip(opt.ui.addtargetcolor, opt.titles.CustomColorTooltipTitle, opt.titles.CustomColorTooltipText)
+		
+		opt.ui.addtargettext = CreateEditBox(custom_targets, "AddTargetText", 150, 200, 30)
+		opt.ui.addtargettext:SetPoint('TOPLEFT', opt.ui.addtargetcolor, "TOPRIGHT", 15, 4)
+		opt.ui.addtargettext:SetScript('OnEnterPressed', addTargetEnterCallback)
+		opt.ui.addtargettext:SetScript('OnEscapePressed', addTargetEscapeCallback)
+		AddTooltip(opt.ui.addtargettext, opt.titles.AddTargetTooltipTitle, opt.titles.AddTargetTooltipText)
+		
+		opt.ui.addtargetbtn = CreateButton(custom_targets, 'AddTarget', 100, 30, opt.titles.AddTarget)
+		opt.ui.addtargetbtn:SetPoint("TOPLEFT", opt.ui.addtargettext, "TOPRIGHT", 4, 0)
+		opt.ui.addtargetbtn:SetScript("OnClick", addTargetOnClick)
+		AddTooltip(opt.ui.addtargetbtn, opt.titles.AddTarget, opt.titles.AddTargetBtnTooltip)
+		
+		opt.ui.addSlBtn = CreateButton(custom_targets, nil, 160, 30, opt.titles.AddSLTargets)
+		opt.ui.addSlBtn:SetPoint('TOPLEFT', opt.ui.addtargetbtn, 'TOPRIGHT', 80, 0)
+		opt.ui.addSlBtn:SetScript("OnClick", addShadowlandsTargets)
+		AddTooltip(opt.ui.addSlBtn, opt.titles.AddSLTooltipTitle, opt.titles.AddSLTooltipText)
+		
+		-- finish initialization
+		
+		mod:RefreshCustomTargets()
 		opt:HookScript("OnUpdate", UpdateTick)
 		opt:HookScript("OnShow", ShowEvent)
 	end                          
