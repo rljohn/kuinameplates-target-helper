@@ -1,11 +1,14 @@
-## Interface: 90200
+## Interface: 100002
 ## Author: rljohn
 ## Title: Kui |cff9966ffNameplates:|r |cffffffffTarget Helper|r
-## Notes: Target Helper for Kui Nameplates Core
+## Notes: Target Helper for Kui Nameplates
 ## Dependencies: Kui_Nameplates_Core
 ## OptionalDeps: _DebugLog
-## SavedVariables: KuiTargetHelperConfigSaved
+## SavedVariables: KuiTargetHelperConfigSaved, KuiTargetHelperDB
 ## SavedVariablesPerCharacter: KuiTargetHelperConfigCharSaved
+
+# Libs
+embeds.xml
 
 # Data Files
 auras.lua
@@ -16,4 +19,15 @@ config.lua
 localisation.lua
 helper.lua
 cvars.lua
+
+# Panels
+panels.lua
+targets_panel.lua
+auras_panel.lua
+names_panel.lua
+filter_panel.lua
+default_targets.lua
+profile_panel.lua
+
+# Load last
 main.lua

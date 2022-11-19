@@ -2,6 +2,7 @@ local folder,ns = ...
 local addon = KuiNameplates
 local core = KuiNameplatesCore
 local opt = KuiConfigTargetHelper
+local mod = KuiConfigTargetHelperMod
 
 local nameplatecvars = 
 {
@@ -33,7 +34,7 @@ local nameplatecvars =
 		name = "Max Alpha Distance",
 		minv = 0, 
 		maxv = 60,
-		desc = "The distance from the camera that nameplates wil lreach their maximum alpha."
+		desc = "The distance from the camera that nameplates will reach their maximum alpha."
 	},
 	["nameplateOccludedAlphaMult"] =	{ 
 		name = "Occluded Alpha Multi",
@@ -58,17 +59,22 @@ local nameplatecvars =
 	["nameplateMotionSpeed"] =	{ 
 		name = "Motion Speed",
 		minv = 0, 
-		maxv = 1,
-		step = 0.01,
+		maxv = 0.2,
+		step = 0.005,
 		desc = "Controls the rate at which nameplate animates into their target locations",
 	}
 }
 
 local updatingCvars = false
 
-function cvar_OnValueChanged(self, value)
+local function cvar_OnValueChanged(self, value)
 	
-	local strval = string.format("%.2f", value)
+	local strval
+	if (self.step < 0.01) then
+		strval = string.format("%.3f", value)
+	else
+		strval = string.format("%.2f", value)
+	end
 	self.label:SetText(strval)
 		
 	-- prevent loopback
@@ -95,16 +101,19 @@ local function SliderOnEnable(self)
 	getglobal(self.id .. 'Text'):SetAlpha(1)
 end
 	
-function AddCVarSlider(name, last)
+local function GetCvarElemWidth()
+	if (opt.IsDragonFlight) then
+		return 200
+	else
+		return 160
+	end
+end
+
+function opt:AddCVarSlider(parent, name, x, y)
 	
 	local sliderName = 'thcv' .. name
-	local slider = CreateFrame("Slider", sliderName, opt.ui.cvarpanel.panel, "OptionsSliderTemplate")
-	
-	if last then
-		slider:SetPoint("TOPLEFT", last, "BOTTOMLEFT", 0, -36)
-	else
-		slider:SetPoint("TOPLEFT", opt.ui.cvarpanel.panel, "TOPLEFT", 5, -14)
-	end
+	local slider = CreateFrame("Slider", sliderName, parent, "OptionsSliderTemplate")
+	slider:SetPoint("TOPLEFT", parent, "TOPLEFT", x, y)
 	
 	local minval = nameplatecvars[name].minv
 	local maxval = nameplatecvars[name].maxv
@@ -112,10 +121,12 @@ function AddCVarSlider(name, last)
 	slider:SetOrientation("HORIZONTAL")
 	slider:SetThumbTexture([[Interface\Buttons\UI-SliderBar-Button-Vertical]])
 	slider:SetMinMaxValues(minval, maxval)
-	slider:SetWidth(170)
+	slider:SetWidth(GetCvarElemWidth())
 	slider:SetHeight(16)
 	
+	local step = 1
 	if (nameplatecvars[name].step) then
+		step = nameplatecvars[name].step
 		slider:SetValueStep(nameplatecvars[name].step)
 		slider:SetObeyStepOnDrag(false)
 	elseif (maxval - minval <= 1) then
@@ -128,6 +139,7 @@ function AddCVarSlider(name, last)
 	
 	slider.title = name
 	slider.id = sliderName
+	slider.step = step
 		
 	getglobal(sliderName .. 'Low'):SetText(tostring(minval)); --Sets the left-side slider text (default is "Low").
 	getglobal(sliderName .. 'High'):SetText(tostring(maxval)); --Sets the right-side slider text (default is "High").
@@ -139,14 +151,18 @@ function AddCVarSlider(name, last)
     slider:HookScript('OnDisable',SliderOnDisable)
 		
 	if current then
-		currentValue = tonumber(current)
+		local currentValue = tonumber(current)
 		
 		slider:SetValue(currentValue)
 		slider:SetScript("OnValueChanged", cvar_OnValueChanged)
 		
 		local strval 
 		if (currentValue >= 0 and currentValue <= 1) then
-			strval = string.format("%.2f", currentValue)
+			if (slider.step < 0.01) then
+				strval = string.format("%.3f", currentValue)
+			else
+				strval = string.format("%.2f", currentValue)
+			end
 		else
 			strval = tostring(currentValue)
 		end
@@ -157,12 +173,12 @@ function AddCVarSlider(name, last)
 	end
 	
 	local tooltipDefault = '|cff9966ffDefault|r: ' .. GetCVarDefault(name)
-	AddTooltip2(slider, name, nameplatecvars[name].desc, tooltipDefault)
+	opt:AddTooltip2(slider, name, nameplatecvars[name].desc, tooltipDefault)
 		
 	return slider;
 end
 
-function EnableCVars()
+function opt:EnableCVars()
 	if opt.ui.cvarframes == nil then
 		return
 	end
@@ -171,7 +187,7 @@ function EnableCVars()
     end
 end
 
-function DisableCVars()
+function opt:DisableCVars()
 	if opt.ui.cvarframes == nil then
 		return
 	end
@@ -180,32 +196,72 @@ function DisableCVars()
     end
 end
 
-function AddCVarSliders(parent)
+function opt:AddCVarSliders(parent)
+
+	local basex = 16
+	local basey = -24
+	local x = basex
+	local y = basey
 	local f = nil
-	for k,v in pairsByKeys ( nameplatecvars ) do
-		f = AddCVarSlider(k,f)
+	local i = 0
+	for k,v in pairs ( nameplatecvars ) do
+		f = opt:AddCVarSlider(parent, k, x, y)
 		tinsert( opt.ui.cvarframes, f );
+
+		-- move em around
+		x = x + 250
+		i = i + 1
+		if (i % 2 == 0) then
+			x = basex
+			y = y - 64
+		end
 	end
 	
 	if (opt.env.EnableCVars == false) then
-		DisableCVars()
+		opt:DisableCVars()
 	end
 end
 
-function UpdateCVars()
+function opt:UpdateCVars()
 	updatingCvars = true
-	for k,v in pairsByKeys ( nameplatecvars ) do
+	for k,v in pairs ( nameplatecvars ) do
 		for _,frame in pairs(opt.ui.cvarframes) do
 			if frame.title == k then
 				
 				local current = GetCVar(frame.title)
 				
 				if current then
-					currentValue = tonumber(current)
+					local currentValue = tonumber(current)
 					frame:SetValue(currentValue)
 				end
 			end
 		end
 	end
 	updatingCvars = false
+end
+
+function GetCvarWidth()
+	if (opt.IsDragonFlight) then
+		return 200
+	else
+		return 160
+	end
+end
+
+function GetCvarHeight()
+	if (opt.IsDragonFlight) then
+		return 490
+	else
+		return 455
+	end
+end
+
+function mod:AddCVarWidgets(parent)
+
+	opt.ui.EnableCVars = opt:CreateCheckBox(parent, 'EnableCVars')
+	opt.ui.EnableCVars:SetPoint("TOPLEFT", parent, "BOTTOMLEFT", 0, -16)
+	opt:AddTooltip(opt.ui.EnableCVars, opt.titles.EnableCVars, opt.titles.EnableCVarsTooltip)
+	
+	opt:AddCVarSliders(parent)
+
 end

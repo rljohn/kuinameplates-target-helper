@@ -5,11 +5,13 @@ local folder,ns=...
 local addon = KuiNameplates
 local core = KuiNameplatesCore
 local opt = KuiConfigTargetHelper
+local config_mod = KuiConfigTargetHelperMod
 
 -- enable this to use 'DevTools_Dump'
 -- LoadAddOn("Blizzard_DebugTools")
 	
-plugin_tank = nil
+local plugin_fading = nil
+local plugin_tank = nil
 local tank_spec
 
 --------- Plugin Registration -----------------
@@ -30,8 +32,6 @@ function mod:LoadClassData()
 	opt.class.name, _, _ = UnitClass("player");
 	opt.class.spec = GetSpecialization()
 	opt.class.specId, opt.class.specName = GetSpecializationInfo(opt.class.spec)
-	
-	rlPrintf('Now loading aura data for ' .. opt.class.specName .. ' ' .. opt.class.name  .. ' ( ' .. opt.class.specId .. ').')
 end
 
 function mod:SpecUpdate()
@@ -46,10 +46,12 @@ end
 
 function mod:NameTextColourChange(frame)
 
+	-- early out if the option is disabled
 	if (opt.env.NameText == false) then
 		return
 	end
 	
+	-- don't display for player frames in pvp
 	if (opt.env.DisablePvP) then
 		if (UnitPlayerControlled(frame.unit) or frame.state.player == true) then
 			return
@@ -65,7 +67,8 @@ function mod:NameTextColourChange(frame)
 		plugin_fading:UpdateFrame(frame)
 	end
 		
-	if (col ~= nil) then
+	-- if we did, then lets apply it
+	if (col) then
 		frame.NameText:SetTextColor(unpack(col))
 	end
 end
@@ -79,9 +82,9 @@ function mod.Fading_FadeRulesReset()
 		end
 		
 		-- custom targets should be drawn at 100% opacity if in range.
-        if f.state.name and opt.env.CustomTargets[f.state.name] then
+        if f.state.name and opt.env.DisableAlpha == true and opt.env.CustomTargets[f.state.name] then
 			if (UnitInRange("unit") == nil) then
-				return
+				return 1
 			end
 			
 			return 1
@@ -95,43 +98,137 @@ function mod:hasAura(frame)
 
 	-- if our current spec does not have any auras to track, return
 	if KuiTargetAuraList[opt.class.specId] == nil then
-		return 0
-	end
-	
-	-- if aura colors disabled
-	if (opt == nil) or (opt.env == nil) or (opt.env.ColorAuras == false) then
-		return 0
+		return nil
 	end
 	
 	if not frame.Auras or not frame.Auras.frames then 
-		return 0
+		return nil
 	end
-		
-	for _,auras_frame in pairs(frame.Auras.frames) do
-		if (auras_frame.visible) then
-			if (auras_frame.visible > 0) then
-				for _,button in ipairs(auras_frame.buttons) do
-					if IsInTable(KuiTargetAuraList[opt.class.specId], button.spellid) then
-						return 1
+
+	local result = nil
+	
+	table.foreach(KuiTargetAuraList[opt.class.specId], function(k,v)
+
+		local ability = v
+		local abilityNum = tonumber(ability)
+				
+		-- it was a regular ability
+		if (abilityNum) then
+
+			local entry = opt.env.CustomAuraColors[abilityNum]
+			if (entry) then
+				local enabled = false
+			
+				if (entry[opt.class.specId]) then
+					enabled = entry[opt.class.specId].enabled
+				else
+					enabled = entry.enabled
+				end
+				
+				if (enabled) then
+					-- iterate through all frames
+					for _,auras_frame in pairs(frame.Auras.frames) do
+						if (auras_frame.visible) then
+							if (auras_frame.visible > 0) then
+								-- iterate buttons on the visible frame
+								for _,button in ipairs(auras_frame.buttons) do
+									-- if button spellID matches our ability
+									if (abilityNum == button.spellid) then
+										result = entry.color
+									end
+								end -- for each button
+							end -- visible count > 0
+						end -- frame is visible
+					end -- for each frame
+				end -- valid entry
+			end -- if enabled
+		else
+			-- complex ability, requiring multiple hits
+			local allFound = true
+			local foundCount = 0
+			local abilitySum = 0
+			
+			-- iterate through all abilities
+			table.foreach(ability, function(k2, v2)
+			
+				-- sum up the abilities
+				abilitySum = abilitySum + v2
+				
+				-- iterate through active frames
+				for _,auras_frame in pairs(frame.Auras.frames) do
+					if (auras_frame.visible) then
+						if (auras_frame.visible > 0) then
+						
+							-- find a button that matches this ability
+							local found = false
+							for _,button in ipairs(auras_frame.buttons) do
+								if (v2 == button.spellid) then
+									found = true
+									foundCount = foundCount + 1
+									break
+								end
+							end
+							
+							-- if we didn't find a match, the set is invalid
+							if (found == false) then
+								allFound = false
+								break
+							end
+						end
+					end
+				end
+			end)
+			
+			-- all conditions were met
+			if (allFound == true and foundCount > 0) then
+				-- has entry
+				local entry = opt.env.CustomAuraColors[abilitySum]
+				if (entry) then
+					-- is enabled
+					local enabled = false
+					if (entry[opt.class.specId]) then
+						enabled = entry[opt.class.specId].enabled
+					else
+						enabled = entry.enabled
+					end
+
+					if (enabled) then
+						-- has color
+						if (entry.color ~= nil) then
+							result = entry.color
+							return result
+						end
 					end
 				end
 			end
-		end
-	end
+		end -- if/else ability is singular
+	end) -- foreach spectable
 	
-	return 0
+	return result
+end
+
+function mod:CheckAura(frame)
+
+	local auraColor = mod:hasAura(frame)
+	if (auraColor == nil) then
+		frame.state.hasAura = 0
+		frame.state.auraColor = nil
+	else
+		frame.state.hasAura = 1
+		frame.state.auraColor = auraColor
+	end	
 end
 
 -- NAME #############################################################
 function mod:UpdateTargetFrame(frame)
-	
-	self:NameTextColourChange(frame)
-	
-	-- only adjust non-target (we have a bespoke colour for our target)
-	if opt.env.ColorTarget and frame.handler:IsTarget() and frame.state.bar_is_name_coloured then 
-		--DevTools_Dump(frame.state)
+
+	if (frame.HealthBar == nil) then
 		return
 	end
+	
+	CheckUpdateName(frame)
+	
+	self:NameTextColourChange(frame)
 		
 	-- disable pvp 
 	if (opt.env.DisablePvP) then
@@ -139,7 +236,7 @@ function mod:UpdateTargetFrame(frame)
 			return
 		end
 	end
-	
+		
 	local col = nil
 	
 	-- check if we defined a colour for this name
@@ -148,12 +245,21 @@ function mod:UpdateTargetFrame(frame)
 		col = { tmpColor.r, tmpColor.g, tmpColor.b }
 		plugin_fading:UpdateFrame(frame)
 	end
-
-	-- if colour was not set - check for auras?
-	if not col then
-		if frame.state.hasAura == 1 then
-			col = { opt.env['AuraColor'].r,opt.env['AuraColor'].g,opt.env['AuraColor'].b }
-			plugin_fading:UpdateFrame(frame)
+	
+	if not col or opt.env.PreferAuraCustom then
+	
+		-- is target?
+		if opt.env.ColorTarget and frame.handler:IsTarget() then 
+			col = { opt.env['TargetColor'].r,opt.env['TargetColor'].g,opt.env['TargetColor'].b }
+		end
+		
+		-- if colour was not set - check for auras?
+		if not col or opt.env.PreferAura then
+			if frame.state.hasAura == 1 then
+				col = frame.state.auraColor
+				col = { frame.state.auraColor.r, frame.state.auraColor.g, frame.state.auraColor.b }
+				plugin_fading:UpdateFrame(frame)
+			end
 		end
 	end
 
@@ -162,7 +268,10 @@ function mod:UpdateTargetFrame(frame)
         frame.state.bar_is_name_coloured = nil
         if CanOverwriteHealthColor(frame, opt.env.Priority) then
             frame.state.health_colour_priority = nil
-			frame.HealthBar:SetStatusBarColor(unpack(frame.state.healthColour))
+			
+			if (frame.HealthBar ~= nil) then
+				frame.HealthBar:SetStatusBarColor(unpack(frame.state.healthColour))
+			end
 			
 			-- let tank mode do its thing
 			if (plugin_tank) then
@@ -173,7 +282,10 @@ function mod:UpdateTargetFrame(frame)
         if CanOverwriteHealthColor(frame, opt.env.Priority) then
             frame.state.bar_is_name_coloured = true
             frame.state.health_colour_priority = opt.env.Priority
-            frame.HealthBar:SetStatusBarColor(unpack(col))
+			
+			if (frame.HealthBar ~= nil) then
+				frame.HealthBar:SetStatusBarColor(unpack(col))
+			end
         end
     end
 end
@@ -184,6 +296,10 @@ end
 
 function mod:EvaluateBorder(frame)
 
+	if (frame.HealthBar == nil) then
+		return
+	end
+	
 	if (frame.elite_border == nil) then
 
 		frame.HealthBar:SetFrameLevel(0)
@@ -195,7 +311,10 @@ function mod:EvaluateBorder(frame)
 			edgeSize=1
 		})
 		
-		frame.LevelText:SetParent(frame.elite_border)
+		if (frame.LevelText ~= nil) then
+			frame.LevelText:SetParent(frame.elite_border)
+		end
+		
  		frame.HealthText:SetParent(frame.elite_border)
 		frame.NameText:SetParent(frame.elite_border)
 		frame.elite_border:SetFrameLevel(1)
@@ -204,20 +323,32 @@ function mod:EvaluateBorder(frame)
 	
 	if (frame.elite_border) then
 	
-		if (opt.env.EnableEliteBorder == false) then
+		if (not opt.env.EnableEliteBorder and not opt.env.EnableFocusBorder and not opt.env.EnableExecuteBorder) then
 			HideEliteBorder(frame)
 			return
 		end
 		
-		-- Deleted this - why not keep elite border for primary target?
-		--if frame.handler:IsTarget() then
-		--	HideEliteBorder(frame)
-		--	return
-		--end
-
 		local classification = UnitClassification(frame.unit);
 	
-		if (classification == "worldboss") or (classification == "rareelite") or (classification == "elite") then
+		if (opt.env.EnableFocusBorder and UnitIsUnit(frame.unit,"focus")) then
+			frame.elite_border:SetBackdrop({
+				edgeFile='interface/buttons/white8x8',
+				edgeSize=opt.env.FocusEdgeSize
+			})
+			frame.elite_border:SetBackdropBorderColor(opt.env.FocusBorderColor.r, opt.env.FocusBorderColor.g, opt.env.FocusBorderColor.b, opt.env.FocusBorderColor.a);	
+			frame.NameText:SetParent(frame.elite_border)
+		elseif (opt.env.EnableExecuteBorder and opt.plugin_execute and opt.plugin_execute.plugin_enabled and frame.state.in_execute_range) then
+			frame.elite_border:SetBackdrop({
+				edgeFile='interface/buttons/white8x8',
+				edgeSize=opt.env.ExecuteEdgeSize
+			})
+			frame.elite_border:SetBackdropBorderColor(opt.env.ExecuteBorderColor.r, opt.env.ExecuteBorderColor.g, opt.env.ExecuteBorderColor.b, opt.env.ExecuteBorderColor.a);	
+			frame.NameText:SetParent(frame.elite_border)
+		elseif opt.env.EnableEliteBorder and ((classification == "worldboss") or (classification == "rareelite") or (classification == "elite")) then
+			frame.elite_border:SetBackdrop({
+				edgeFile='interface/buttons/white8x8',
+				edgeSize=opt.env.EliteEdgeSize
+			})
 			frame.elite_border:SetBackdropBorderColor(opt.env.EliteBorderColor.r, opt.env.EliteBorderColor.g, opt.env.EliteBorderColor.b, opt.env.EliteBorderColor.a);	
 			frame.NameText:SetParent(frame.elite_border)
 		else
@@ -227,33 +358,7 @@ function mod:EvaluateBorder(frame)
 end
 
 function mod:GainedTarget(frame)
-	
-	if opt.env.ColorTarget then
-		
-		-- disable pvp 
-		if (opt.env.DisablePvP) then
-			if (UnitPlayerControlled(frame.unit) or frame.state.player == true) then
-				return
-			end
-		end
-		
-		-- tank mode - if we don't have threat, don't change the target color
-		if (plugin_tank) and (plugin_tank.enabled) and UnitAffectingCombat(frame.unit) and tank_spec then
-			local hasThreat = (frame.state.threat and frame.state.threat > 0)
-			if not hasThreat then
-				mod:EvaluateBorder(frame)
-				return
-			end
-		end
-		
-		-- can we update colour?
-		if CanOverwriteHealthColor(frame, opt.env.Priority) then
-			frame.state.bar_is_name_coloured = true
-			frame.state.health_colour_priority = opt.env.Priority
-			frame.HealthBar:SetStatusBarColor(opt.env['TargetColor'].r,opt.env['TargetColor'].g,opt.env['TargetColor'].b)
-		end
-	end
-	
+	mod:UpdateTargetFrame(frame)
 	mod:EvaluateBorder(frame)
 	
 end
@@ -270,16 +375,37 @@ function mod:LostTarget(frame)
 	self:UpdateTargetFrame(frame)
 end
 
+function CheckUpdateName(frame)
+	
+	local name = frame.state.name
+	
+	for k, v in pairs(opt.env.Renames) do
+		if (k == name) then
+			frame.state.name = v
+			frame.NameText:SetText(v)
+		end
+	end
+	
+end
+
 function mod:UNIT_NAME_UPDATE(event,frame)
     self:UpdateTargetFrame(frame)
 end
 
-function mod:PLAYER_SPECIALIZATION_CHANGED()
+function mod:RefreshFocusData()
+	for i, f in addon:Frames() do
+		if f:IsShown() then
+			mod:EvaluateBorder(f)
+		end
+	end
+end
+
+function mod:RefreshClassData()
 	mod:LoadClassData()
 end
 
 function mod:Show(frame)
-	frame.state.hasAura = mod:hasAura(frame)
+	mod:CheckAura(frame)
 	mod:EvaluateBorder(frame)
 	self:UpdateTargetFrame(frame)
 end
@@ -295,20 +421,104 @@ function mod:Hide(frame)
 	HideEliteBorder(frame)
 end
 
+local function OverrideUpdateNameFunction(frame)
+
+	-- cache original
+	frame.OriginalUpdateNameText = frame.UpdateNameText
+
+	-- override with a special callback
+	frame.UpdateNameText = function(f)
+		-- fire base function first
+		f.OriginalUpdateNameText(f)
+		-- then call our 'NameTextColourChange'
+		mod:NameTextColourChange(f)
+	end
+end
+
 function mod:Create(frame)
     local this = frame:CreateAnimationGroup()
     	
     this:SetScript('OnFinished',AnimStop)
     this:SetScript('OnStop',AnimStop)
+
 	self:UpdateTargetFrame(frame)
+	OverrideUpdateNameFunction(frame)
 end
 
 function mod:UNIT_AURA(event,frame)
-	frame.state.hasAura = mod:hasAura(frame)
+	mod:CheckAura(frame)
     self:UpdateTargetFrame(frame)
 end
 
+function mod:PLAYER_SPECIALIZATION_CHANGED()
+	mod:RefreshClassData()
+	mod:SpecUpdate()
+	config_mod:ReloadValues()
+end
+
+opt.original_kui_show_function = nil
+
 function mod:Initialise()
+	-- before initialized
+
+	-- we need to know about the execute plugin
+	opt.plugin_execute = addon:GetPlugin('Execute')
+
+	if (opt.plugin_execute) then
+		-- cache function pointrs
+		opt.plugin_execute.original_on_enabled = opt.plugin_execute.OnEnable
+		opt.plugin_execute.original_on_disable = opt.plugin_execute.OnDisable
+
+		-- override enable
+		opt.plugin_execute.OnEnable = function()
+
+			opt.plugin_execute.plugin_enabled = true
+			if (opt.plugin_execute.original_on_enabled) then
+				opt.plugin_execute:original_on_enabled()
+			end
+
+			if (opt.OnExecutePluginEnabled) then
+				opt:OnExecutePluginEnabled(true)
+			end
+		end
+
+		-- override disable
+		opt.plugin_execute.OnDisable = function()
+
+			opt.plugin_execute.plugin_enabled = true
+			if (opt.plugin_execute.original_on_disable) then
+				opt.plugin_execute:original_on_disable()
+			end
+			if (opt.OnExecutePluginEnabled) then
+				opt:OnExecutePluginEnabled(false)
+			end
+		end
+	end
+
+	-- override NAME_PLATE_UNIT_ADDED
+	-- allows us to stop KUI from showing a nameplate we wish to filter
+
+	opt.original_kui_show_function = addon.NAME_PLATE_UNIT_ADDED
+	opt.original_kui_hide_function = addon.NAME_PLATE_UNIT_REMOVED
+
+	addon.NAME_PLATE_UNIT_ADDED = function(self, unit_token)
+		local name = UnitName(unit_token)
+		if (not opt:ShouldFilterUnit(name)) then
+			opt:original_kui_show_function(unit_token)
+		else
+			local f = C_NamePlate.GetNamePlateForUnit(unit_token)
+			if (f.UnitFrame) then
+				f.UnitFrame:Hide()
+			end
+		end
+	end
+
+	addon.NAME_PLATE_UNIT_REMOVED = function(self, unit_token)
+		opt.original_kui_hide_function(addon, unit_token)
+	end
+end
+
+function mod:Initialised()
 
 	mod:LoadClassData()
 	
@@ -318,7 +528,9 @@ function mod:Initialise()
 	-- fade update
     self:RegisterMessage('HealthColourChange')
 	self:RegisterUnitEvent('UNIT_NAME_UPDATE')
-	self:RegisterEvent('PLAYER_SPECIALIZATION_CHANGED')
+	
+	-- events
+	self:RegisterEvent('PLAYER_FOCUS_CHANGED', 'RefreshFocusData')
 	
 	-- targets
     self:RegisterMessage('GainedTarget')
@@ -330,7 +542,7 @@ function mod:Initialise()
 	self:RegisterUnitEvent('UNIT_AURA')
 	
 	-- spec
-	self:RegisterEvent('PLAYER_SPECIALIZATION_CHANGED','SpecUpdate')
+	self:RegisterEvent('PLAYER_SPECIALIZATION_CHANGED','PLAYER_SPECIALIZATION_CHANGED')
     self:RegisterEvent('PLAYER_ENTERING_WORLD','SpecUpdate')
 	self:SpecUpdate()
 	
