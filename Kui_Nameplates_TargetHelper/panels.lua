@@ -165,7 +165,7 @@ function mod:CreateMainPanel(parent)
 
 	-- priority slider
 	
-	opt.ui.prioritypanel = opt:CreatePanel(parent, "PriorityFrame", 330, 100)
+	opt.ui.prioritypanel = opt:CreatePanel(parent, "PriorityFrame", 330, 110)
 	opt.ui.prioritypanel:SetPoint('TOPLEFT', opt.ui.sidepanel, "BOTTOMLEFT", 0, -55)
 	
 	opt.ui.priorityPanelTitle = opt.ui.prioritypanel:CreateFontString(nil, 'ARTWORK', 'GameFontNormalLarge')

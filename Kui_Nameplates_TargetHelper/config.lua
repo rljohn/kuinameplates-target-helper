@@ -47,7 +47,7 @@ cvars.name = 'CVars'
 -- addon info
 opt.info = {
 	name = 'KuiNameplates: Target Helper',
-	version = '1.2.0',
+	version = '1.2.2',
 	header = '%s (%s) by rljohn'
 }
 

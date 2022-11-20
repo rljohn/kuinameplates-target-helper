@@ -257,7 +257,7 @@ end
 
 function mod:CustomTargetWidgets(parent)
 
-	local add_panel = opt:CreatePanel(parent, 'nil', 320 , 80)
+	local add_panel = opt:CreatePanel(parent, nil, 320 , 80)
 	add_panel:SetPoint('TOPLEFT', opt.ui.scroll, 'BOTTOMLEFT', 0, -55)
 
 	local add_title = parent:CreateFontString(nil, 'ARTWORK', 'GameFontNormalLarge')
