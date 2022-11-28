@@ -20,6 +20,11 @@ KuiTargetAuraList = {
 		30108,	-- 	Unstable Affliction
 		48181,	-- 	Haunt
 		27243,	-- 	Seed of Corruption
+		{172,980} -- Corruption + Agony
+		{172,980,48181} -- Corruption + Agony + Haunt
+		{172,980,30108} -- Corruption + Agony + Unstable Affliction
+		{172,980,30108,48181} -- Corruption + Agony + UA + Haunt
+
 	},
 	[267] = {	-- DESTRUCTION WARLOCK
 		157736,	-- Immolate
