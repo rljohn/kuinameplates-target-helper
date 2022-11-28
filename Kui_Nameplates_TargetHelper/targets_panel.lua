@@ -4,6 +4,11 @@ local mod = KuiConfigTargetHelperMod
 opt.currentEditName = ''
 local currentRemoveName
 
+function mod:ClearCustomTargets()
+	opt.env.CustomTargets = {}
+	mod:RefreshCustomTargets()
+end
+
 function mod:HideTargets()
 	if opt.ui.targets == nil then
 		return
@@ -53,9 +58,11 @@ function mod:CreateTargetFrame(name, color, active)
             f = frame
         end
     end
-	
+
 	local displayName
-	if (color.context) then
+	if (color.context_color) then
+		displayName = name .. ' |c' .. color.context_color .. '[' .. color.context .. ']|r'
+	elseif (color.context) then
 		displayName = name .. ' |cff40c0f7[' .. color.context .. ']|r'
 	else
 		displayName = name .. ' |cffc8d975[' .. opt.titles.ContextCustom .. ']|r'
@@ -146,7 +153,7 @@ function mod:RefreshCustomTargets()
 	
 	local previousFrame = nil;
 	
-	for k,v in pairs ( opt.env.CustomTargets ) do
+	for k,v in mod:SortedPairs ( opt.env.CustomTargets ) do
 	
 		local f = mod:CreateTargetFrame ( k, v, opt.env.UseCustomTargets );
 		
@@ -206,13 +213,16 @@ function opt:TargetEdit(newName)
 end
 
 
-function mod:AddTarget(name,color,context)
+function mod:AddTarget(name,color,context,context_color)
+
+	if (not name or name == "") then return end
 	opt.env.CustomTargets[name] = {}
 	opt.env.CustomTargets[name].r = color.r
 	opt.env.CustomTargets[name].g = color.g
 	opt.env.CustomTargets[name].b = color.b
 	opt.env.CustomTargets[name].a = color.a
 	opt.env.CustomTargets[name].context = context
+	opt.env.CustomTargets[name].context_color = context_color
 	mod:RefreshCustomTargets();
 	opt:ResetFrames()
 end
@@ -242,7 +252,25 @@ end
 local function addTargetOnClick()
 	local text = opt.ui.addtargettext:GetText()
 	if (not text or text == "") then return end
-	mod:AddTarget(opt.ui.addtargettext:GetText(), opt.env.NewColor, nil)
+	
+	-- check if the text was a number
+	local number = tonumber(text)
+
+	-- was an NPC id entered?
+	if (number) then
+
+		-- convert npc ID to name
+		local name = mod:ConvertNpcIdToName(text)
+
+		-- if we found a name, use that instead
+		if (name and name ~= "") then
+			opt.ui.addtargettext:SetText(name)
+			mod:AddTarget(name, opt.env.NewColor, nil, nil)
+			return
+		end
+	end
+
+	mod:AddTarget(text, opt.env.NewColor, nil, nil)
 end
 
 local function copyTargetOnClick()
@@ -256,6 +284,27 @@ end
 -- widgets
 
 function mod:CustomTargetWidgets(parent)
+
+	local season1 = opt:CreateIcon(parent, nil, 4734167, 32, 32)
+	season1:SetPoint('BOTTOMRIGHT', opt.ui.scroll, 'TOPRIGHT', 28, 16)
+	season1:SetScript('OnClick', function(self)
+		local dialog = StaticPopup_Show("KUI_TargetHelper_S1Confirm")
+	end)
+	opt:AddTooltip(season1, opt.titles.SeasonOneTooltip, opt.titles.SeasonOneTooltipText)
+
+	local mplus = opt:CreateIcon(parent, nil, 2175503, 32, 32)
+	mplus:SetPoint('TOPRIGHT', season1, 'TOPLEFT', -8, 0)
+	mplus:SetScript('OnClick', function(self)
+		local dialog = StaticPopup_Show("KUI_TargetHelper_MPlusConfirm")
+	end)
+	opt:AddTooltip(mplus, opt.titles.SpecialTargets, opt.titles.SpecialTargetsTooltip)
+
+	local clear = opt:CreateIcon(parent, nil, 4200126, 32, 32)
+	clear:SetPoint('TOPRIGHT', mplus, 'TOPLEFT', -8, 0)
+	clear:SetScript('OnClick', function(self)
+		local dialog = StaticPopup_Show("KUI_TargetHelper_ClearEnemiesConfirm")
+	end)
+	opt:AddTooltip(clear, opt.titles.ClearTargets, opt.titles.ClearTargetsTooltip)
 
 	local add_panel = opt:CreatePanel(parent, nil, 320 , 80)
 	add_panel:SetPoint('TOPLEFT', opt.ui.scroll, 'BOTTOMLEFT', 0, -55)

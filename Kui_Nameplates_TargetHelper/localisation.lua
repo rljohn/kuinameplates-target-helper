@@ -136,6 +136,17 @@ function opt:SetupLocale()
 		UnitNamesFooter = "KuiNameplates: Target Helper (Rename Units)",
 		UnitFilterFooter = "KuiNameplates: Target Helper (Unit Filter)",
 		CVarsFooter  = 'KuiNameplates: Target Helper (Console Variables)',
+
+		-- preset name lists
+
+		ClearTargets = 'Clear Targets',
+		ClearTargetsTooltip = 'Resets the enemy colors list.',
+		
+		SpecialTargets = 'Mythic+ and Raid Targets',
+		SpecialTargetsTooltip = 'Explosive Orbs, Chaotic Essence, etc...',
+
+		SeasonOneTooltip = 'Dragonflight: Season One',
+		SeasonOneTooltipText = 'Add enemies from Dragonflight Season One dungeons',
 	}
 end
 

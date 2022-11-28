@@ -43,7 +43,8 @@ KuiTargetAuraList = {
 		55078	-- 	Blood Plague
 	},
 	[252] = { 	-- Unholy DK
-		191587	-- 	Viralent Plague
+		191587,	-- 	Viralent Plague
+		194310,	-- Festering Wound
 	},
 	[255] = {	-- SURVIVAL HUNTER
 		185855,	-- 	Lacerate,

@@ -17,6 +17,29 @@ function rlPrintf(...)
   end
 end
 
+function mod:SortedPairs(t, order)
+    -- collect the keys
+    local keys = {}
+    for k in pairs(t) do keys[#keys+1] = k end
+
+    -- if order function given, sort by it by passing the table and keys a, b,
+    -- otherwise just sort the keys 
+    if order then
+        table.sort(keys, function(a,b) return order(t, a, b) end)
+    else
+        table.sort(keys, function(a, b) return a:upper() < b:upper() end)
+    end
+
+    -- return the iterator function
+    local i = 0
+    return function()
+        i = i + 1
+        if keys[i] then
+            return keys[i], t[keys[i]]
+        end
+    end
+end
+
 -- HELPER FUNCTIONS
 function opt:ShouldFilterUnit(name)
 	if (not name or name == "") then return false end
@@ -348,6 +371,13 @@ local function editColorCallback(restore)
 			opt.env.CustomTargets[colorEdit:GetParent().id].b = b
 			opt.env.CustomTargets[colorEdit:GetParent().id].a = a
 			colorEdit:GetParent().name:SetTextColor(r, g, b)
+			
+			opt.env.NewColor.r = r
+			opt.env.NewColor.g = g
+			opt.env.NewColor.b = b
+			opt.env.NewColor.a = a
+			opt.ui.addtargetcolor:SetBackdropColor(r, g, b, a)
+
 		end
 	end
 	
@@ -651,6 +681,46 @@ StaticPopupDialogs["KUI_TargetHelper_ImportConfirm"] = {
 	preferredIndex = 3,
 }
 
+StaticPopupDialogs["KUI_TargetHelper_ClearEnemiesConfirm"] = {
+	text = "Do you want to clear all enemy colors?\n\nWARNING: This can not be undone.",
+	button1 = "Yes",
+	button2 = "No",
+	OnAccept = function(self, data, data2)
+		mod:ClearCustomTargets(data)
+	end,
+	timeout = 0,
+  	whileDead = true,
+	hideOnEscape = true,
+	preferredIndex = 3,
+}
+
+
+StaticPopupDialogs["KUI_TargetHelper_MPlusConfirm"] = {
+	text = "Do you want to import enemies from Mythic+ and Raids?",
+	button1 = "Yes",
+	button2 = "No",
+	OnAccept = function(self, data, data2)
+		mod:AddMythicPlusTargets(data)
+	end,
+	timeout = 0,
+  	whileDead = true,
+	hideOnEscape = true,
+	preferredIndex = 3,
+}
+
+StaticPopupDialogs["KUI_TargetHelper_S1Confirm"] = {
+	text = "Do you want to import enemies from Dragonflight Season One?",
+	button1 = "Yes",
+	button2 = "No",
+	OnAccept = function(self, data, data2)
+		mod:AddDragonFlightTargetsSeasonOne(data)
+	end,
+	timeout = 0,
+  	whileDead = true,
+	hideOnEscape = true,
+	preferredIndex = 3,
+}
+
 -- Slider with Reload Required
 
 local function slider_OnValueChangedReload(self, value)
@@ -688,4 +758,23 @@ function opt:CreateSliderWithReload(parent, name, minval, maxval, stepvalue, wid
 	slider.label:SetText(strval)
 	slider.label:SetPoint('BOTTOM', slider, 0, -10)
 	return slider;
+end
+
+-- clickable icon
+
+function opt:CreateIcon(parent, name, icon, w, h)
+
+	local frame = CreateFrame("Button", name, parent, "BackdropTemplate")
+	frame:SetSize (w, h)
+	frame:SetBackdrop({
+            bgFile=icon,
+			edgeFile='interface/buttons/white8x8',
+            edgeSize=1,
+            --insets={top=2,right=2,bottom=2,left=2}
+        })
+	frame:SetBackdropBorderColor(1, 1, 1, 0.25)
+	frame:SetBackdropColor(1, 1, 1, 1)
+	frame:Show()
+	
+	return frame;
 end

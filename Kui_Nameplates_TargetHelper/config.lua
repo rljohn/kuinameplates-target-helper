@@ -14,6 +14,13 @@ opt.ShouldResetFrames = false
 opt.UpdateInterval = 1.0
 opt.TimeSinceLastUpdate = 0
 
+-- addon info
+opt.info = {
+	name = 'KuiNameplates: Target Helper',
+	version = '1.2.3',
+	header = '%s (%s) by rljohn'
+}
+
 -- child frame for profiles
 local profiles = CreateFrame('FRAME', 'knpthprofiles', opt)
 profiles.parent = opt.name
@@ -43,13 +50,6 @@ unit_filter.name = 'Unit Filter'
 local cvars = CreateFrame('FRAME', 'knpthcvars', opt)
 cvars.parent = opt.name
 cvars.name = 'CVars'
-
--- addon info
-opt.info = {
-	name = 'KuiNameplates: Target Helper',
-	version = '1.2.2',
-	header = '%s (%s) by rljohn'
-}
 
 -- class info
 opt.class = {}
@@ -331,7 +331,7 @@ function opt:ReloadGlobalData()
 
 	-- no global data set, so nothing to do
 	if (KuiTargetHelperConfigSaved.HasSetGlobalData == false) then
-		print("KuiTargetHelper global data settings saved.");
+		rlPrintf("Global data settings saved.");
 		KuiTargetHelperConfigSaved.HasSetGlobalData = true
 		return
 	end
@@ -346,7 +346,7 @@ function opt:ConfirmGlobalLoad()
 	opt.env = KuiTargetHelperConfigSaved
 	KuiTargetHelperConfigCharSaved = KuiTargetHelperConfigSaved
 
-	print("KuiTargetHelper global data settings loaded.");
+	rlPrintf("Global data settings loaded.");
 	opt.env.EnableGlobalData = true
 	mod:ReloadValues()
 end
@@ -355,13 +355,13 @@ function opt:ConfirmGlobalSave()
 	KuiTargetHelperConfigSaved = opt.env
 	KuiTargetHelperConfigSaved.HasSetGlobalData = true
 	
-	print("KuiTargetHelper global data settings saved.");
+	rlPrintf("Global data settings saved.");
 	opt.env.EnableGlobalData = true
 	mod:ReloadValues()
 end
 
 function opt:CancelGlobal()
-	print("KuiTargetHelper global data settings not applied.");
+	rlPrintf("Global data settings not applied.");
 	opt.env.EnableGlobalData = false
 	mod:ReloadValues()
 end
