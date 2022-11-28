@@ -62,6 +62,7 @@ KuiTargetAuraList = {
 	[259] = {	-- ASSASSINATION ROGUE
 		703,	--	Garrote
 		1943,	--	Rupture
+		{703,259} -- Garrote + Rupture
 	},
 	[261] = { 	-- SUBLETY ROGUE
 		195452,	--	Nightblade
