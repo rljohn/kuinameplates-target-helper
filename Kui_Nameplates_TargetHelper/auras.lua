@@ -62,10 +62,13 @@ KuiTargetAuraList = {
 	[259] = {	-- ASSASSINATION ROGUE
 		703,	--	Garrote
 		1943,	--	Rupture
-		{703,259} -- Garrote + Rupture
+		{703,1943} -- Garrote + Rupture
 	},
 	[261] = { 	-- SUBLETY ROGUE
-		195452,	--	Nightblade
+		316220, -- Find Weakness
+		1943,	-- Rupture
+		385408, -- Sepsis
+		384631, -- Flagellation
 	},
 	[262] = {	-- ELEMENTAL SHAMAN
 		188389	--	Flame Shock
