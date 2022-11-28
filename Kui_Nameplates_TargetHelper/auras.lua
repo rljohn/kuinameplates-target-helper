@@ -14,7 +14,7 @@ KuiTargetAuraList = {
 		34914, 	--  Vampiric Touch
 		{589,34914} -- Vampiric Touch + Shadow Word: Pain
 	}, 
-	[265] = {	-- AFFLICATION WARLOCK
+	[265] = {	-- AFFLICTION WARLOCK
 		172,	--	Corruption
 		980,	--	Agony
 		30108,	-- 	Unstable Affliction
