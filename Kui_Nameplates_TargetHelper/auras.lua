@@ -51,6 +51,10 @@ KuiTargetAuraList = {
 		191587,	-- 	Viralent Plague
 		194310,	-- Festering Wound
 	},
+	[254] = {	-- MARKSMAN HUNTER
+		271788,	-- Serpent Sting
+		385638, -- Razor Fragments
+	},
 	[255] = {	-- SURVIVAL HUNTER
 		185855,	-- 	Lacerate,
 		259491	--  Serpent Sting
