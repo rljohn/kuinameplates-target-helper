@@ -44,6 +44,9 @@ KuiTargetAuraList = {
 		1079,	--	Rip
 		{155722,1079}, -- Rake, Rip
 	},
+	[105] = {	-- RESTO DRUID
+		164812,	-- 	Moonfire
+	},
 	[250] = { 	-- BLOOD DK
 		55078	-- 	Blood Plague
 	},
