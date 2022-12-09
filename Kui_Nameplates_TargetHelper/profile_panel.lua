@@ -124,27 +124,9 @@ function mod:AddProfileWidgets(menu, parent, subpanel)
 
 	-- import/export
 
-    local info = subpanel:CreateFontString(nil, 'ARTWORK', 'GameFontWhite')
-	info:SetText(opt.titles["ImportExportInfo2"])
-	info:SetPoint('BOTTOMLEFT', subpanel, 'TOPLEFT', 18, -20)
-
-    local export_panel = CreateFrame('Frame', nil, subpanel, "BackdropTemplate")
-	export_panel:SetPoint('TOPLEFT', subpanel, 'TOPLEFT', 14, -24)
-	export_panel:SetSize(570, 220)
-	export_panel:SetBackdrop({
-		bgFile = [[Interface\Buttons\WHITE8x8]],
-		edgeFile = [[Interface\Tooltips\UI-Tooltip-Border]],
-		edgeSize = 14,
-		insets = {left = 3, right = 3, top = 3, bottom = 3},
-	})
-	export_panel:SetBackdropColor(0, 0, 0)
-	export_panel:SetBackdropBorderColor(0.3, 0.3, 0.3)
-	export_panel:EnableMouse(true)
-
-    local editBox = CreateFrame("EditBox", nil, export_panel)
-	editBox:SetPoint("TOP")
-	editBox:SetPoint("LEFT")
-	editBox:SetPoint("RIGHT")
+    local editBox = CreateFrame("EditBox", nil, subpanel.panel)
+	editBox:SetSize(570,150)
+	editBox:SetPoint("TOPLEFT", subpanel.panel, "TOPLEFT")
 	editBox:SetFontObject('ChatFontNormal')
 	editBox:SetMultiLine(true)
 	editBox:SetMaxLetters(16384)
@@ -160,18 +142,13 @@ function mod:AddProfileWidgets(menu, parent, subpanel)
 		editBox:HighlightText(0,0)
 	end)
 
-	export_panel:SetScript("OnMouseDown", function(self)
-		editBox:SetFocus()
-		editBox:HighlightText()
-	end)
-
 	local status = subpanel:CreateFontString(nil, 'ARTWORK', 'GameFontHighlight')
 	status:SetText('')
-	status:SetPoint('TOPLEFT', export_panel, 'BOTTOMLEFT', 8, -6)
+	status:SetPoint('TOPLEFT', subpanel, 'BOTTOMLEFT', 8, -16)
 	opt.ui.import_export_status = status
 
     opt.ui.export_button = opt:CreateButton(subpanel, nil, 100, 30, opt.titles.ExportTitle)
-	opt.ui.export_button:SetPoint("TOPLEFT", export_panel, "BOTTOMLEFT", 360, -8)
+	opt.ui.export_button:SetPoint("TOPLEFT", subpanel, "BOTTOMLEFT", 400, -16)
 	opt.ui.export_button:SetScript("OnClick", function(self, event, ...)
             ExportSettings()
 		end)

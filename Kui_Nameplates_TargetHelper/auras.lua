@@ -78,7 +78,10 @@ KuiTargetAuraList = {
 		384631, -- Flagellation
 	},
 	[262] = {	-- ELEMENTAL SHAMAN
-		188389	--	Flame Shock
+		188389,	--	Flame Shock
+		197209,	-- 	Lightning Rod
+		382089,	-- 	Electrified Shocks
+
 	},
 	[263] = {	-- ENHANCE SHAMAN
 		188389,	--	Flame Shock,

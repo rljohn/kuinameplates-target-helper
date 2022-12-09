@@ -239,8 +239,9 @@ function mod:CreateProfilesPanel(parent)
 	footer:SetPoint(FOOTER_ANCHOR_POINT,FOOTER_X, FOOTER_Y)
 
 	-- import/export
-	local subpanel = opt:CreatePanel(parent, nil, GetScrollWidth(), 300)
+	local subpanel = opt:CreateScrollArea(parent, nil, GetScrollWidth(), 260)
 	subpanel:SetPoint('TOPLEFT', panel, 'TOPLEFT', 0, -180)
+	subpanel:SetMouseClickEnabled(true)
 
 	local subtitle = parent:CreateFontString(nil, 'ARTWORK', 'GameFontNormalLarge')
 	subtitle:SetText(opt.titles["ImportExportTitle"])
