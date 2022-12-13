@@ -44,5 +44,36 @@ DragonFlightS1Targets = {
 			197698, -- Thunderhead
 			197985, -- Flame Channeler
 		},
-	}
+	},
+	[5] = {
+		name = "Court of Stars - Dragonflight Season One",
+		npcs = {
+			104251,	-- Duskwatch Sentry
+			104247,	-- Duskwatch Arcanist
+			104278, -- Felbound Enforcer
+		},
+	},
+	[6] = {
+		name = "Halls of Valor - Dragonflight Season One",
+		npcs = {
+			95834,	-- Valarjar Mystic
+			101637,	-- Valarjar Aspirant
+		},
+	},
+	[7] = {
+		name = "Shadowmoon Burial Grounds - Dragonflight Season One",
+		npcs = {
+			75713,	-- Shadowmoon Bone-Mender
+			75652,	-- Void Spawn
+			77700,	-- Shadowmoon Exhumer
+		},
+	},
+	[8] = {
+		name = "Temple of the Jade Serpent - Dragonflight Season One",
+		npcs = {
+			59873,	-- Corrupt Living Water
+			59546,	-- The Talking Fish
+			200131,	-- Sha-Touched Guardian
+		},
+	},
 }
