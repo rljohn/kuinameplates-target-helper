@@ -69,7 +69,8 @@ KuiTargetAuraList = {
 	[259] = {	-- ASSASSINATION ROGUE
 		703,	--	Garrote
 		1943,	--	Rupture
-		{703,1943} -- Garrote + Rupture
+		{703,1943}, -- Garrote + Rupture
+		394036,	-- Serrated Bone Spike
 	},
 	[261] = { 	-- SUBLETY ROGUE
 		316220, -- Find Weakness
