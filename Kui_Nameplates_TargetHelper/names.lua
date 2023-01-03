@@ -66,6 +66,7 @@ DragonFlightS1Targets = {
 			75713,	-- Shadowmoon Bone-Mender
 			75652,	-- Void Spawn
 			77700,	-- Shadowmoon Exhumer
+			76104,  -- Monstrous Corpse Spider
 		},
 	},
 	[8] = {

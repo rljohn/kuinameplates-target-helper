@@ -34,6 +34,8 @@ KuiTargetAuraList = {
 		164815,	--	Sunfire
 		164812,	-- 	Moonfire
 		{164815,164812}, -- Moon Fire, Sunfire
+		202347,	-- 	Stellar Flare
+		{164815,164812,202347}, -- Moon Fire, Sunfire, Stellar Flare
 		155722,	-- 	Rake
 		1079,	--	Rip
 	},
