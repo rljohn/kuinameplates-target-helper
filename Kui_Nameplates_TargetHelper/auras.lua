@@ -15,27 +15,26 @@ KuiTargetAuraList = {
 		{589,34914} -- Vampiric Touch + Shadow Word: Pain
 	}, 
 	[265] = {	-- AFFLICTION WARLOCK
+		{172,980,30108,48181}, -- Corruption + Agony + UA + Haunt
+		{172,980,30108}, -- Corruption + Agony + Unstable Affliction
+		{172,980,48181}, -- Corruption + Agony + Haunt
+		{172,980}, -- Corruption + Agony
 		172,	--	Corruption
 		980,	--	Agony
 		30108,	-- 	Unstable Affliction
 		48181,	-- 	Haunt
-		27243,	-- 	Seed of Corruption
-		{172,980}, -- Corruption + Agony
-		{172,980,48181}, -- Corruption + Agony + Haunt
-		{172,980,30108}, -- Corruption + Agony + Unstable Affliction
-		{172,980,30108,48181}, -- Corruption + Agony + UA + Haunt
-
+		27243,	-- 	Seed of Corruption		
 	},
 	[267] = {	-- DESTRUCTION WARLOCK
 		157736,	-- Immolate
 		80240,	-- Havoc
 	},
 	[102] = {	-- BALANCE DRUID
-		164815,	--	Sunfire
-		164812,	-- 	Moonfire
+		{164815,164812,202347}, -- Moon Fire, Sunfire, Stellar Flare	
 		{164815,164812}, -- Moon Fire, Sunfire
 		202347,	-- 	Stellar Flare
-		{164815,164812,202347}, -- Moon Fire, Sunfire, Stellar Flare
+		164815,	--	Sunfire
+		164812,	-- 	Moonfire
 		155722,	-- 	Rake
 		1079,	--	Rip
 	},

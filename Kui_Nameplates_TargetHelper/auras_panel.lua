@@ -13,7 +13,7 @@ function mod:HideAuras()
     end
 end
 
-function mod:CreateAbilityFrame(spellid, name, icon, icon2)
+function mod:CreateAbilityFrame(spellid, name, icon, icon2, icon3, icon4)
 	
 	local f
 	
@@ -118,6 +118,48 @@ function mod:CreateAbilityFrame(spellid, name, icon, icon2)
 				opt:OnTooltipLeave(f)
 			end)
 		end
+
+		if (icon3 ~= nil) then
+			f.auraicon3 = CreateFrame("Button", nil, f, "BackdropTemplate");
+			f.auraicon3:SetSize(48,48);
+			f.auraicon3:SetPoint('LEFT');
+			f.auraicon3:SetBackdrop({
+				bgFile=icon3,
+				edgeFile=nil,
+				edgeSize=1,
+				insets={top=2,right=2,bottom=2,left=2}
+			})
+			f.auraicon3:SetPoint('LEFT', f.auraicon2, 'RIGHT', 4, 0)
+			f.auraicon3:SetScript('OnEnter', function(self)
+				f.highlight:Show()
+				opt:OnTooltipEnter(f)
+			end)
+			f.auraicon3:SetScript('OnLeave', function(self)
+				f.highlight:Hide()
+				opt:OnTooltipLeave(f)
+			end)
+		end
+		
+		if (icon4 ~= nil) then
+			f.auraicon4 = CreateFrame("Button", nil, f, "BackdropTemplate");
+			f.auraicon4:SetSize(48,48);
+			f.auraicon4:SetPoint('LEFT');
+			f.auraicon4:SetBackdrop({
+				bgFile=icon4,
+				edgeFile=nil,
+				edgeSize=1,
+				insets={top=2,right=2,bottom=2,left=2}
+			})
+			f.auraicon4:SetPoint('LEFT', f.auraicon3, 'RIGHT', 4, 0)
+			f.auraicon4:SetScript('OnEnter', function(self)
+				f.highlight:Show()
+				opt:OnTooltipEnter(f)
+			end)
+			f.auraicon4:SetScript('OnLeave', function(self)
+				f.highlight:Hide()
+				opt:OnTooltipLeave(f)
+			end)
+		end
 		
 		f.check = opt:CreateClassAuraCheckBox(f, spellid, name)
 
@@ -202,9 +244,97 @@ function mod:CreateAbilityFrame(spellid, name, icon, icon2)
 			f.auraicon2:Hide()
 		end
 	end
+
+	-- update icon3 if needed
+	if (icon3 ~= nil) then
+	
+		-- create aura icon 2 if needed
+		if (f.auraicon3 == nil) then
+			f.auraicon3 = CreateFrame("Button", nil, f, "BackdropTemplate");
+			f.auraicon3:SetSize(48,48);
+			f.auraicon3:SetPoint('LEFT');
+			f.auraicon3:SetBackdrop({
+				bgFile=icon3,
+				edgeFile=nil,
+				edgeSize=1,
+				insets={top=2,right=2,bottom=2,left=2}
+			})
+			f.auraicon3:SetPoint('LEFT', f.auraicon2, 'RIGHT', 4, 0)
+			f.auraicon3:SetScript('OnEnter', function(self)
+				f.highlight:Show()
+				opt:OnTooltipEnter(f)
+			end)
+			f.auraicon3:SetScript('OnLeave', function(self)
+				f.highlight:Hide()
+				opt:OnTooltipLeave(f)
+			end)
+		end
+		
+		-- update aura icon 3
+		f.auraicon3:SetBackdrop({
+			bgFile=icon3,
+			edgeFile=nil,
+			edgeSize=1,
+			insets={top=2,right=2,bottom=2,left=2}
+		})
+		
+		-- show aura icon 3
+		f.auraicon3:Show()
+	else 
+		-- hide aura icon 3 if needed
+		if f.auraicon3 ~= nil then
+			f.auraicon3:Hide()
+		end
+	end
+
+	-- update icon4 if needed
+	if (icon4 ~= nil) then
+	
+		-- create aura icon 2 if needed
+		if (f.auraicon4 == nil) then
+			f.auraicon4 = CreateFrame("Button", nil, f, "BackdropTemplate");
+			f.auraicon4:SetSize(48,48);
+			f.auraicon4:SetPoint('LEFT');
+			f.auraicon4:SetBackdrop({
+				bgFile=icon4,
+				edgeFile=nil,
+				edgeSize=1,
+				insets={top=2,right=2,bottom=2,left=2}
+			})
+			f.auraicon4:SetPoint('LEFT', f.auraicon3, 'RIGHT', 4, 0)
+			f.auraicon4:SetScript('OnEnter', function(self)
+				f.highlight:Show()
+				opt:OnTooltipEnter(f)
+			end)
+			f.auraicon4:SetScript('OnLeave', function(self)
+				f.highlight:Hide()
+				opt:OnTooltipLeave(f)
+			end)
+		end
+		
+		-- update aura icon 3
+		f.auraicon4:SetBackdrop({
+			bgFile=icon4,
+			edgeFile=nil,
+			edgeSize=1,
+			insets={top=2,right=2,bottom=2,left=2}
+		})
+		
+		-- show aura icon 3
+		f.auraicon4:Show()
+	else 
+		-- hide aura icon 3 if needed
+		if f.auraicon4 ~= nil then
+			f.auraicon4:Hide()
+		end
+	end
 		
 	-- update checkpoint pos
-	if (icon2 ~= nil) then
+	if (icon4 ~= nil) then
+		f.check:SetPoint('LEFT', f.auraicon4, 'RIGHT', 4, 0)
+	elseif (icon3 ~= nil) then
+		f.check:SetPoint('LEFT', f.auraicon3, 'RIGHT', 4, 0)
+	elseif (icon2 ~= nil) then
 		f.check:SetPoint('LEFT', f.auraicon2, 'RIGHT', 4, 0)
 	else
 		f.check:SetPoint('LEFT', f.auraicon, 'RIGHT', 4, 0)
@@ -231,6 +361,9 @@ function mod:AddClassAuras(specId, abilities)
 		
 			local icon1 = nil
 			local icon2 = nil
+			local icon3 = nil
+			local icon4 = nil
+
 			local abilitySum = 0
 			
 			table.foreach(ability, function(k, v)
@@ -245,14 +378,18 @@ function mod:AddClassAuras(specId, abilities)
 				
 				if (icon1 == nil) then
 					icon1 = icon
-				else
+				elseif (icon2 == nil) then
 					icon2 = icon
+				elseif (icon3 == nil) then
+					icon3 = icon
+				else
+					icon4 = icon
 				end
 				
 				first = false
 			end)
 			
-			f = mod:CreateAbilityFrame ( abilitySum, abilityString, icon1, icon2);
+			f = mod:CreateAbilityFrame ( abilitySum, abilityString, icon1, icon2, icon3, icon4);
 			
 		else
 			local name, rank, icon, castTime, minRange, maxRange = GetSpellInfo(abilityNum)
