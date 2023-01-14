@@ -159,7 +159,7 @@ function mod:CreateMainPanel(parent)
 	opt.ui.execute_edgesize:SetPoint("TOPLEFT", opt.ui.execute_border_color, "TOPRIGHT", 25, 0)
 	opt:AddTooltip(opt.ui.execute_edgesize, opt.titles.ExecuteEdgeSize, opt.titles.ExecuteEdgeSizeTooltip)
 
-	if (not opt.plugin_execute.plugin_enabled) then
+	if (opt.plugin_execute and not opt.plugin_execute.plugin_enabled) then
 		opt:OnExecutePluginEnabled(opt.plugin_execute.plugin_enabled)
 	end
 

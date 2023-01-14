@@ -296,6 +296,8 @@ end
 
 function mod:EvaluateBorder(frame)
 
+	if frame.IN_NAMEONLY then return end
+
 	if (frame.HealthBar == nil) then
 		return
 	end
@@ -507,7 +509,7 @@ function mod:Initialise()
 			opt:original_kui_show_function(unit_token)
 		else
 			local f = C_NamePlate.GetNamePlateForUnit(unit_token)
-			if (f.UnitFrame) then
+			if (f and f.UnitFrame) then
 				f.UnitFrame:Hide()
 			end
 		end
@@ -548,7 +550,7 @@ function mod:Initialised()
 	
 	-- fades
 	plugin_fading = addon:GetPlugin('Fading')
-    self:AddCallback('Fading','FadeRulesReset',self.Fading_FadeRulesReset)
+   	self:AddCallback('Fading','FadeRulesReset',self.Fading_FadeRulesReset)
     self.Fading_FadeRulesReset()
 	
 	-- text
