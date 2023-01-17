@@ -4,6 +4,7 @@ MythicPlusTargets = {
 		npcs = {
 			120651, -- Explosives
 			189706, -- Chaotic Essence
+			174773, -- Spiteful Shade
 		},
 	},
 }
@@ -34,7 +35,6 @@ DragonFlightS1Targets = {
 		npcs = {
 			196115, -- Arcane Tender
 			187160, -- Crystal Fury
-			187139, -- Crystal Thrasher
 		},
 	},
 	[4] = {

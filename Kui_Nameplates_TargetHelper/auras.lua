@@ -30,7 +30,8 @@ KuiTargetAuraList = {
 		80240,	-- Havoc
 	},
 	[102] = {	-- BALANCE DRUID
-		{164815,164812,202347}, -- Moon Fire, Sunfire, Stellar Flare	
+		{164815,164812,202347}, -- Moon Fire, Sunfire, Stellar Flare
+		{164815,202347}, -- Moon Fire, Stellar Flare	
 		{164815,164812}, -- Moon Fire, Sunfire
 		202347,	-- 	Stellar Flare
 		164815,	--	Sunfire
