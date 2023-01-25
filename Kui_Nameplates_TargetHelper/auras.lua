@@ -31,11 +31,12 @@ KuiTargetAuraList = {
 	},
 	[102] = {	-- BALANCE DRUID
 		{164815,164812,202347}, -- Moon Fire, Sunfire, Stellar Flare
-		{164815,202347}, -- Moon Fire, Stellar Flare	
+		{164815,202347}, -- Moon Fire, Stellar Flare
 		{164815,164812}, -- Moon Fire, Sunfire
 		202347,	-- 	Stellar Flare
 		164815,	--	Sunfire
 		164812,	-- 	Moonfire
+		{155722,1079}, -- Rake, Rip
 		155722,	-- 	Rake
 		1079,	--	Rip
 	},
@@ -47,7 +48,12 @@ KuiTargetAuraList = {
 		{155722,1079}, -- Rake, Rip
 	},
 	[105] = {	-- RESTO DRUID
+		{164815,164812}, -- Moon Fire, Sunfire
 		164812,	-- 	Moonfire
+		164815,	--	Sunfire
+		{155722,1079}, -- Rake, Rip
+		155722,	-- 	Rake
+		1079,	--	Rip
 	},
 	[250] = { 	-- BLOOD DK
 		55078	-- 	Blood Plague

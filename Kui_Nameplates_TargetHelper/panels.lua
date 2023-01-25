@@ -300,7 +300,7 @@ function mod:CreateCustomAurasPanel(parent)
 	
 	opt.ui.spellListWarning = parent:CreateFontString(nil, 'ARTWORK', 'GameFontWhite')
 	opt.ui.spellListWarning:SetText(opt.titles.SpellListWarning)
-	opt.ui.spellListWarning:SetPoint('BOTTOMLEFT', opt.ui.auralist, 'BOTTOMLEFT', 4, 8)
+	opt.ui.spellListWarning:SetPoint('TOPLEFT', opt.ui.auralist, 'BOTTOMLEFT', 4, -16)
 	opt.ui.spellListWarning:SetJustifyH('LEFT')
 	
 end

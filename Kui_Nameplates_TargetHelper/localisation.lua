@@ -113,7 +113,7 @@ function opt:SetupLocale()
 		
 		-- class auras panel
 		ClassAurasHeader = "Configure custom colors to use for enemy nameplates based on your debuffs.",
-		SpellListWarning = 'This plugin only supports debuffs that are shown on KUI Nameplates.\n\nYou may need to add some spells to the KUI Spell List to see them.  (i.e. Lashing Flames)',
+		SpellListWarning = 'This plugin only supports debuffs that are shown on KUI Nameplates.\n\nYou may need to download and configure KuiSpellListConfig to see them.',
 		
 		-- unit names panel
 		UnitNamesTitle = "Rename Units",
