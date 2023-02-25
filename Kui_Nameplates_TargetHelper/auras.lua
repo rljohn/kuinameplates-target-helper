@@ -65,10 +65,12 @@ KuiTargetAuraList = {
 	[254] = {	-- MARKSMAN HUNTER
 		271788,	-- Serpent Sting
 		385638, -- Razor Fragments
+		378015,	-- Latent Poison
 	},
 	[255] = {	-- SURVIVAL HUNTER
 		185855,	-- 	Lacerate,
-		259491	--  Serpent Sting
+		259491,	--  Serpent Sting
+		378015,	-- Latent Poison
 	},
 	[63] = {	-- FIRE MAGE
 		12846,	--	Mastery: Ignite

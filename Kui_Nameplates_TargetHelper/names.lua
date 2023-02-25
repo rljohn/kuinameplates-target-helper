@@ -78,3 +78,62 @@ DragonFlightS1Targets = {
 		},
 	},
 }
+
+DragonFlightS2Targets = {
+	[1] = {
+		name = "",
+		scary_npcs = {
+		},
+		casters = {
+		}
+	},
+	[2] = {
+		name = "",
+		scary_npcs = {
+		},
+		casters = {
+		}
+	},
+	[3] = {
+		name = "",
+		scary_npcs = {
+		},
+		casters = {
+		}
+	},
+	[4] = {
+		name = "",
+		scary_npcs = {
+		},
+		casters = {
+		}
+	},
+	[5] = {
+		name = "",
+		scary_npcs = {
+		},
+		casters = {
+		}
+	},
+	[6] = {
+		name = "",
+		scary_npcs = {
+		},
+		casters = {
+		}
+	},
+	[7] = {
+		name = "",
+		scary_npcs = {
+		},
+		casters = {
+		}
+	},
+	[8] = {
+		name = "",
+		scary_npcs = {
+		},
+		casters = {
+		}
+	}
+}
