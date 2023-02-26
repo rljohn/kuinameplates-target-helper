@@ -144,38 +144,37 @@ function mod:hasAura(frame)
 			end -- if enabled
 		else
 			-- complex ability, requiring multiple hits
-			local allFound = true
+			
 			local foundCount = 0
 			local abilitySum = 0
 			
 			-- iterate through all abilities
+			local allFound = true
+
 			table.foreach(ability, function(k2, v2)
 			
+				-- find a button that matches this ability
+				local found = false
+
 				-- sum up the abilities
 				abilitySum = abilitySum + v2
 				
 				-- iterate through active frames
 				for _,auras_frame in pairs(frame.Auras.frames) do
-					if (auras_frame.visible) then
-						if (auras_frame.visible > 0) then
-						
-							-- find a button that matches this ability
-							local found = false
-							for _,button in ipairs(auras_frame.buttons) do
-								if (v2 == button.spellid) then
-									found = true
-									foundCount = foundCount + 1
-									break
-								end
-							end
-							
-							-- if we didn't find a match, the set is invalid
-							if (found == false) then
-								allFound = false
+					if (auras_frame.visible and auras_frame.visible > 0) then
+						for _,button in ipairs(auras_frame.buttons) do
+							if (v2 == button.spellid) then
+								found = true
+								foundCount = foundCount + 1
 								break
 							end
 						end
 					end
+				end
+
+				-- if we didn't find a match, the set is invalid
+				if (found == false) then
+					allFound = false
 				end
 			end)
 			
