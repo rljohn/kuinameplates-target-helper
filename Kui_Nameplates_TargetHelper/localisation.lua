@@ -145,8 +145,8 @@ function opt:SetupLocale()
 		SpecialTargets = 'Mythic+ and Raid Targets',
 		SpecialTargetsTooltip = 'Explosive Orbs, Chaotic Essence, etc...',
 
-		SeasonOneTooltip = 'Dragonflight: Season One',
-		SeasonOneTooltipText = 'Add enemies from Dragonflight Season One dungeons',
+		SeasonTooltip = 'Dragonflight: Season Two',
+		SeasonTooltipText = 'Add enemies from Dragonflight Season Two dungeons',
 	}
 end
 

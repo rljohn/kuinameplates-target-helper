@@ -81,59 +81,123 @@ DragonFlightS1Targets = {
 
 DragonFlightS2Targets = {
 	[1] = {
-		name = "",
+		name = "Halls of Infusion",
 		scary_npcs = {
+			190371, -- Primalist Earthshaker
+		},
+		notable = {
+			190342, -- Containment Apparatus
 		},
 		casters = {
+			190345, -- Primalist Geomancer
+			190377, -- Primalist Icecaller
+			190373, -- Primalist Galesinger
 		}
 	},
 	[2] = {
-		name = "",
+		name = "Brackenhide Hollow",
 		scary_npcs = {
+			195135, -- Bracken Warscourge
+			186208, -- Rotbow Stalker
+			187033, -- Stinkbreath
+			186229, -- Wilted Oak
+			186226, -- Fetid Rotsinger
+		},
+		notable = {
+			186191, -- Decay Speaker
+			382435, -- Rotchanting Totem
+			190426, -- Decay Totem
 		},
 		casters = {
+			185534, -- Bonebolt Hunter
+			186191, -- Decay Speaker
+			185528, -- Trickclaw mystic
+			185656, -- Filth Caller
+			187224, -- Vile Rothexer
 		}
 	},
 	[3] = {
-		name = "",
+		name = "Uldaman",
 		scary_npcs = {
+			184020, -- Hulking Berserker
+			184300, -- Ebonstone Golem
 		},
 		casters = {
+			184022, -- Stonevault Geomancer
+			186420, -- Earthen Weaver
 		}
 	},
 	[4] = {
-		name = "",
+		name = "Neltharus",
 		scary_npcs = {
+			189235, -- Overseer Lahar
+			189464, -- Qalashi Irontorch
+			189466, -- Irontorch Commander
 		},
 		casters = {
+			189265, -- Qalashi Bonetender
+			192788, -- Qalashi Thaumaturge
 		}
 	},
 	[5] = {
-		name = "",
+		name = "Neltharion's Lair",
 		scary_npcs = {
+			91006, -- Rockback Gnasher
+			90997, -- Mightstone Breaker
+			113537, -- Emberhusk Dominator
+		},
+		notable = {
+			92610, -- Understone Drummer
+			94869, -- Tarspitter Grub
 		},
 		casters = {
+			90998, -- Blightshard Shaper
+			102232, -- Rockbound Trapper
 		}
 	},
 	[6] = {
-		name = "",
+		name = "Freehold",
 		scary_npcs = {
+			129602, -- Irontide Enforcer
+			130400, -- Irontide Crusher
+		},
+		notable = {
+			130012, -- Irontide Ravager
 		},
 		casters = {
+			127111, -- Irontide Oarsman
+			129547, -- Blacktooth Knuckleduster
+			126919, -- Irontide Stormcaller
 		}
 	},
 	[7] = {
-		name = "",
+		name = "The Underrot",
 		scary_npcs = {
+			131436, -- Chosen Blood Matron
+			133870, -- Diseased Lasher
+		},
+		notable = {
+			133685, -- Befouled Spirit
+			133835, -- Feral Bloodswarmer
+			134284 -- Fallen Deathspeaker
 		},
 		casters = {
+			131492, -- Devout Blood Priest
+			133852, -- Living Rot
+			133912, -- Bloodsworn Defiler
 		}
 	},
 	[8] = {
-		name = "",
+		name = "Vortex Pinnacle",
 		scary_npcs = {
+			45928, -- Executor of the Caliph
+		},
+		notable = {
+			45935, -- Temple Adept
 		},
 		casters = {
+			45912, -- Wind Vortex
+			45930, -- Minister of Air
 		}
 	}
 }

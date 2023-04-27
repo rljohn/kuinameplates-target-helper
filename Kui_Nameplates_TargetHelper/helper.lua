@@ -696,7 +696,7 @@ StaticPopupDialogs["KUI_TargetHelper_ClearEnemiesConfirm"] = {
 
 
 StaticPopupDialogs["KUI_TargetHelper_MPlusConfirm"] = {
-	text = "Do you want to import enemies from Mythic+ and Raids?",
+	text = "Do you want to import seasonal affix enemies from Mythic+ and Raids?",
 	button1 = "Yes",
 	button2 = "No",
 	OnAccept = function(self, data, data2)
@@ -708,12 +708,12 @@ StaticPopupDialogs["KUI_TargetHelper_MPlusConfirm"] = {
 	preferredIndex = 3,
 }
 
-StaticPopupDialogs["KUI_TargetHelper_S1Confirm"] = {
-	text = "Do you want to import enemies from Dragonflight Season One?",
+StaticPopupDialogs["KUI_TargetHelper_S2Confirm"] = {
+	text = "Do you want to import enemies from Dragonflight Season Two?",
 	button1 = "Yes",
 	button2 = "No",
 	OnAccept = function(self, data, data2)
-		mod:AddDragonFlightTargetsSeasonOne(data)
+		mod:AddDragonFlightTargetsSeasonTwo(data)
 	end,
 	timeout = 0,
   	whileDead = true,
