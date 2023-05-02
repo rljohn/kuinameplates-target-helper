@@ -17,7 +17,7 @@ opt.TimeSinceLastUpdate = 0
 -- addon info
 opt.info = {
 	name = 'KuiNameplates: Target Helper',
-	version = '1.2.17',
+	version = '1.2.18',
 	header = '%s (%s) by rljohn'
 }
 
