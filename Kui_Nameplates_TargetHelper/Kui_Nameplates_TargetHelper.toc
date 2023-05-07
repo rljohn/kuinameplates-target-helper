@@ -6,6 +6,8 @@
 ## OptionalDeps: _DebugLog
 ## SavedVariables: KuiTargetHelperConfigSaved, KuiTargetHelperDB
 ## SavedVariablesPerCharacter: KuiTargetHelperConfigCharSaved
+## IconTexture: 132212
+## AddonCompartmentFunc: KuiTargetHelper_OnAddonCompartmentClick
 
 # Libs
 embeds.xml

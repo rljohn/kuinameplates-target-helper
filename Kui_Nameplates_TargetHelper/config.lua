@@ -17,7 +17,7 @@ opt.TimeSinceLastUpdate = 0
 -- addon info
 opt.info = {
 	name = 'KuiNameplates: Target Helper',
-	version = '1.2.18',
+	version = '1.2.19',
 	header = '%s (%s) by rljohn'
 }
 
@@ -325,6 +325,10 @@ function mod:LoadConfigUi()
 	mod:CreateRenamesPanel(unit_names)
 	mod:CreateFilterPanel(unit_filter)
 	mod:CreateCVarPanel(cvars)
+end
+
+function KuiTargetHelper_OnAddonCompartmentClick(addonName, buttonName)
+	InterfaceOptionsFrame_OpenToCategory(opt)
 end
 
 function opt:ReloadGlobalData()
