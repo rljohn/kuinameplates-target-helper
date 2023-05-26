@@ -451,10 +451,12 @@ function mod:UNIT_AURA(event,frame)
     self:UpdateTargetFrame(frame)
 end
 
-function mod:PLAYER_SPECIALIZATION_CHANGED()
-	mod:RefreshClassData()
-	mod:SpecUpdate()
-	config_mod:ReloadValues()
+function mod:PLAYER_SPECIALIZATION_CHANGED(event, unit)
+	if (unit == "player") then
+		mod:RefreshClassData()
+		mod:SpecUpdate()
+		config_mod:ReloadValues()
+	end
 end
 
 opt.original_kui_show_function = nil

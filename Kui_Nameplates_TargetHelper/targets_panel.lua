@@ -146,26 +146,14 @@ end
 function mod:RefreshCustomTargets()
 	
 	mod:HideTargets()
-	
+
 	if (opt.env.CustomTargets == nil) then
 		return
 	end
 	
-	local previousFrame = nil;
-	
-	for k,v in mod:SortedPairs ( opt.env.CustomTargets ) do
-	
-		local f = mod:CreateTargetFrame ( k, v, opt.env.UseCustomTargets );
-		
-		if previousFrame then
-            f:SetPoint('TOPLEFT', previousFrame, 'BOTTOMLEFT', 0, -2)
-        else
-            f:SetPoint('TOPLEFT')
-        end
-		
-		f:Show();
-		previousFrame = f;
-	end
+	RunNextFrame(function()
+		mod:ContinueCreatingCustomTargetFrames()
+	end)
 
 	for i=1,12 do
 		local key = 'SavedColor' .. i
@@ -174,6 +162,38 @@ function mod:RefreshCustomTargets()
 		if (setting and frame) then
 			frame:SetBackdropColor(setting.r, setting.g, setting.b, setting.a)
 		end
+	end
+end
+
+function mod:ContinueCreatingCustomTargetFrames()
+
+	local previousFrame = nil;
+	
+	local delay = 0
+	local per_frame = 2
+	local count = 0
+
+	for k,v in mod:SortedPairs ( opt.env.CustomTargets ) do
+
+		-- throttling
+		count = count + 1
+		if (count >= per_frame) then
+			delay = delay + 0.1
+			count = 0
+		end
+
+		C_Timer.After(delay, function()
+			local f = mod:CreateTargetFrame ( k, v, opt.env.UseCustomTargets );
+		
+			if previousFrame then
+				f:SetPoint('TOPLEFT', previousFrame, 'BOTTOMLEFT', 0, -2)
+			else
+				f:SetPoint('TOPLEFT')
+			end
+			
+			f:Show();
+			previousFrame = f;
+		end)
 	end
 end
 
