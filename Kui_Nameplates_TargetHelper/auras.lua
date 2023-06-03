@@ -56,9 +56,14 @@ KuiTargetAuraList = {
 		1079,	--	Rip
 	},
 	[250] = { 	-- BLOOD DK
-		55078	-- 	Blood Plague
+		55078,	-- 	Blood Plague,
+		391568,	--  Insidious Chill
+	},
+	[251] = { 	-- Frost DK
+		391568,	--  Insidious Chill
 	},
 	[252] = { 	-- Unholy DK
+		391568,	--  Insidious Chill
 		191587,	-- 	Viralent Plague
 		194310,	-- Festering Wound
 	},

@@ -17,27 +17,22 @@ function rlPrintf(...)
   end
 end
 
-function mod:SortedPairs(t, order)
-    -- collect the keys
-    local keys = {}
-    for k in pairs(t) do keys[#keys+1] = k end
+function mod:SortedPairs(t)
 
-    -- if order function given, sort by it by passing the table and keys a, b,
-    -- otherwise just sort the keys 
-    if order then
-        table.sort(keys, function(a,b) return order(t, a, b) end)
-    else
-        table.sort(keys, function(a, b) return a:upper() < b:upper() end)
-    end
+	-- collect the keys
+	local keys = {}
+	for k in pairs(t) do keys[#keys+1] = k end
 
-    -- return the iterator function
-    local i = 0
-    return function()
-        i = i + 1
-        if keys[i] then
-            return keys[i], t[keys[i]]
-        end
-    end
+	-- sort the keys
+	table.sort(keys, function(a, b) return a:upper() < b:upper() end)
+
+	-- create an indexed array
+	local results = {}
+	for i=0,#keys do
+		results[i] = { keys[i], t[keys[i]] }
+	end
+
+	return results
 end
 
 -- HELPER FUNCTIONS

@@ -3,6 +3,7 @@ local mod = KuiConfigTargetHelperMod
 
 opt.currentEditName = ''
 local currentRemoveName
+local previousFrame = nil;
 
 function mod:ClearCustomTargets()
 	opt.env.CustomTargets = {}
@@ -10,6 +11,9 @@ function mod:ClearCustomTargets()
 end
 
 function mod:HideTargets()
+
+	previousFrame = nil
+
 	if opt.ui.targets == nil then
 		return
 	end
@@ -143,17 +147,27 @@ function mod:CreateTargetFrame(name, color, active)
 	
 end
 
+local in_progress = false
+local queued = false
+
 function mod:RefreshCustomTargets()
 	
-	mod:HideTargets()
-
 	if (opt.env.CustomTargets == nil) then
 		return
 	end
 	
-	RunNextFrame(function()
-		mod:ContinueCreatingCustomTargetFrames()
-	end)
+	-- sometimes a couple events can queue this up
+	-- don't queue 2 refreshes at once
+	-- and queue it up on the next frame preferably
+	-- wait for all frames to be created
+	if not in_progress and not queued then
+		mod:HideTargets()
+		queued = true
+		RunNextFrame(function()
+			mod:StartBuildingCustomFrames()
+			queued = false
+		end)
+	end
 
 	for i=1,12 do
 		local key = 'SavedColor' .. i
@@ -165,36 +179,47 @@ function mod:RefreshCustomTargets()
 	end
 end
 
-function mod:ContinueCreatingCustomTargetFrames()
+function mod:BuildTargetFrames(targets, first, size, total)
 
-	local previousFrame = nil;
-	
-	local delay = 0
-	local per_frame = 2
-	local count = 0
+	for i=first,first+size-1 do
 
-	for k,v in mod:SortedPairs ( opt.env.CustomTargets ) do
+		if (i <= total) then
+			local entry = targets[i]
+			local k = entry[1]
+			local v = entry[2]
 
-		-- throttling
-		count = count + 1
-		if (count >= per_frame) then
-			delay = delay + 0.1
-			count = 0
-		end
-
-		C_Timer.After(delay, function()
 			local f = mod:CreateTargetFrame ( k, v, opt.env.UseCustomTargets );
-		
-			if previousFrame then
+				
+			if previousFrame and f ~= previousFrame then
 				f:SetPoint('TOPLEFT', previousFrame, 'BOTTOMLEFT', 0, -2)
 			else
-				f:SetPoint('TOPLEFT')
+				f:SetPoint('TOPLEFT', opt.ui.scroll.panel, 'TOPLEFT')
 			end
-			
-			f:Show();
-			previousFrame = f;
-		end)
+
+			previousFrame = f
+		end
+
 	end
+
+	if (first+size < total) then
+		local newFirst = first + size
+		RunNextFrame(function()
+			mod:BuildTargetFrames(targets, newFirst, size, total)
+			queued = false
+		end)
+	else
+		in_progress = false
+	end
+end
+
+function mod:StartBuildingCustomFrames()
+
+	-- created a sorted 
+	local copy = mod:SortedPairs( opt.env.CustomTargets )
+	local total = #copy
+	in_progress = true
+	local per_frame = 10
+	mod:BuildTargetFrames(copy, 1, per_frame, total)
 end
 
 function opt:CheckExistingContext(newName, source, context)
@@ -228,7 +253,16 @@ function opt:TargetEdit(newName)
 	local LOCALE = GetLocale()
 	opt:CheckExistingContext(newName, DefaultTargets, opt.titles.ContextBuiltIn)
 	opt:CheckExistingContext(newName, ShadowlandsDungeonTargets, opt.titles.ContextSLDungeons)
-	mod:RefreshCustomTargets()
+
+	-- update frame
+	for _,frame in pairs(opt.ui.targets) do
+		if (frame.id == opt.currentEditName) then
+			frame.id = newName
+			frame.name:SetText(newName);
+			break
+		end
+	end
+	
 	opt:ResetFrames()
 end
 
@@ -243,7 +277,31 @@ function mod:AddTarget(name,color,context,context_color)
 	opt.env.CustomTargets[name].a = color.a
 	opt.env.CustomTargets[name].context = context
 	opt.env.CustomTargets[name].context_color = context_color
-	mod:RefreshCustomTargets();
+
+	local num_frames = #opt.ui.targets
+	local last_frame = opt.ui.targets[num_frames]
+
+	local exists = false
+	for _,frame in pairs(opt.ui.targets) do
+		if (frame.id == name) then
+			frame.name:SetTextColor(color.r, color.g, color.b)
+			frame.icon:SetBackdropBorderColor(.5,.5,.5)
+			frame.icon:SetBackdropColor (color.r, color.g, color.b, 1)
+			exists =true
+			break
+		end
+	end
+
+	-- create frame for it if we must
+	if not exists then
+		if num_frames == 0 then
+			mod:RefreshCustomTargets()
+		else
+			local f = mod:CreateTargetFrame ( name, color, opt.env.UseCustomTargets );
+			f:SetPoint('TOPLEFT', last_frame, 'BOTTOMLEFT', 0, -2)
+		end
+	end
+
 	opt:ResetFrames()
 end
 
@@ -252,10 +310,29 @@ function opt:ConfirmTargetDelete()
 end
 
 function mod:RemoveTarget(name)
+
 	if (opt.env.CustomTargets[name] ~= nil) then
 		opt.env.CustomTargets[name] = nil;
 	end
-	mod:RefreshCustomTargets();
+
+	-- find frame, remove and retarget
+	local moveNext = false
+	local previousFrame = nil
+
+	for _,frame in pairs(opt.ui.targets) do
+
+		if (frame.id == name) then
+			frame:Hide()
+			frame.highlight:Hide()
+			moveNext = true
+		elseif moveNext then
+			frame:SetPoint('TOPLEFT', previousFrame, 'BOTTOMLEFT', 0, -2)
+			break
+		else
+			previousFrame = frame
+		end
+	end
+
 	opt:ResetFrames()
 end
 

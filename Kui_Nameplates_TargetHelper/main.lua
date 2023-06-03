@@ -280,7 +280,7 @@ function mod:UpdateTargetFrame(frame)
     elseif col then
         if CanOverwriteHealthColor(frame, opt.env.Priority) then
             frame.state.bar_is_name_coloured = true
-            frame.state.health_colour_priority = opt.env.Priority
+            frame.state.health_colour_priority = opt.env.Priority + 0.1
 			
 			if (frame.HealthBar ~= nil) then
 				frame.HealthBar:SetStatusBarColor(unpack(col))
@@ -455,7 +455,7 @@ function mod:PLAYER_SPECIALIZATION_CHANGED(event, unit)
 	if (unit == "player") then
 		mod:RefreshClassData()
 		mod:SpecUpdate()
-		config_mod:ReloadValues()
+		config_mod:ReloadValues(true)
 	end
 end
 

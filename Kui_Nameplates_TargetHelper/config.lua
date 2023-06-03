@@ -17,7 +17,7 @@ opt.TimeSinceLastUpdate = 0
 -- addon info
 opt.info = {
 	name = 'KuiNameplates: Target Helper',
-	version = '1.2.19',
+	version = '1.2.21',
 	header = '%s (%s) by rljohn'
 }
 
@@ -167,7 +167,7 @@ function mod:ResetUi()
 	opt:DisableCVars()
 end
 
-function mod:ReloadValues()
+function mod:ReloadValues(spec_changed)
 	mod:LoadMissingValues()
 	
 	opt.ui.colortarget:SetChecked(opt.env.ColorTarget)
@@ -190,7 +190,10 @@ function mod:ReloadValues()
 	opt.ui.EnableCVars:SetChecked(opt.env.EnableCVars)
 	opt.ui.EnableGlobalData:SetChecked(opt.env.EnableGlobalData)
 	
-	mod:RefreshCustomTargets()
+	if not spec_changed then
+		mod:RefreshCustomTargets()
+	end
+
 	mod:RefreshClassAuras()
 	
 	opt:UpdateCVars()
@@ -352,7 +355,7 @@ function opt:ConfirmGlobalLoad()
 
 	rlPrintf("Global data settings loaded.");
 	opt.env.EnableGlobalData = true
-	mod:ReloadValues()
+	mod:ReloadValues(false)
 end
 
 function opt:ConfirmGlobalSave()
@@ -361,13 +364,13 @@ function opt:ConfirmGlobalSave()
 	
 	rlPrintf("Global data settings saved.");
 	opt.env.EnableGlobalData = true
-	mod:ReloadValues()
+	mod:ReloadValues(false)
 end
 
 function opt:CancelGlobal()
 	rlPrintf("Global data settings not applied.");
 	opt.env.EnableGlobalData = false
-	mod:ReloadValues()
+	mod:ReloadValues(false)
 end
 
 function opt:ConfirmDelete()
