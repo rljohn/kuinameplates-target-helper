@@ -28,6 +28,10 @@ local function CanOverwriteHealthColor(f, priority)
            f.state.health_colour_priority <= priority
 end
 
+local function GetPriority()
+	return opt.env.Priority + 0.1
+end
+
 function mod:LoadClassData()
 	opt.class.name, _, _ = UnitClass("player");
 	opt.class.spec = GetSpecialization()
@@ -265,7 +269,7 @@ function mod:UpdateTargetFrame(frame)
 	-- no matching colour - clear our our colour data?
 	if not col and frame.state.bar_is_name_coloured then
         frame.state.bar_is_name_coloured = nil
-        if CanOverwriteHealthColor(frame, opt.env.Priority) then
+        if CanOverwriteHealthColor(frame, GetPriority()) then
             frame.state.health_colour_priority = nil
 			
 			if (frame.HealthBar ~= nil) then
@@ -278,9 +282,9 @@ function mod:UpdateTargetFrame(frame)
 			end
         end
     elseif col then
-        if CanOverwriteHealthColor(frame, opt.env.Priority) then
+        if CanOverwriteHealthColor(frame, GetPriority()) then
             frame.state.bar_is_name_coloured = true
-            frame.state.health_colour_priority = opt.env.Priority + 0.1
+            frame.state.health_colour_priority = GetPriority()
 			
 			if (frame.HealthBar ~= nil) then
 				frame.HealthBar:SetStatusBarColor(unpack(col))
