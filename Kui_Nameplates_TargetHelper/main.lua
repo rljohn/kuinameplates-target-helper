@@ -511,7 +511,7 @@ function mod:Initialise()
 	addon.NAME_PLATE_UNIT_ADDED = function(self, unit_token)
 		local name = UnitName(unit_token)
 		if (not opt:ShouldFilterUnit(name)) then
-			opt:original_kui_show_function(unit_token)
+			opt.original_kui_show_function(addon, unit_token)
 		else
 			local f = C_NamePlate.GetNamePlateForUnit(unit_token)
 			if (f and f.UnitFrame) then

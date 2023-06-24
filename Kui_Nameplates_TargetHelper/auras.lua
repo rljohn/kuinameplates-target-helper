@@ -111,7 +111,10 @@ KuiTargetAuraList = {
 		262111,	--	Mastery: Deep Wounds
 		262115	--  Deep Wounds
 	},
-	[269] = {		-- MONK (WW)
+	[269] = {	-- MONK (WW)
 		228287	-- 	Mark of the Crane
+	},
+	[581] = {	-- DEMON HUNTER (VENGEANCE)
+		207771	-- Fiery Brand
 	}
 }
