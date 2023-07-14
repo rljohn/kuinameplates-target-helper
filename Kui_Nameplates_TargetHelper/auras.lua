@@ -116,5 +116,8 @@ KuiTargetAuraList = {
 	},
 	[581] = {	-- DEMON HUNTER (VENGEANCE)
 		207771	-- Fiery Brand
+	},
+	[65] = {	-- Paladin (HOLY)
+		287268	-- Glimmer of Light
 	}
 }
