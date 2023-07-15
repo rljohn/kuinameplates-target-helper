@@ -252,7 +252,6 @@ function opt:TargetEdit(newName)
 	
 	local LOCALE = GetLocale()
 	opt:CheckExistingContext(newName, DefaultTargets, opt.titles.ContextBuiltIn)
-	opt:CheckExistingContext(newName, ShadowlandsDungeonTargets, opt.titles.ContextSLDungeons)
 
 	-- update frame
 	for _,frame in pairs(opt.ui.targets) do
@@ -298,7 +297,12 @@ function mod:AddTarget(name,color,context,context_color)
 			mod:RefreshCustomTargets()
 		else
 			local f = mod:CreateTargetFrame ( name, color, opt.env.UseCustomTargets );
-			f:SetPoint('TOPLEFT', last_frame, 'BOTTOMLEFT', 0, -2)
+			if last_frame and f ~= last_frame then
+				f:SetPoint('TOPLEFT', last_frame, 'BOTTOMLEFT', 0, -2)
+			else
+				f:SetPoint('TOPLEFT', opt.ui.scroll.panel, 'TOPLEFT')
+			end
+			f:Show()
 		end
 	end
 
