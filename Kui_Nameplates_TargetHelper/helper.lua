@@ -202,6 +202,28 @@ function opt:EnsureSpecEnabledValid(spellid)
 	end
 end
 
+local KSL = LibStub('KuiSpellList-2.0')
+
+function opt:NeedsSpellListConfig(spellid)
+
+	-- todo: obviously this sucks\
+	-- holy paladin support for now
+	if spellid == 287280 then
+		return true
+	end
+
+	return false
+end
+
+function opt:AddToSpellList(spellid)
+	local name, rank, icon, castTime, minRange, maxRange  = GetSpellInfo(spellid)
+	if KSL then
+		if not KSL:SpellExcluded(spellid) then
+			KSL:AddSpell(spellid, true, false)
+		end
+	end
+end
+
 function ClassAuraCheckboxOnClick(self)
 	
 	local spellid = self.spellid
@@ -214,20 +236,35 @@ function ClassAuraCheckboxOnClick(self)
 		opt.env.CustomAuraColors[self.spellid][opt.class.specId].enabled = false
 		PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF)
 	end
+
+	if self:GetChecked() then
+		if opt:NeedsSpellListConfig(spellid) then
+			opt:AddToSpellList(spellid)
+		end
+	end
 end
 
 function opt:SetClassAuraChecked(check, spellid)
+	local enabled = false
 	local entry = opt.env.CustomAuraColors[spellid]
 	if (entry[opt.class.specId]) then
 		if (entry[opt.class.specId].enabled) then
 			check:SetChecked(true)
+			enabled = true
 		else
 			check:SetChecked(false)
 		end
 	elseif (entry.enabled == true) then
 		check:SetChecked(true)
+		enabled = true
 	else
 		check:SetChecked(false)
+	end
+
+	if enabled then
+		if opt:NeedsSpellListConfig(spellid) then
+			opt:AddToSpellList(spellid)
+		end
 	end
 end
 

@@ -118,6 +118,6 @@ KuiTargetAuraList = {
 		207771	-- Fiery Brand
 	},
 	[65] = {	-- Paladin (HOLY)
-		287268	-- Glimmer of Light
+		287280	-- Glimmer of Light
 	}
 }
