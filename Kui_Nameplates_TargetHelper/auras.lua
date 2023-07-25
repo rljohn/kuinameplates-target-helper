@@ -3,6 +3,7 @@
 KuiTargetAuraList = {
 	[256] = {	-- DISC PRIEST
 		204213,	--	Purge the Wicked
+		214621,	--	Schism
 	},
 	[257] = {	-- HOLY PRIEST
 		589,	--  Shadow Word: Pain
