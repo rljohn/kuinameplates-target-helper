@@ -16,13 +16,13 @@ KuiTargetAuraList = {
 		{589,34914} -- Vampiric Touch + Shadow Word: Pain
 	}, 
 	[265] = {	-- AFFLICTION WARLOCK
-		{172,980,30108,48181}, -- Corruption + Agony + UA + Haunt
-		{172,980,30108}, -- Corruption + Agony + Unstable Affliction
-		{172,980,48181}, -- Corruption + Agony + Haunt
-		{172,980}, -- Corruption + Agony
-		172,	--	Corruption
+		{146739,980,316099,48181}, -- Corruption + Agony + UA + Haunt
+		{146739,980,316099}, -- Corruption + Agony + Unstable Affliction
+		{146739,980,48181}, -- Corruption + Agony + Haunt
+		{146739,980}, -- Corruption + Agony
+		146739,	--	Corruption
 		980,	--	Agony
-		30108,	-- 	Unstable Affliction
+		316099,	-- 	Unstable Affliction
 		48181,	-- 	Haunt
 		27243,	-- 	Seed of Corruption		
 	},
