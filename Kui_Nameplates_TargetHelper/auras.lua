@@ -74,8 +74,7 @@ KuiTargetAuraList = {
 		378015,	-- Latent Poison
 	},
 	[255] = {	-- SURVIVAL HUNTER
-		185855,	-- 	Lacerate,
-		259491,	--  Serpent Sting
+		271788,	--  Serpent Sting
 		378015,	-- Latent Poison
 	},
 	[63] = {	-- FIRE MAGE
