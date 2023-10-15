@@ -1,6 +1,25 @@
 local opt = KuiConfigTargetHelper
 local mod = KuiConfigTargetHelperMod
 
+function mod:addDefaultTarget(id, name, color, source, context_color)
+	-- search to see if we tracked this already
+	local exists = false
+	for ck,cv in pairs ( opt.env.CustomTargets ) do
+		if (id == ck or name == ck) then
+			exists = true
+			break
+		end
+	end
+
+	-- if it wasn't tracked already, add it
+	if (exists == false) then
+		mod:AddTarget(name, color, source, context_color)
+	else
+		opt.env.CustomTargets[name].context = source
+		opt.env.CustomTargets[name].context_color = context_color
+	end
+end
+
 function mod:addDefaultTargets(color, context_color, keys, source)
 
 	-- early out for empty keys
@@ -14,21 +33,10 @@ function mod:addDefaultTargets(color, context_color, keys, source)
 		local id = v
 		local name = mod:ConvertNpcIdToName(id)
 
-		-- search to see if we tracked this already
-		local exists = false
-		for ck,cv in pairs ( opt.env.CustomTargets ) do
-			if (v == ck) then
-				exists = true
-				break
-			end
-		end
-		
-		-- if it wasn't tracked already, add it
-		if (exists == false) then
-			mod:AddTarget(name, color, source, context_color)
+		if not name or name =="" then
+			rlPrintf("Could not convert: %d", id)
 		else
-			opt.env.CustomTargets[name].context = source
-			opt.env.CustomTargets[name].context_color = context_color
+			mod:addDefaultTarget(id, name, color, source, context_color)
 		end
 	end)
 end
@@ -75,26 +83,9 @@ end
 
 function mod:AddDragonFlightTargetsSeasonTwo()
 
-	local scary_color = { 
-		r = 1.0,
-		g = 0.57,
-		b = 0,
-		a = 1
-	}
-
-	local caster_color = { 
-		r = 0.66,
-		g = 0.89,
-		b = 1,
-		a = 1
-	}
-
-	local notable_color = {
-		r = 0.8, 
-		g = 0.13, 
-		b = 0.67, 
-		a = 1.0
-	}
+	local scary_color = {  r = 1.0, g = 0.57, b = 0, a = 1 }
+	local caster_color = {  r = 0.66, g = 0.89, b = 1, a = 1 }
+	local notable_color = { r = 0.8,  g = 0.13,  b = 0.67,  a = 1.0 }
 
 	for count,dungeon in ipairs(DragonFlightS2Targets) do
 		local color_context = 'ffa8e2ff'

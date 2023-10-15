@@ -17,7 +17,7 @@ opt.TimeSinceLastUpdate = 0
 -- addon info
 opt.info = {
 	name = 'KuiNameplates: Target Helper',
-	version = '1.3.3',
+	version = '1.3.4',
 	header = '%s (%s) by rljohn'
 }
 
@@ -124,7 +124,6 @@ function mod:LoadMissingValues()
 	SetDefaultValue('EliteEdgeSize', 1.0)
 	SetDefaultValue('FocusEdgeSize', 1.0)
 	SetDefaultValue('ExecuteEdgeSize', 1.0)
-	SetDefaultValue('UseCustomTargets', false)
 	SetDefaultValue('DisablePvp', true)
 	SetDefaultValue('PreferAura', true)
 	SetDefaultValue('PreferAuraCustom', true)

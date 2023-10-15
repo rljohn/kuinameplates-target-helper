@@ -104,8 +104,7 @@ DragonFlightS2Targets = {
 			186226, -- Fetid Rotsinger
 		},
 		notable = {
-			186191, -- Decay Speaker
-			382435, -- Rotchanting Totem
+			193799, -- Rotchanting Totem
 			190426, -- Decay Totem
 		},
 		casters = {

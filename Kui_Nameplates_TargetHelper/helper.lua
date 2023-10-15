@@ -5,8 +5,12 @@ local opt = KuiConfigTargetHelper
 local mod = KuiConfigTargetHelperMod
 local ReloadWarningShown = false
 
+local ENABLE_LOGGING=false
+local ENABLE_DIAG=ENABLE_LOGGING and true
+
 -- LOGGING
 function rlPrintf(...)
+ if not ENABLE_LOGGING then return end
  local status, res = pcall(format, ...)
  if status then
     if DLAPI then 
@@ -16,6 +20,18 @@ function rlPrintf(...)
 	end
   end
 end
+
+function rlDiagf(...)
+	if not ENABLE_DIAG then return end
+	local status, res = pcall(format, ...)
+	if status then
+	   if DLAPI then 
+		   DLAPI.DebugLog("KUI TargetHelper", res) 
+	   else
+		   print('|cff9966ffKUI TargetHelper:|r', res)
+	   end
+	 end
+   end
 
 function mod:SortedPairs(t)
 
