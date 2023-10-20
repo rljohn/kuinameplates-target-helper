@@ -2,25 +2,33 @@ local opt = KuiConfigTargetHelper
 local mod = KuiConfigTargetHelperMod
 
 opt.currentEditName = ''
+
 local currentRemoveName
-local previousFrame = nil;
+local lastFrame = nil
 
 function mod:ClearCustomTargets()
 	opt.env.CustomTargets = {}
 	mod:RefreshCustomTargets()
 end
 
+function mod:HideTargetFrame(f)
+	f:Hide()
+	f.highlight:Hide()
+	f.active = false
+	f.next_frame = nil
+	f.previous_frame = nil
+end
+
 function mod:HideTargets()
 
-	previousFrame = nil
+	lastFrame = nil
 
 	if opt.ui.targets == nil then
 		return
 	end
 	
     for _,frame in pairs(opt.ui.targets) do
-        frame:Hide()
-        frame.highlight:Hide()
+		self:HideTargetFrame(frame)
     end
 end
 
@@ -49,36 +57,41 @@ local function setTargetColor(color)
 	opt.ui.addtargetcolor:SetBackdropColor(tmp.r, tmp.g, tmp.b, tmp.a)
 end
 
-function mod:CreateTargetFrame(name, color, active)
-
-	local f
-	
-	local alpha = 1;
-	if (not active) then alpha = .5 end
-	
-	for _,frame in pairs(opt.ui.targets) do
-        if not frame:IsShown() then
-            -- recycle an old frame
-            f = frame
-        end
-    end
-
+function mod:UpdateTooltip(f, name, context, context_color)
 	local displayName
-	if (color.context_color) then
-		displayName = name .. ' |c' .. color.context_color .. '[' .. color.context .. ']|r'
-	elseif (color.context) then
-		displayName = name .. ' |cff40c0f7[' .. color.context .. ']|r'
+	if (context and context_color) then
+		displayName = name .. ' |c' .. context_color .. '[' .. context .. ']|r'
+	elseif (context) then
+		displayName = name .. ' |cff40c0f7[' .. context .. ']|r'
 	else
 		displayName = name .. ' |cffc8d975[' .. opt.titles.ContextCustom .. ']|r'
 	end
+
+	if (f.tooltipTitle) then
+		f.tooltipTitle = displayName
+	else
+		opt:AddTooltip(f, displayName, opt.titles.RemoveTargetTooltip)
+	end
+end
+
+function mod:CreateTargetFrame(name, color)
+
+	local f
+		
+	-- look for a previously removed frame to use
+	for _,frame in pairs(opt.ui.targets) do
+        if not frame.active then
+            f = frame
+			break
+        end
+    end	
 		
 	if not f then
 		f = CreateFrame('Frame', nil, opt.ui.scroll.panel );
-		
+		tinsert( opt.ui.targets, f );
+
 		f:EnableMouse(true)
-	
 		f:SetSize(GetTargetWidth(), 20)
-		opt:AddTooltip(f, displayName, opt.titles.RemoveTargetTooltip)
 		
         f.highlight = f:CreateTexture('HIGHLIGHT')
         f.highlight:SetTexture('Interface/BUTTONS/UI-Listbox-Highlight')
@@ -118,8 +131,6 @@ function mod:CreateTargetFrame(name, color, active)
 		f:SetScript('OnMouseUp', function(self, button)
 			if button == 'LeftButton' then
 				setTargetName(self.id)
-				--local entry = opt.env.CustomTargets[self.id]
-				--setTargetColor(entry)
 			elseif button == 'RightButton' then
 				currentRemoveName = self.id
 				StaticPopup_Show("KUI_TargetHelper_DeleteTargetConfirm", self.id)
@@ -138,11 +149,10 @@ function mod:CreateTargetFrame(name, color, active)
 	
 	f.id = name;
 	f.name:SetText(name);
-	f.tooltipTitle = displayName
 	f.name:SetTextColor(color.r, color.g, color.b)
 	f.icon:SetBackdropBorderColor(.5,.5,.5)
 	f.icon:SetBackdropColor (color.r, color.g, color.b, 1)
-	tinsert( opt.ui.targets, f );
+	f.active = true
 	return f;
 	
 end
@@ -188,15 +198,20 @@ function mod:BuildTargetFrames(targets, first, size, total)
 			local k = entry[1]
 			local v = entry[2]
 
-			local f = mod:CreateTargetFrame ( k, v, opt.env.UseCustomTargets );
+			local f = mod:CreateTargetFrame ( k, v );
 				
-			if previousFrame and f ~= previousFrame then
-				f:SetPoint('TOPLEFT', previousFrame, 'BOTTOMLEFT', 0, -2)
+			if lastFrame and f ~= lastFrame then
+				f:SetPoint('TOPLEFT', lastFrame, 'BOTTOMLEFT', 0, -2)
+				f.previous_frame = lastFrame
+				lastFrame.next_frame = f
 			else
 				f:SetPoint('TOPLEFT', opt.ui.scroll.panel, 'TOPLEFT')
+				f.previous_frame = nil
+				f.next_frame = nil
 			end
 
-			previousFrame = f
+			mod:UpdateTooltip(f, k, v.context, v.context_color)
+			lastFrame = f
 		end
 
 	end
@@ -222,22 +237,6 @@ function mod:StartBuildingCustomFrames()
 	mod:BuildTargetFrames(copy, 1, per_frame, total)
 end
 
-function opt:CheckExistingContext(newName, source, context)
-
-	if (source == nil) then
-		return
-	end
-	
-	local LOCALE = GetLocale()
-	local dungeons = (LOCALE and source[LOCALE]) or source.enUS
-	table.foreach(dungeons, function(k,v)
-		if (v == newName) then
-			opt.env.CustomTargets[newName].context = context
-		end
-	end)
-	
-end
-
 function opt:TargetEdit(newName)
 
 	if (opt.currentEditName == newName) then
@@ -245,20 +244,21 @@ function opt:TargetEdit(newName)
 	end
 	
 	if (opt.env.CustomTargets[opt.currentEditName]) then
+		local previous = opt.env.CustomTargets[opt.currentEditName]
 		opt.env.CustomTargets[newName] = opt.env.CustomTargets[opt.currentEditName]
-		opt.env.CustomTargets[newName].context = nil
+		opt.env.CustomTargets[newName].context = previous.context
+		opt.env.CustomTargets[newName].context_color = previous.context_color
 		opt.env.CustomTargets[opt.currentEditName] = nil
 	end
-	
-	local LOCALE = GetLocale()
-	opt:CheckExistingContext(newName, DefaultTargets, opt.titles.ContextBuiltIn)
 
 	-- update frame
 	for _,frame in pairs(opt.ui.targets) do
-		if (frame.id == opt.currentEditName) then
-			frame.id = newName
-			frame.name:SetText(newName);
-			break
+		if frame.active then
+			if (frame.id == opt.currentEditName) then
+				frame.id = newName
+				frame.name:SetText(newName);
+				break
+			end
 		end
 	end
 	
@@ -268,42 +268,71 @@ end
 
 function mod:AddTarget(name,color,context,context_color)
 
-	if (not name or name == "") then return end
-	opt.env.CustomTargets[name] = {}
-	opt.env.CustomTargets[name].r = color.r
-	opt.env.CustomTargets[name].g = color.g
-	opt.env.CustomTargets[name].b = color.b
-	opt.env.CustomTargets[name].a = color.a
-	opt.env.CustomTargets[name].context = context
-	opt.env.CustomTargets[name].context_color = context_color
+	if (not name or name == "") then
+		rlDiagf("Tried to add invalid name")
+		return
+	end
 
-	local num_frames = #opt.ui.targets
-	local last_frame = opt.ui.targets[num_frames]
+	local existing = opt.env.CustomTargets[name]
 
-	local exists = false
+	local entry = {}
+	entry.r = color.r
+	entry.g = color.g
+	entry.b = color.b
+	entry.a = color.a
+
+	if (context) then
+		entry.context = context
+	elseif (existing) then
+		entry.context = existing.context
+	else
+		entry.context = nil
+	end
+
+	if (context_color) then
+		entry.context_color = context_color
+	elseif (existing) then
+		entry.context_color = context_color
+	else
+		entry.context_color = nil
+	end
+
+	opt.env.CustomTargets[name] = entry
+
+	local f = nil
+
+	-- iterate through all frames. find and update existing frame
 	for _,frame in pairs(opt.ui.targets) do
-		if (frame.id == name) then
-			frame.name:SetTextColor(color.r, color.g, color.b)
-			frame.icon:SetBackdropBorderColor(.5,.5,.5)
-			frame.icon:SetBackdropColor (color.r, color.g, color.b, 1)
-			exists =true
-			break
+		if (frame.active) then
+			if (frame.id == name) then
+				frame.name:SetTextColor(color.r, color.g, color.b)
+				frame.icon:SetBackdropBorderColor(.5,.5,.5)
+				frame.icon:SetBackdropColor(color.r, color.g, color.b, 1)
+				return
+			end
 		end
 	end
 
-	-- create frame for it if we must
-	if not exists then
-		if num_frames == 0 then
-			mod:RefreshCustomTargets()
+	-- this is a new target, build (or recycle) a frame
+	if not f then
+		f = mod:CreateTargetFrame ( name, color );
+	end
+
+	-- update tooltip
+	mod:UpdateTooltip(f, name, context, context_color)
+
+	if f then
+		if lastFrame and f ~= lastFrame then
+			f:SetPoint('TOPLEFT', lastFrame, 'BOTTOMLEFT', 0, -2)
+			f.previous_frame = lastFrame
+			lastFrame.next_frame = f
 		else
-			local f = mod:CreateTargetFrame ( name, color, opt.env.UseCustomTargets );
-			if last_frame and f ~= last_frame then
-				f:SetPoint('TOPLEFT', last_frame, 'BOTTOMLEFT', 0, -2)
-			else
-				f:SetPoint('TOPLEFT', opt.ui.scroll.panel, 'TOPLEFT')
-			end
-			f:Show()
+			f:SetPoint('TOPLEFT', opt.ui.scroll.panel, 'TOPLEFT')
+			f.previous_frame = nil
+			f.next_frame = nil
 		end
+		lastFrame = f
+		f:Show()
 	end
 
 	opt:ResetFrames()
@@ -315,25 +344,43 @@ end
 
 function mod:RemoveTarget(name)
 
-	if (opt.env.CustomTargets[name] ~= nil) then
+	if (opt.env.CustomTargets[name]) then
 		opt.env.CustomTargets[name] = nil;
 	end
 
-	-- find frame, remove and retarget
-	local moveNext = false
-	local previousFrame = nil
+	for _,f in pairs(opt.ui.targets) do
 
-	for _,frame in pairs(opt.ui.targets) do
+		-- find the existing target
+		if (f.id == name) then
+			
+			local prev_frame = f.previous_frame
+			local next_frame = f.next_frame
 
-		if (frame.id == name) then
-			frame:Hide()
-			frame.highlight:Hide()
-			moveNext = true
-		elseif moveNext then
-			frame:SetPoint('TOPLEFT', previousFrame, 'BOTTOMLEFT', 0, -2)
+			-- re-build the linked list
+			if (next_frame) then
+				if (prev_frame) then
+					prev_frame.next_frame = next_frame
+					next_frame.previous_frame = prev_frame
+					next_frame:SetPoint('TOPLEFT', prev_frame, 'BOTTOMLEFT', 0, -2)
+				else
+					next_frame:SetPoint('TOPLEFT', opt.ui.scroll.panel, 'TOPLEFT')
+					next_frame.previous_frame = nil
+				end
+			elseif (prev_frame) then
+				prev_frame.next_frame = nil
+			end
+
+			-- update the last frame ptr
+			if (lastFrame and lastFrame == f) then
+				if prev_frame then
+					lastFrame = prev_frame
+				else
+					lastFrame = nil
+				end
+			end
+
+			mod:HideTargetFrame(f)
 			break
-		else
-			previousFrame = frame
 		end
 	end
 
