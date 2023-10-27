@@ -5,8 +5,8 @@ local opt = KuiConfigTargetHelper
 local mod = KuiConfigTargetHelperMod
 local ReloadWarningShown = false
 
-local ENABLE_LOGGING=false
-local ENABLE_DIAG=ENABLE_LOGGING and true
+local ENABLE_LOGGING=true
+local ENABLE_DIAG=ENABLE_LOGGING and false
 
 -- LOGGING
 function rlPrintf(...)
@@ -756,12 +756,12 @@ StaticPopupDialogs["KUI_TargetHelper_MPlusConfirm"] = {
 	preferredIndex = 3,
 }
 
-StaticPopupDialogs["KUI_TargetHelper_S2Confirm"] = {
-	text = "Do you want to import enemies from Dragonflight Season Two?",
+StaticPopupDialogs["KUI_TargetHelper_S3Confirm"] = {
+	text = "Do you want to import enemies from Dragonflight Season Three?",
 	button1 = "Yes",
 	button2 = "No",
 	OnAccept = function(self, data, data2)
-		mod:AddDragonFlightTargetsSeasonTwo(data)
+		mod:AddDragonFlightTargetsSeasonThree(data)
 	end,
 	timeout = 0,
   	whileDead = true,

@@ -397,6 +397,11 @@ local function addTargetEscapeCallback()
 	opt.ui.addtargettext:ClearFocus()
 end
 
+local function finallyAddTargetName(name)
+	opt.ui.addtargettext:SetText(name)
+	mod:AddTarget(name, opt.env.NewColor, nil, nil)
+end
+
 local function addTargetOnClick()
 	local text = opt.ui.addtargettext:GetText()
 	if (not text or text == "") then return end
@@ -408,17 +413,24 @@ local function addTargetOnClick()
 	if (number) then
 
 		-- convert npc ID to name
-		local name = mod:ConvertNpcIdToName(text)
+		local name = mod:ConvertNpcIdToName(number)
 
-		-- if we found a name, use that instead
-		if (name and name ~= "") then
-			opt.ui.addtargettext:SetText(name)
-			mod:AddTarget(name, opt.env.NewColor, nil, nil)
+		if not name or name == "" then
+			C_Timer.After(1, function()
+				local inner_name = mod:ConvertNpcIdToName(number)
+				if (inner_name and inner_name ~= "") then
+					finallyAddTargetName(inner_name)
+				else
+					print("Could not convert %u to NPC id. Try again!", number)
+				end
+			end)
 			return
+		else
+			finallyAddTargetName(name)
 		end
+	else
+		finallyAddTargetName(text)
 	end
-
-	mod:AddTarget(text, opt.env.NewColor, nil, nil)
 end
 
 local function copyTargetOnClick()
@@ -436,7 +448,7 @@ function mod:CustomTargetWidgets(parent)
 	local season1 = opt:CreateIcon(parent, nil, 4734167, 32, 32)
 	season1:SetPoint('BOTTOMRIGHT', opt.ui.scroll, 'TOPRIGHT', 28, 16)
 	season1:SetScript('OnClick', function(self)
-		local dialog = StaticPopup_Show("KUI_TargetHelper_S2Confirm")
+		local dialog = StaticPopup_Show("KUI_TargetHelper_S3Confirm")
 	end)
 	opt:AddTooltip(season1, opt.titles.SeasonTooltip, opt.titles.SeasonTooltipText)
 
