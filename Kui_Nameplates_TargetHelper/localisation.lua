@@ -161,6 +161,6 @@ function opt:SetupLocale()
 
 		ClearInterrupts = 'Clear Interrupts',
 		ClearInterruptsTooltip = 'Resets the interrupts list.',
-	}
+   }
 end
 

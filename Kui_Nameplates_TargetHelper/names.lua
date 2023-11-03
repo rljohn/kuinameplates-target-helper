@@ -204,3 +204,133 @@ DragonFlightS2Targets = {
 		}
 	}
 }
+
+DragonFlightS3Targets = {
+	[1] = {
+		name = "Atal'Dazar",
+		frontal = {
+			128455 -- T'lonja
+		},
+		interupt = {
+			122973, -- Dazar'ai Confessor
+			122969, -- Zanchuli Witch-Doctor
+			128434, -- Feasting Skyscreamer
+
+		},
+		cc = {
+			127879 -- Shieldbearer of Zul
+		}
+	},
+	[2] = {
+		name = "Darkheart Thicket",
+		frontal = {
+			95766, -- Crazed Razorbeak
+			113398, -- Bloodtainted Fury
+		},
+		interupt = {
+			95769, -- Mindshattered Screecher
+			101991, -- Nightmare Dweller
+			100532, -- Bloodtainted Burster
+			100527, -- Dreadfire Imp
+		},
+		cc = {
+		}
+	},
+	[3] = {
+		name = "Waycrest Manor",
+		frontal = {
+			-- Bewitched Captain
+		},
+		interupt = {
+			131685, -- Runic Disciple
+			135049, -- Dreadwing Raven
+			131812, -- Heartsbane Soulcharmer
+			137830, -- Pallid Gorger
+			134024, -- Devouring Maggot
+			135365, -- Matron Alma
+			131821, -- Faceless Maiden
+			144324 -- Gorak Tul
+		},
+		cc = {
+			131587 -- Deathtouched Slayer
+		}
+	},
+	[4] = {
+		name = "Everbloom",
+		frontal = {
+			81522, -- Witherbark
+			83846 -- Yalnu
+		},
+		interupt = {
+			81819, -- Everbloom Naturalist
+			81985, -- Everbloom Tender
+			84957, -- Putrid Pyromancer
+		},
+		cc = {
+		}
+	},
+	[5] = {
+		name = "Throne of the Tides",
+		frontal = {
+			212673, -- Naz'jar Ravager
+		},
+		interupt = {
+			41096, -- Naz'jar Oracle
+		},
+		cc = {
+			40935, -- Gilgolbin Hunter
+		}
+	},
+	[6] = {
+		name = "Black Rook Hold",
+		frontal = {
+			98243, -- Soul-Torn Champion
+			100485, -- Soul-Torn Vanguard
+			98792, -- Wyrmtongue Scavenger
+		},
+		interupt = {
+			102788, -- Felspite Dominator
+		},
+		cc = {
+			98691, -- Risen Scout
+			98275, -- Risen Archer
+			98792, -- Wyrmtongue Scavenger
+		}
+	},
+	[7] = {
+		name = "Galakrond's Fall",
+		frontal = {
+			199749, -- Timestream Anomaly
+			201790, -- Loszkeleth
+		},
+		interupt = {
+			206140, -- Coalesced Time
+			206066, -- Timestream Leech
+		},
+		cc = {
+			205408, -- Infinite Timeslicer
+		}
+	},
+	[8] = {
+		name = "Murozond's Rise",
+		frontal = {
+			205152, -- Lerai, Timesworn Maiden
+			205158, -- Spurlok, Timesworn Sentinel
+			205151, -- Tyr's Vanguard
+			208438, -- Infinite Saboteur
+			208440, -- Infinite Slayer
+		},
+		interupt = {
+			199748, -- Timeline Marauder
+			208698, -- Infinite Riftmage
+			205363, -- Time-Lost Waveshaper
+			205337, -- Infinite Timebender
+			205727, -- Time-Lost Rocketeer
+			204206, -- Horde Farseer
+		},
+		cc = {
+			201223, -- Infinite Twilight Magus
+			205723 -- Time-Lost Aerobot
+		}
+	}
+}
