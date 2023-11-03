@@ -5,33 +5,25 @@ local opt = KuiConfigTargetHelper
 local mod = KuiConfigTargetHelperMod
 local ReloadWarningShown = false
 
-local ENABLE_LOGGING=false
+local ENABLE_LOGGING=true
 local ENABLE_DIAG=ENABLE_LOGGING and true
 
 -- LOGGING
 function rlPrintf(...)
- if not ENABLE_LOGGING then return end
- local status, res = pcall(format, ...)
- if status then
-    if DLAPI then 
-		DLAPI.DebugLog("KUI TargetHelper", res) 
-	else
+	if not ENABLE_LOGGING then return end
+	local status, res = pcall(format, ...)
+	if status then
 		print('|cff9966ffKUI TargetHelper:|r', res)
 	end
-  end
 end
 
 function rlDiagf(...)
 	if not ENABLE_DIAG then return end
 	local status, res = pcall(format, ...)
 	if status then
-	   if DLAPI then 
-		   DLAPI.DebugLog("KUI TargetHelper", res) 
-	   else
-		   print('|cff9966ffKUI TargetHelper:|r', res)
-	   end
-	 end
-   end
+		print('|cff9966ffKUI TargetHelper:|r', res)
+	end
+end
 
 function mod:SortedPairs(t)
 
@@ -413,18 +405,37 @@ local function editColorCallback(restore)
 		-- And update any UI elements that use this color...
 		colorEdit:SetBackdropColor(r, g, b, a)
 		
-		if colorEdit:GetParent() and opt.env.CustomTargets[colorEdit:GetParent().id] then
-			opt.env.CustomTargets[colorEdit:GetParent().id].r = r
-			opt.env.CustomTargets[colorEdit:GetParent().id].g = g
-			opt.env.CustomTargets[colorEdit:GetParent().id].b = b
-			opt.env.CustomTargets[colorEdit:GetParent().id].a = a
-			colorEdit:GetParent().name:SetTextColor(r, g, b)
-			
-			opt.env.NewColor.r = r
-			opt.env.NewColor.g = g
-			opt.env.NewColor.b = b
-			opt.env.NewColor.a = a
-			opt.ui.addtargetcolor:SetBackdropColor(r, g, b, a)
+		if colorEdit:GetParent() then
+
+			if opt.env.CustomTargets[colorEdit:GetParent().id] then
+
+				opt.env.CustomTargets[colorEdit:GetParent().id].r = r
+				opt.env.CustomTargets[colorEdit:GetParent().id].g = g
+				opt.env.CustomTargets[colorEdit:GetParent().id].b = b
+				opt.env.CustomTargets[colorEdit:GetParent().id].a = a
+				colorEdit:GetParent().name:SetTextColor(r, g, b)
+				
+				opt.env.NewColor.r = r
+				opt.env.NewColor.g = g
+				opt.env.NewColor.b = b
+				opt.env.NewColor.a = a
+				opt.ui.addtargetcolor:SetBackdropColor(r, g, b, a)
+
+			elseif opt.env.CustomInterrupts[colorEdit:GetParent().id] then
+				
+				opt.env.CustomInterrupts[colorEdit:GetParent().id].r = r
+				opt.env.CustomInterrupts[colorEdit:GetParent().id].g = g
+				opt.env.CustomInterrupts[colorEdit:GetParent().id].b = b
+				opt.env.CustomInterrupts[colorEdit:GetParent().id].a = a
+				colorEdit:GetParent().name:SetTextColor(r, g, b)
+				
+				opt.env.NewInterruptColor.r = r
+				opt.env.NewInterruptColor.g = g
+				opt.env.NewInterruptColor.b = b
+				opt.env.NewInterruptColor.a = a
+				opt.ui.interrupt_color:SetBackdropColor(r, g, b, a)
+
+			end
 
 		end
 	end
@@ -437,6 +448,14 @@ function opt:CustomTargetColorOnClick(self)
 	colorEdit = self
 	
 	local clr = opt.env.CustomTargets[self:GetParent().id]
+	opt:ShowColorPicker(clr.r, clr.g, clr.b, 1.0 - clr.a, editColorCallback)
+end
+
+function opt:CustomInterruptsOnClick(self)
+	colorPicker = nil
+	colorEdit = self
+	
+	local clr = opt.env.CustomInterrupts[self:GetParent().id]
 	opt:ShowColorPicker(clr.r, clr.g, clr.b, 1.0 - clr.a, editColorCallback)
 end
 
@@ -768,6 +787,45 @@ StaticPopupDialogs["KUI_TargetHelper_S2Confirm"] = {
 	hideOnEscape = true,
 	preferredIndex = 3,
 }
+
+StaticPopupDialogs["KUI_TargetHelper_InterruptsConfirm"] = {
+	text = "Do you want to import interrupts from Dragonflight Season Two?",
+	button1 = "Yes",
+	button2 = "No",
+	OnAccept = function(self, data, data2)
+		mod:AddSeasonalInterrupts()
+	end,
+	timeout = 0,
+  	whileDead = true,
+	hideOnEscape = true,
+	preferredIndex = 3,
+}
+
+StaticPopupDialogs["KUI_TargetHelper_ClearInterruptsConfirm"] = {
+	text = "Do you want to clear all interrupts?\n\nWARNING: This can not be undone.",
+	button1 = "Yes",
+	button2 = "No",
+	OnAccept = function(self, data, data2)
+		mod:ClearInterrupts()
+	end,
+	timeout = 0,
+  	whileDead = true,
+	hideOnEscape = true,
+	preferredIndex = 3,
+}
+
+StaticPopupDialogs["KUI_TargetHelper_DeleteInterruptConfirm"] = {
+	text = "Are you sure you want to remove |cff9966ff%s|r? This cannot be undone!",
+	button1 = "Yes",
+	button2 = "No",
+	OnAccept = function(self, data, data2)
+		opt:ConfirmInterruptDelete()
+	end,
+	timeout = 0,
+	whileDead = true,
+	hideOnEscape = true,
+	preferredIndex = 3,
+  }
 
 -- Slider with Reload Required
 

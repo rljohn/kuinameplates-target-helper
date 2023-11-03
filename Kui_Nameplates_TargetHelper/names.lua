@@ -1,3 +1,7 @@
+PriorityInteruptCasts = {
+	[167385] = true, -- Training Dummy, Uber Strike
+}
+
 MythicPlusTargets = {
 	[1] = {
 		name = "Mythic+",

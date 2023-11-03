@@ -463,6 +463,28 @@ function mod:PLAYER_SPECIALIZATION_CHANGED(event, unit)
 	end
 end
 
+function mod:CastBarShow(f)
+	
+	-- if not f.cast_state.interruptible then return end
+
+	local name, spellId
+	if f.cast_state.empowered or f.cast_state.channel then
+		name, _, _, _, _, _, _, spellId = UnitChannelInfo(f.unit)
+	else
+		name, _, _, _, _, _, _, _, spellId = UnitCastingInfo(f.unit)
+	end
+
+	if not spellId then return end
+
+	local custom = opt.env.CustomInterrupts[spellId]
+	if custom then
+		f.CastBar:SetStatusBarColor(custom.r, custom.g, custom.b, custom.a)
+	end	
+end
+
+function mod:CastBarHide(frame)
+end
+
 opt.original_kui_show_function = nil
 
 function mod:Initialise()
@@ -557,6 +579,10 @@ function mod:Initialised()
 	plugin_fading = addon:GetPlugin('Fading')
    	self:AddCallback('Fading','FadeRulesReset',self.Fading_FadeRulesReset)
     self.Fading_FadeRulesReset()
+
+	-- casting
+	self:RegisterMessage('CastBarShow')
+    self:RegisterMessage('CastBarHide')
 	
 	-- text
 	self:RegisterMessage('NameTextColourChange')

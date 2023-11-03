@@ -275,6 +275,23 @@ function mod:CreateCustomTargetsPanel(parent)
 	
 end
 
+function mod:CreateInterruptsPanel(parent)
+
+	opt.ui.interruptsArea = opt:CreateScrollArea(parent, 'InterruptArea', GetScrollWidth(), SCROLL_H - 95)
+	opt.ui.interruptsArea:SetPoint('TOPLEFT', parent, 'TOPLEFT', SCROLL_X, SCROLL_Y)
+
+	opt.ui.interruptsTitle = parent:CreateFontString(nil, 'ARTWORK', 'GameFontNormalLarge')
+	opt.ui.interruptsTitle:SetText(opt.titles["Interrupts"])
+	opt.ui.interruptsTitle:SetPoint('BOTTOMLEFT', opt.ui.interruptsArea, 'TOPLEFT', TITLE_X, TITLE_Y)
+
+	opt.ui.interruptsHeader = parent:CreateFontString(nil, 'ARTWORK', 'GameFontWhite')
+	opt.ui.interruptsHeader:SetText(opt.titles["InterruptsHeader"])
+	opt.ui.interruptsHeader:SetPoint('TOPLEFT', opt.ui.interruptsTitle, 'BOTTOMLEFT', 0, -8)
+
+	mod:InterruptsWidgets(parent)
+	
+end
+
 function mod:CreateCustomAurasPanel(parent)
 	
 	opt.ui.auralist = opt:CreateScrollArea(parent, 'AuraArea', GetScrollWidth(), SCROLL_H)

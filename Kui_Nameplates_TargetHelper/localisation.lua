@@ -110,7 +110,17 @@ function opt:SetupLocale()
 		-- custom target panel
 		CustomTarget = 'Enemy Colors',
 		CustomTargetHeader = "Configure custom colors to use for enemy nameplates based on their name.",
-		
+
+		-- interrupts
+		Interrupts = "Interrupts",
+		InterruptsHeader = "Configure custom castbar colors for priority spell IDs to interrupt.",
+		AddInterrupt = 'Add / Update Interrupts',
+		CustomColorInterruptTooltipText = 'Select a color to apply to this spell ID.',
+		AddInterruptBtn = 'Apply',
+		AddInterruptBtnTooltip = "Add a new spellID to the spell list.\n\nIf this spell ID already exists, it will be updated instead.",
+		AddInterruptTooltipText = "Enter the spell ID you wish to track and click 'Apply'.",
+		RemoveInterruptTooltip = 'Right click to stop tracking this spell.',
+
 		-- class auras panel
 		ClassAurasHeader = "Configure custom colors to use for enemy nameplates based on your debuffs.",
 		SpellListWarning = 'This plugin only supports debuffs that are shown on KUI Nameplates.\n\nYou may need to download and configure KuiSpellListConfig to see them.',
@@ -145,8 +155,12 @@ function opt:SetupLocale()
 		SpecialTargets = 'Mythic+ and Raid Targets',
 		SpecialTargetsTooltip = 'Explosive Orbs, Chaotic Essence, etc...',
 
-		SeasonTooltip = 'Dragonflight: Season Two',
-		SeasonTooltipText = 'Add enemies from Dragonflight Season Two dungeons',
+		SeasonTooltip = 'Dragonflight: Season Three',
+		SeasonTooltipText = 'Add enemies from Dragonflight Season Three dungeons',
+		SeasonTooltipInterruptsText = 'Add interrupts from Dragonflight Season Three dungeons and raids.',
+
+		ClearInterrupts = 'Clear Interrupts',
+		ClearInterruptsTooltip = 'Resets the interrupts list.',
 	}
 end
 

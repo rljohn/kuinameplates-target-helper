@@ -30,6 +30,7 @@ local function ExportSettings()
 	data.version = import_export_version
 	data.id = import_export_identifier
 	data.targets = opt.env.CustomTargets
+	data.interrupts = opt.env.CustomInterrupts
 	data.renames = opt.env.Renames
 	data.auras = opt.env.CustomAuraColors
 	data.filters = opt.env.FilterTargets
@@ -90,10 +91,13 @@ function mod:ImportProfileData(data)
 	end
 
 	opt.env.CustomTargets = data.targets
+	opt.env.CustomInterrupts = data.interrupts
 	opt.env.Renames = data.renames
 	opt.env.CustomAuraColors = data.auras
 	opt.env.FilterTargets = data.filters
+
 	rlPrintf("Imported %d enemy colors.", tablelength(opt.env.CustomTargets))
+	rlPrintf("Imported %d interrupts colors.", tablelength(opt.env.CustomInterrupts))
 	rlPrintf("Imported %d unit renames.", tablelength(opt.env.Renames))
 	rlPrintf("Imported %d debuff colors.", tablelength(opt.env.CustomAuraColors))
 	rlPrintf("Imported %d filtered units.", tablelength(opt.env.FilterTargets))
@@ -102,6 +106,7 @@ function mod:ImportProfileData(data)
 	mod:RefreshClassAuras()
 	mod:RefreshRenameTargets()
 	mod:RefreshFilterTargets()
+	mod:RefreshInterrupts()
 
 	opt:EvaluateFilter()
 	opt:ResetFrames()

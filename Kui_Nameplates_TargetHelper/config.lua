@@ -13,11 +13,12 @@ opt.name = 'Kui |cff9966ffTarget Helper'
 opt.ShouldResetFrames = false
 opt.UpdateInterval = 1.0
 opt.TimeSinceLastUpdate = 0
+opt.PendingInterrupts = false
 
 -- addon info
 opt.info = {
 	name = 'KuiNameplates: Target Helper',
-	version = '1.4.0',
+	version = '1.3.4',
 	header = '%s (%s) by rljohn'
 }
 
@@ -30,6 +31,11 @@ profiles.name = 'Profiles'
 local custom_targets = CreateFrame('FRAME', 'knpthcustomtargets', opt)
 custom_targets.parent = opt.name
 custom_targets.name = 'Enemy Colors'
+
+-- child frame for interrupts
+local interrupts  = CreateFrame('FRAME', 'knpthinterupts', opt)
+interrupts.parent = opt.name
+interrupts.name = 'Interrupts'
 
 -- child frame for class auras
 local aura_colors = CreateFrame('FRAME', 'knpthauracolors', opt)
@@ -76,6 +82,7 @@ opt.ui = {
 	addtargetcolor = nil,
 	priority = nil,
 	targets = {},
+	interrupt_frames = {},
 	auras = {},
 	renames = {},
 	filters = {},
@@ -95,6 +102,7 @@ end
 function mod:LoadMissingValues()
 	SetDefaultValue('TargetColor', { r = 1.0, g = 1.0, b = 1.0, a = 1.0 })
 	SetDefaultValue('NewColor', { r = 1.0, g = 1.0, b = 1.0, a = 1.0 })
+	SetDefaultValue('NewInterruptColor', { r = 1.0, g = 1.0, b = 1.0, a = 1.0 })
 	SetDefaultValue('EliteBorderColor', { r = 1.0, g = 1.0, b = 1.0, a = 0.7 })
 	SetDefaultValue('FocusBorderColor', { r = 1.0, g = 1.0, b = 0.0, a = 1.0 })
 	SetDefaultValue('ExecuteBorderColor', { r = 1.0, g = 0.0, b = 0.0, a = 1.0 })
@@ -110,7 +118,20 @@ function mod:LoadMissingValues()
 	SetDefaultValue('SavedColor10', { r = 0.92, g = 0, b = 1.0, a = 1.0 })
 	SetDefaultValue('SavedColor11', { r = 0.60, g = 0.03, b = 1.0, a = 1.0 })
 	SetDefaultValue('SavedColor12', { r = 1.0, g = 1.0, b = 1.0, a = 1.0 })
+	SetDefaultValue('SavedInterruptColor1', { r = 0.03, g = 0.48, b = 1.0, a = 1.0 })
+	SetDefaultValue('SavedInterruptColor2', { r = 0, g = 0.94, b = 1.0, a = 1.0 })
+	SetDefaultValue('SavedInterruptColor3', { r = 0.25, g = 1.0, b = 0.62, a = 1.0 })
+	SetDefaultValue('SavedInterruptColor4', { r = 0.52, g = 1.0, b = 0, a = 1.0 })
+	SetDefaultValue('SavedInterruptColor5', { r = 0.89, g = 1.0, b = 0, a = 1.0 })
+	SetDefaultValue('SavedInterruptColor6', { r = 1.0, g = 0.8, b = 0, a = 1.0 })
+	SetDefaultValue('SavedInterruptColor7', { r = 1.0, g = 0.38, b = 0, a = 1.0 })
+	SetDefaultValue('SavedInterruptColor8', { r = 1.0, g = 0, b = 0.03, a = 1.0 })
+	SetDefaultValue('SavedInterruptColor9', { r = 1.0, g = 0, b = 0.58, a = 1.0 })
+	SetDefaultValue('SavedInterruptColor10', { r = 0.92, g = 0, b = 1.0, a = 1.0 })
+	SetDefaultValue('SavedInterruptColor11', { r = 0.60, g = 0.03, b = 1.0, a = 1.0 })
+	SetDefaultValue('SavedInterruptColor12', { r = 1.0, g = 1.0, b = 1.0, a = 1.0 })
 	SetDefaultValue('CustomTargets', {})
+	SetDefaultValue('CustomInterrupts', {})
 	SetDefaultValue('CustomAuraColors', {})
 	SetDefaultValue('Renames', {})
 	SetDefaultValue('FilterTargets', {})
@@ -152,6 +173,7 @@ function mod:ResetUi()
 	opt.ui.execute_edgesize:SetValue(1)
 	opt.ui.targetcolor:SetBackdropColor(1, 1, 1, 1)
 	opt.ui.addtargetcolor:SetBackdropColor(1, 1, 1, 1)
+	opt.ui.interrupt_color:SetBackdropColor(1, 1, 1, 1)
 	opt.ui.elitebordercolor:SetBackdropColor(1, 1, 1, 0.7)
 	opt.ui.focusbordercolor:SetBackdropColor(1, 1, 0, 1)
 	opt.ui.execute_border_color:SetBackdropColor(1, 0, 0, 1)
@@ -162,6 +184,7 @@ function mod:ResetUi()
 	
 	mod:RefreshCustomTargets()
 	mod:RefreshClassAuras()
+	mod:RefreshInterrupts()
 	
 	opt:DisableCVars()
 end
@@ -181,6 +204,7 @@ function mod:ReloadValues(spec_changed)
 	opt.ui.focusedgesize:SetValue(opt.env.FocusEdgeSize)
 	opt.ui.targetcolor:SetBackdropColor(opt.env.TargetColor.r, opt.env.TargetColor.g, opt.env.TargetColor.b, opt.env.TargetColor.a)
 	opt.ui.addtargetcolor:SetBackdropColor(opt.env.NewColor.r, opt.env.NewColor.g, opt.env.NewColor.b, opt.env.NewColor.a)
+	opt.ui.interrupt_color:SetBackdropColor(opt.env.NewInterruptColor.r, opt.env.NewInterruptColor.g, opt.env.NewInterruptColor.b, opt.env.NewInterruptColor.a)
 	opt.ui.elitebordercolor:SetBackdropColor(opt.env.EliteBorderColor.r, opt.env.EliteBorderColor.g, opt.env.EliteBorderColor.b, opt.env.EliteBorderColor.a)
 	opt.ui.focusbordercolor:SetBackdropColor(opt.env.FocusBorderColor.r, opt.env.FocusBorderColor.g, opt.env.FocusBorderColor.b, opt.env.FocusBorderColor.a)
 	opt.ui.execute_border_color:SetBackdropColor(opt.env.ExecuteBorderColor.r, opt.env.ExecuteBorderColor.g, opt.env.ExecuteBorderColor.b, opt.env.ExecuteBorderColor.a)
@@ -273,6 +297,10 @@ function UpdateTick(self, elapsed)
 		opt:Update()
 		opt.TimeSinceLastUpdate = 0;
 	end
+
+	if opt.PendingInterrupts then
+		mod:InterruptPanelUpdate()
+	end
 end
 
 -- Configuration Setup
@@ -293,6 +321,7 @@ function mod:Initialised()
 	-- finish initialization
 	mod:RefreshCustomTargets()
 	mod:RefreshClassAuras()
+	mod:RefreshInterrupts()
 	mod:RefreshRenameTargets()
 	mod:RefreshFilterTargets()
 	
@@ -312,6 +341,7 @@ function mod:LoadConfigUi()
 	-- add sub-categories
 	InterfaceOptions_AddCategory(profiles)
 	InterfaceOptions_AddCategory(custom_targets)
+	InterfaceOptions_AddCategory(interrupts)
 	InterfaceOptions_AddCategory(aura_colors)
 	InterfaceOptions_AddCategory(unit_names)
 	InterfaceOptions_AddCategory(unit_filter)
@@ -323,6 +353,7 @@ function mod:LoadConfigUi()
 	-- create subpanels
 	mod:CreateProfilesPanel(profiles)
 	mod:CreateCustomTargetsPanel(custom_targets)
+	mod:CreateInterruptsPanel(interrupts)
 	mod:CreateCustomAurasPanel(aura_colors)
 	mod:CreateRenamesPanel(unit_names)
 	mod:CreateFilterPanel(unit_filter)
