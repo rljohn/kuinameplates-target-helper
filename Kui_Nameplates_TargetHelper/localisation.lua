@@ -112,9 +112,9 @@ function opt:SetupLocale()
 		CustomTargetHeader = "Configure custom colors to use for enemy nameplates based on their name.",
 
 		-- interrupts
-		Interrupts = "Interrupts",
-		InterruptsHeader = "Configure custom castbar colors for priority spell IDs to interrupt.",
-		AddInterrupt = 'Add / Update Interrupts',
+		Interrupts = "Spell Casts",
+		InterruptsHeader = "Configure custom castbar colors for enemy spell casts.",
+		AddInterrupt = 'Add / Update Spell ID',
 		CustomColorInterruptTooltipText = 'Select a color to apply to this spell ID.',
 		AddInterruptBtn = 'Apply',
 		AddInterruptBtnTooltip = "Add a new spellID to the spell list.\n\nIf this spell ID already exists, it will be updated instead.",

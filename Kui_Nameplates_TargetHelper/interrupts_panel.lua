@@ -21,7 +21,7 @@ local function onClickCallback()
 	-- check if the text was a number
 	local number = tonumber(text)
     if not number then 
-        print("Invalid Spell ID")
+        rlPrintf("Invalid Spell ID")
         return
     end
 
@@ -126,7 +126,7 @@ function mod:AddInterrupt(spellId, color, context, context_color)
 	opt.PendingInterrupts = true
 end
 
-function mod:CreateInterruptFrame(name, color)
+function mod:CreateInterruptFrame(spellId, color)
 
 	local f = nil
 		
@@ -192,10 +192,10 @@ function mod:CreateInterruptFrame(name, color)
 		end)
 	end
 	
-	local spell_name, _, _, _, _, _ = GetSpellInfo(name)
-	local text = string.format("%d (%s)", name, spell_name)
+	local spell_name = GetSpellInfo(spellId)
+	local text = string.format("%d (%s)", spellId, spell_name)
 
-	f.id = name;
+	f.id = spellId;
 	f.name:SetText(text);
 	f.name:SetTextColor(color.r, color.g, color.b)
 	f.icon:SetBackdropBorderColor(.5,.5,.5)
@@ -311,7 +311,7 @@ function mod:InterruptPanelUpdate()
 end
 
 function mod:AddSeasonalInterrupts()
-	mod:HideInterruptList()
+	mod:AddDragonFlightCastsSeasonThree()
 end
 
 function opt:ConfirmInterruptDelete()

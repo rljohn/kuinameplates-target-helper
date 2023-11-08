@@ -219,6 +219,16 @@ DragonFlightS3Targets = {
 		},
 		cc = {
 			127879 -- Shieldbearer of Zul
+		},
+		cast_interrupt = {
+			253544, -- Bwonsamdi's Mantle (Dazar'ai Confessor)
+			253583, -- Fiery Enchant (Dazar'ai Augur)
+			255041, -- Terrifying Screech (Feasting Skyscreamer)
+			252781, -- Unstable Hex (Zanchuli Witch-Doctor)
+		},
+		cast_heal = {
+			253517, -- Mending Word (Dazar'ai Confessor)
+			256849, -- Dino Might (Dinomancer Kish'o)
 		}
 	},
 	[2] = {
@@ -234,6 +244,13 @@ DragonFlightS3Targets = {
 			100527, -- Dreadfire Imp
 		},
 		cc = {
+		},
+		cast_interrupt = {
+			200658, -- Star Shower (Dreadsoul Ruiner)
+			204243, -- Tormenting Eye (Nightmare Dweller)
+			225562, -- Blood Metamorphosis (Bloodtainted Fury)
+			225568, -- Curse of Isolation (Taintheart Summoner)
+			201399, -- Dread Inferno (Dreadfire Imp)
 		}
 	},
 	[3] = {
@@ -253,6 +270,18 @@ DragonFlightS3Targets = {
 		},
 		cc = {
 			131587 -- Deathtouched Slayer
+		},
+		cast_interrupt = {
+			265368, -- Spirited Defense (Bewitched Captain)
+			264050, -- Infected Thorn (Coven Thornshaper, Thistle Acolyte)
+			263959, -- Soul Volley (Heartsbane Soulcharmer)
+			265346, -- Pallid Glare (Dreadwing Raven)
+			278444, -- Infest (Devouring Maggot)
+			264407, -- Horrific Visage (Faceless Maiden)
+			265876, -- Ruinous Volley (Matron Alma, Matron Christiane)
+		},
+		cast_stop = {
+
 		}
 	},
 	[4] = {
@@ -263,10 +292,17 @@ DragonFlightS3Targets = {
 		},
 		interupt = {
 			81819, -- Everbloom Naturalist
-			81985, -- Everbloom Tender
+			81985, -- Everbloom Mender
 			84957, -- Putrid Pyromancer
 		},
 		cc = {
+		},
+		cast_interrupt = {
+			164965, -- Choking Vines (Everbloom Mender, Everbloom Naturalist)
+			169839, -- Pyroblast (Putrid Pyromancer)
+		},
+		cast_heal = {
+			164887, -- Healing Waters (Everbloom Mender)
 		}
 	},
 	[5] = {
@@ -279,6 +315,12 @@ DragonFlightS3Targets = {
 		},
 		cc = {
 			40935, -- Gilgolbin Hunter
+		},
+		cast_interupt = {
+			76820, -- Hex (Naz'jar Oracle)
+		},
+		cast_heal = {
+			76813, -- Healing Wave (Naz'jar Oracle)
 		}
 	},
 	[6] = {
@@ -295,6 +337,14 @@ DragonFlightS3Targets = {
 			98691, -- Risen Scout
 			98275, -- Risen Archer
 			98792, -- Wyrmtongue Scavenger
+		},
+		cast_interrupt = {
+			243369, -- Drain Life (Bloodscent Felhound)
+			227913, -- Felfrenzy (Felspite Dominator)
+		},
+		cast_stop = {
+			200084, -- Soul Blade (Ghostly Retainer)
+			200291, -- Knife Dance (Risen Scout)
 		}
 	},
 	[7] = {
@@ -309,6 +359,13 @@ DragonFlightS3Targets = {
 		},
 		cc = {
 			205408, -- Infinite Timeslicer
+		},
+		cast_interrupt = {
+			415770, -- Infinite Bolt Volley (Coalesced Time)
+			415437, -- Enervate (Timestream Leech)
+		},
+		cast_stop = {
+			412012, -- Temposlice (Infinite Timeslicer)
 		}
 	},
 	[8] = {
@@ -331,6 +388,14 @@ DragonFlightS3Targets = {
 		cc = {
 			201223, -- Infinite Twilight Magus
 			205723 -- Time-Lost Aerobot
+		},
+		cast_interupt = {
+			413607, -- Corroding Volley (Infinite Twilight Magus)
+			412922, -- Binding Grasp (Spurlok, Timesworn Sentinel)
+			417481, -- Displace Chronosequence (Timeline Marauder)
+			411300, -- Fish Bolt Volley (Time-Lost Waveshaper)
+		},
+		cast_stop = {
 		}
 	}
 }

@@ -789,7 +789,7 @@ StaticPopupDialogs["KUI_TargetHelper_S3Confirm"] = {
 }
 
 StaticPopupDialogs["KUI_TargetHelper_InterruptsConfirm"] = {
-	text = "Do you want to import interrupts from Dragonflight Season Two?",
+	text = "Do you want to import interrupts from Dragonflight Season Three?",
 	button1 = "Yes",
 	button2 = "No",
 	OnAccept = function(self, data, data2)

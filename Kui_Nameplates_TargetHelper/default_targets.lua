@@ -113,11 +113,51 @@ function mod:AddDragonFlightTargetsSeasonThree()
 	local cc_color = { r = 0.8,  g = 0.13,  b = 0.67,  a = 1.0 }
 
 	for count,dungeon in ipairs(DragonFlightS3Targets) do
-		local color_context = 'ffa8e2ff'
+		local color_context = 'FF8E89F3'
 		mod:addDefaultTargets(frontal_color, color_context, dungeon.frontal, dungeon.name)
 		mod:addDefaultTargets(interupt_color, color_context, dungeon.interupt, dungeon.name)
 		mod:addDefaultTargets(cc_color, color_context, dungeon.cc, dungeon.name)
 	end
 end
 
+function mod:addDefaultInterrupts(color, context_color, keys, source)
+	if (keys == nil) then return end
+	table.foreach(keys, function(k,v)
+		local spellId = v
+		mod:AddInterrupt(spellId, color, source, context_color)
+	end)
+end
 
+function mod:AddDragonFlightCastsSeasonThree()
+
+	mod:LoadInterruptData()
+	
+	C_Timer.After(0.5, function()
+		local heal_color = { r = 0.49, g = 0.89, b = 0.28, a = 1 }
+		local interrupt_color = { r = 0.5, g = 1, b = 0.96, a = 1 }
+		local stop_color = { r = 0.929, g = 0.243, b = 0, a = 1}
+
+		for count,dungeon in ipairs(DragonFlightS3Targets) do
+			local color_context = 'FF8E89F3'
+			mod:addDefaultInterrupts(heal_color, color_context, dungeon.cast_heal, dungeon.name)
+			mod:addDefaultInterrupts(interrupt_color, color_context, dungeon.cast_interrupt, dungeon.name)
+			mod:addDefaultInterrupts(stop_color, color_context, dungeon.cast_stop, dungeon.name)
+		end
+	end)
+end
+
+function mod:LoadInterruptsFor(keys)
+	if (keys == nil) then return end
+	table.foreach(keys, function(k,v)
+		local spellId = v
+		C_Spell.RequestLoadSpellData(spellId)
+	end)
+end
+
+function mod:LoadInterruptData()
+	for count,dungeon in ipairs(DragonFlightS3Targets) do
+		self:LoadInterruptsFor(dungeon.cast_heal)
+		self:LoadInterruptsFor(dungeon.cast_interrupt)
+		self:LoadInterruptsFor(dungeon.cast_stop)
+	end
+end

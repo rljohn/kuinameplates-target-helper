@@ -35,7 +35,7 @@ custom_targets.name = 'Enemy Colors'
 -- child frame for interrupts
 local interrupts  = CreateFrame('FRAME', 'knpthinterupts', opt)
 interrupts.parent = opt.name
-interrupts.name = 'Interrupts'
+interrupts.name = 'Spell Casts'
 
 -- child frame for class auras
 local aura_colors = CreateFrame('FRAME', 'knpthauracolors', opt)
