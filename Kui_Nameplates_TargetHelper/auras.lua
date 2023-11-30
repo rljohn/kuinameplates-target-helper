@@ -26,6 +26,9 @@ KuiTargetAuraList = {
 		48181,	-- 	Haunt
 		27243,	-- 	Seed of Corruption		
 	},
+	[266] = {	-- DEMONOLOGY WARLOCK
+		423583, -- Doom Brand
+	},
 	[267] = {	-- DESTRUCTION WARLOCK
 		157736,	-- Immolate
 		80240,	-- Havoc
