@@ -93,6 +93,13 @@ function mod:InterruptsWidgets(parent)
 	side_title:SetPoint('TOPLEFT', side_panel, 'TOPLEFT', 2, 32)
 
     mod:AddInterruptsSavedColors(side_panel)
+
+	-- show enemy cast target:
+
+	opt.ui.ShowCastTarget = opt:CreateCheckBox(parent, 'ShowCastTarget')
+	opt.ui.ShowCastTarget:SetPoint("TOPLEFT", add_panel, "BOTTOMLEFT", 0, -12)
+	opt:AddTooltip(opt.ui.ShowCastTarget, opt.titles.ShowCastTarget, opt.titles.ShowCastTargetTooltip)
+
 end
 
 function mod:AddInterrupt(spellId, color, context, context_color)

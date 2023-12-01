@@ -120,6 +120,8 @@ function opt:SetupLocale()
 		AddInterruptBtnTooltip = "Add a new spellID to the spell list.\n\nIf this spell ID already exists, it will be updated instead.",
 		AddInterruptTooltipText = "Enter the spell ID you wish to track and click 'Apply'.",
 		RemoveInterruptTooltip = 'Right click to stop tracking this spell.',
+		ShowCastTarget = "Show Spell Cast Target",
+		ShowCastTargetTooltip = "When enabled, updates the cast bar to include the name of its target.",
 
 		-- class auras panel
 		ClassAurasHeader = "Configure custom colors to use for enemy nameplates based on your debuffs.",

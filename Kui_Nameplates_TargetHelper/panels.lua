@@ -277,7 +277,7 @@ end
 
 function mod:CreateInterruptsPanel(parent)
 
-	opt.ui.interruptsArea = opt:CreateScrollArea(parent, 'InterruptArea', GetScrollWidth(), SCROLL_H - 95)
+	opt.ui.interruptsArea = opt:CreateScrollArea(parent, 'InterruptArea', GetScrollWidth(), SCROLL_H - 128)
 	opt.ui.interruptsArea:SetPoint('TOPLEFT', parent, 'TOPLEFT', SCROLL_X, SCROLL_Y)
 
 	opt.ui.interruptsTitle = parent:CreateFontString(nil, 'ARTWORK', 'GameFontNormalLarge')

@@ -18,7 +18,7 @@ opt.PendingInterrupts = false
 -- addon info
 opt.info = {
 	name = 'KuiNameplates: Target Helper',
-	version = '1.3.4',
+	version = '1.4.2',
 	header = '%s (%s) by rljohn'
 }
 
@@ -152,6 +152,7 @@ function mod:LoadMissingValues()
 	SetDefaultValue('EnableCVars', false)
 	SetDefaultValue('EnableGlobalData', false)
 	SetDefaultValue('HasSetGlobalData', false)
+	SetDefaultValue('ShowCastTarget', false)
 end
 
 function mod:SetDefaultValues()
@@ -181,6 +182,7 @@ function mod:ResetUi()
 	
 	opt.ui.EnableCVars:SetChecked(false)
 	opt.ui.EnableGlobalData:SetChecked(false)
+	opt.ui.ShowCastTarget:SetChecked(false)
 	
 	mod:RefreshCustomTargets()
 	mod:RefreshClassAuras()
@@ -209,7 +211,7 @@ function mod:ReloadValues(spec_changed)
 	opt.ui.focusbordercolor:SetBackdropColor(opt.env.FocusBorderColor.r, opt.env.FocusBorderColor.g, opt.env.FocusBorderColor.b, opt.env.FocusBorderColor.a)
 	opt.ui.execute_border_color:SetBackdropColor(opt.env.ExecuteBorderColor.r, opt.env.ExecuteBorderColor.g, opt.env.ExecuteBorderColor.b, opt.env.ExecuteBorderColor.a)
 	opt.ui.priority:SetValue(opt.env.Priority)
-	
+	opt.ui.ShowCastTarget:SetChecked(opt.env.ShowCastTarget)
 	opt.ui.EnableCVars:SetChecked(opt.env.EnableCVars)
 	opt.ui.EnableGlobalData:SetChecked(opt.env.EnableGlobalData)
 	

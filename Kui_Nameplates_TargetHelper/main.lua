@@ -465,7 +465,34 @@ end
 
 function mod:CastBarShow(f)
 	
-	-- if not f.cast_state.interruptible then return end
+	-- add target name?
+	if (opt.env.ShowCastTarget) then
+		if f.elements.SpellName then
+			-- let the server tick and acquire a target
+			C_Timer.After(0.1, function()
+				if f and f.unit and f.cast_state.name then
+					local nameplateTargetUnitId = f.unit .. 'target'
+
+					-- add class color if the unit is a player
+					if UnitIsPlayer(nameplateTargetUnitId) then
+						local unit_name = UnitName(nameplateTargetUnitId)
+						if unit_name then
+							local _, class = UnitClass(nameplateTargetUnitId)
+							if class then
+								local _,_,_,color = GetClassColor(class)
+								if color then
+									unit_name = string.format("|c%s%s|r", color, unit_name)
+								end
+							end
+						end
+
+						local updated_name = f.cast_state.name .. ': ' .. unit_name
+						f.SpellName:SetText(updated_name)
+					end
+				end
+			end)
+		end
+	end
 
 	local name, spellId
 	if f.cast_state.empowered or f.cast_state.channel then
@@ -476,6 +503,7 @@ function mod:CastBarShow(f)
 
 	if not spellId then return end
 
+	-- handle the recolor
 	local custom = opt.env.CustomInterrupts[spellId]
 	if custom then
 		f.CastBar:SetStatusBarColor(custom.r, custom.g, custom.b, custom.a)
