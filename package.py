@@ -7,7 +7,8 @@ from subprocess import check_output
 version = "1.4.4"
 type = "release"
 
-addon_name = "Kui TargetHelper"
+addon_name = "Kui_Nameplates_TargetHelper"
+short_name = "Kui TargetHelper"
 staging_folder_name = "build"
 
 def create_staging_folder(folder_name):
@@ -63,7 +64,7 @@ def main():
         update_version(addon_name, staging_folder_name, version)
 
         # remove existing zip file
-        zip_file = f"{addon_name}_{version}_{type}"
+        zip_file = f"{short_name}_{version}_{type}"
         if os.path.isfile(zip_file):
             os.remove(zip_file)
 
