@@ -18,7 +18,7 @@ opt.PendingInterrupts = false
 -- addon info
 opt.info = {
 	name = 'KuiNameplates: Target Helper',
-	version = '1.4.2',
+	version = '<VERSION>',
 	header = '%s (%s) by rljohn'
 }
 
