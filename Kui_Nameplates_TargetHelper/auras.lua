@@ -1,5 +1,6 @@
 
 -- Auras for DOT Tracking
+-- https://wowpedia.fandom.com/wiki/SpecializationID
 KuiTargetAuraList = {
 	[256] = {	-- DISC PRIEST
 		204213,	--	Purge the Wicked
@@ -86,6 +87,9 @@ KuiTargetAuraList = {
 	[63] = {	-- FIRE MAGE
 		12846,	--	Mastery: Ignite
 		12654	--	Ignite
+	},
+	[64] = {	-- FROST MAGE
+		228358,	--  Winter's Chill
 	},
 	[259] = {	-- ASSASSINATION ROGUE
 		703,	--	Garrote
