@@ -341,18 +341,10 @@ local colorPicker
 local colorEdit
 local auraEdit
 
-local function myColorCallback(restore)
- local newR, newG, newB, newA;
- if restore then
-  -- The user bailed, we extract the old color from the table created by ShowColorPicker.
-  newR, newG, newB, newA = unpack(restore);
- else
-  -- Something changed
-  newA, newR, newG, newB = OpacitySliderFrame:GetValue(), ColorPickerFrame:GetColorRGB();
- end
- 
+local function myColorCallback(red, green, blue, alpha)
+
  -- Update our internal storage.
- r, g, b, a = newR, newG, newB, 1.0 - newA;
+ r, g, b, a = red, green, blue, alpha;
  
  -- And update any UI elements that use this color...
  if (colorPicker) then	
@@ -366,13 +358,27 @@ local function myColorCallback(restore)
  opt.ShouldResetFrames = true
 end
 
-function opt:ShowColorPicker(r, g, b, a, changedCallback)
- ColorPickerFrame.func, ColorPickerFrame.opacityFunc, ColorPickerFrame.cancelFunc = changedCallback, changedCallback, changedCallback;
- ColorPickerFrame:SetColorRGB(r,g,b);
- ColorPickerFrame.hasOpacity, ColorPickerFrame.opacity = (a ~= nil), a;
- ColorPickerFrame.previousValues = {r,g,b,a};
- ColorPickerFrame:Hide(); -- Need to run the OnShow handler.
- ColorPickerFrame:Show();
+function opt:ShowColorPicker(red, green, blue, alpha, changedCallback)
+
+	local info = 
+	{
+		swatchFunc = function()
+			local r, g, b = ColorPickerFrame:GetColorRGB()
+			local a = ColorPickerFrame:GetColorAlpha()
+			changedCallback(r, g, b, a)
+		end,
+
+		cancelFunc = function()
+			changedCallback(red, green, blue, alpha)
+		end,
+
+		r = red,
+		g = green,
+		b = blue,
+		opacity = alpha
+	} 
+
+	ColorPickerFrame:SetupColorPickerAndShow(info)
 end
 
 function opt:ColorPickerOnClick(self)
@@ -384,22 +390,13 @@ function opt:ColorPickerOnClick(self)
 	b = opt.env[colorPicker:GetName()].b
 	a = opt.env[colorPicker:GetName()].a
 	
-	opt:ShowColorPicker(r, g, b, 1.0 - a, myColorCallback)
+	opt:ShowColorPicker(r, g, b, a, myColorCallback)
 end
 
-local function editColorCallback(restore)
-	local newR, newG, newB, newA;
-	
-	if restore then
-		-- The user bailed, we extract the old color from the table created by ShowColorPicker.
-		newR, newG, newB, newA = unpack(restore);
-	else
-		-- Something changed
-		newA, newR, newG, newB = OpacitySliderFrame:GetValue(), ColorPickerFrame:GetColorRGB();
-	end
+local function editColorCallback(red, green, blue, alpha)
 
 	-- Update our internal storage.
-	r, g, b, a = newR, newG, newB, 1.0 - newA;
+	r, g, b, a = red, green, blue, alpha
 	
 	if colorEdit then
 		-- And update any UI elements that use this color...
@@ -448,7 +445,7 @@ function opt:CustomTargetColorOnClick(self)
 	colorEdit = self
 	
 	local clr = opt.env.CustomTargets[self:GetParent().id]
-	opt:ShowColorPicker(clr.r, clr.g, clr.b, 1.0 - clr.a, editColorCallback)
+	opt:ShowColorPicker(clr.r, clr.g, clr.b, clr.a, editColorCallback)
 end
 
 function opt:CustomInterruptsOnClick(self)
@@ -456,23 +453,12 @@ function opt:CustomInterruptsOnClick(self)
 	colorEdit = self
 	
 	local clr = opt.env.CustomInterrupts[self:GetParent().id]
-	opt:ShowColorPicker(clr.r, clr.g, clr.b, 1.0 - clr.a, editColorCallback)
+	opt:ShowColorPicker(clr.r, clr.g, clr.b, clr.a, editColorCallback)
 end
 
-local function editAuraColorCallback(restore)
+local function editAuraColorCallback(red, green, blue, alpha)
 
-	local newR, newG, newB, newA;
-	
-	if restore then
-		-- The user bailed, we extract the old color from the table created by ShowColorPicker.
-		newR, newG, newB, newA = unpack(restore);
-	else
-		-- Something changed
-		newA, newR, newG, newB = OpacitySliderFrame:GetValue(), ColorPickerFrame:GetColorRGB();
-	end
-
-	-- Update our internal storage.
-	r, g, b, a = newR, newG, newB, 1.0 - newA;
+	r, g, b, a = red, green, blue, alpha
 	
 	local id = auraEdit:GetParent().id
 	if auraEdit then
@@ -505,7 +491,7 @@ function opt:AuraColorOnClick(self)
 		clr = opt.env.CustomAuraColors[self:GetParent().id].color
 	end
 	
-	opt:ShowColorPicker(clr.r, clr.g, clr.b, 1.0 - clr.a, editAuraColorCallback)
+	opt:ShowColorPicker(clr.r, clr.g, clr.b, clr.a, editAuraColorCallback)
 end
 
 -- Textures
