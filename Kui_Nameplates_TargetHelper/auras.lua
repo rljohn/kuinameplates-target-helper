@@ -122,7 +122,8 @@ KuiTargetAuraList = {
 		262115	--  Deep Wounds
 	},
 	[269] = {	-- MONK (WW)
-		228287	-- 	Mark of the Crane
+		228287,	-- 	Mark of the Crane
+		393050, -- Skytouch Exhaustion
 	},
 	[581] = {	-- DEMON HUNTER (VENGEANCE)
 		207771	-- Fiery Brand
