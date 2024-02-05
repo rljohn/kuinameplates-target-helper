@@ -12,10 +12,12 @@ KuiTargetAuraList = {
 		{589,14914} -- Holy Fire + Shadow Word: Pain
 	},
 	[258] = { 	-- SHADOW PRIEST
+		{589,34914,335467}, -- Vampiric Touch + Shadow Word: Pain + Devouring Plague
+		{589,34914}, -- Vampiric Touch + Shadow Word: Pain
+		335467, -- Devouring Plague
 		589,	-- Shadow Word: Pain
-		34914, 	--  Vampiric Touch
-		{589,34914} -- Vampiric Touch + Shadow Word: Pain
-	}, 
+		34914, 	-- Vampiric Touch
+	},
 	[265] = {	-- AFFLICTION WARLOCK
 		{146739,980,316099,48181}, -- Corruption + Agony + UA + Haunt
 		{146739,980,316099}, -- Corruption + Agony + Unstable Affliction
