@@ -1,4 +1,4 @@
-## Interface: 100205
+## Interface: 100206
 ## Author: rljohn
 ## Title: Kui |cff9966ffNameplates:|r |cffffffffTarget Helper|r
 ## Notes: Target Helper for Kui Nameplates
