@@ -120,6 +120,20 @@ function mod:AddDragonFlightTargetsSeasonThree()
 	end
 end
 
+function mod:AddDragonFlightTargetsSeasonFour()
+
+	local scary_color = {  r = 1.0, g = 0.57, b = 0, a = 1 }
+	local caster_color = {  r = 0.66, g = 0.89, b = 1, a = 1 }
+	local notable_color = { r = 0.8,  g = 0.13,  b = 0.67,  a = 1.0 }
+
+	for count,dungeon in ipairs(DragonFlightS4Targets) do
+		local color_context = 'ffa8e2ff'
+		mod:addDefaultTargets(scary_color, color_context, dungeon.scary_npcs, dungeon.name)
+		mod:addDefaultTargets(caster_color, color_context, dungeon.casters, dungeon.name)
+		mod:addDefaultTargets(notable_color, color_context, dungeon.notable, dungeon.name)
+	end
+end
+
 function mod:addDefaultInterrupts(color, context_color, keys, source)
 	if (keys == nil) then return end
 	table.foreach(keys, function(k,v)

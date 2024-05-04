@@ -399,3 +399,107 @@ DragonFlightS3Targets = {
 		}
 	}
 }
+
+DragonFlightS4Targets = 
+{
+	[1] = {
+		name = "Algeth'ar Academy - Dragonflight Season Four",
+		scary_npcs = {
+			196671, -- Arcane Ravager
+			192680, -- Guardian Sentry
+			192333, -- Alpha Eagle
+			196200, -- Algeth'ar Echoknight
+		},
+	},
+	[2] = {
+		name = "The Nokhud Offensive - Dragonflight Season Four",
+		scary_npcs = {
+			192800, -- Nokhud Lancemaster
+			193462, -- Batak
+		},
+		casters = {
+			195877, -- Risen Mystic
+		},
+		notable = {
+			192796, -- Nokhud Hornsounder
+			194897, -- Stormsurge Totem
+		},
+	},
+	[3] = {
+		name = "The Azure Vault - Dragonflight Season Four",
+		scary_npcs = {
+			187160, -- Crystal Fury
+		},
+		casters = {
+			196115, -- Arcane Tender
+		}
+	},
+	[4] = {
+		name = "Ruby Life Pools - Dragonflight Season Four",
+		scary_npcs = {
+			188067, -- Flashfrost Chillweaver
+			197698, -- Thunderhead
+			197985, -- Flame Channeler
+		},
+	},
+	[5] = {
+		name = "Neltharus - Dragonflight Season Four",
+		scary_npcs = {
+			189235, -- Overseer Lahar
+			189464, -- Qalashi Irontorch
+			189466, -- Irontorch Commander
+		},
+		casters = {
+			189265, -- Qalashi Bonetender
+			192788, -- Qalashi Thaumaturge
+		}
+	},
+	[6] = {
+		name = "Neltharion's Lair - Dragonflight Season Four",
+		scary_npcs = {
+			91006, -- Rockback Gnasher
+			90997, -- Mightstone Breaker
+			113537, -- Emberhusk Dominator
+		},
+		notable = {
+			92610, -- Understone Drummer
+			94869, -- Tarspitter Grub
+		},
+		casters = {
+			90998, -- Blightshard Shaper
+			102232, -- Rockbound Trapper
+		}
+	},
+	[7] = {
+		name = "Brackenhide Hollow - Dragonflight Season Four",
+		scary_npcs = {
+			195135, -- Bracken Warscourge
+			186208, -- Rotbow Stalker
+			187033, -- Stinkbreath
+			186229, -- Wilted Oak
+			186226, -- Fetid Rotsinger
+		},
+		notable = {
+			193799, -- Rotchanting Totem
+			190426, -- Decay Totem
+		},
+		casters = {
+			185534, -- Bonebolt Hunter
+			186191, -- Decay Speaker
+			185528, -- Trickclaw mystic
+			185656, -- Filth Caller
+			187224, -- Vile Rothexer
+		}
+	},
+	[8] = {
+		name = "Uldaman - Dragonflight Season Four",
+		scary_npcs = {
+			184020, -- Hulking Berserker
+			184300, -- Ebonstone Golem
+		},
+		casters = {
+			184022, -- Stonevault Geomancer
+			186420, -- Earthen Weaver
+		}
+	}
+}

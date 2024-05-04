@@ -448,7 +448,7 @@ function mod:CustomTargetWidgets(parent)
 	local season1 = opt:CreateIcon(parent, nil, 4734167, 32, 32)
 	season1:SetPoint('BOTTOMRIGHT', opt.ui.scroll, 'TOPRIGHT', 28, 16)
 	season1:SetScript('OnClick', function(self)
-		local dialog = StaticPopup_Show("KUI_TargetHelper_S3Confirm")
+		local dialog = StaticPopup_Show("KUI_TargetHelper_S4Confirm")
 	end)
 	opt:AddTooltip(season1, opt.titles.SeasonTooltip, opt.titles.SeasonTooltipText)
 
