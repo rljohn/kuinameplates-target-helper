@@ -338,16 +338,19 @@ end
 function mod:LoadConfigUi()
 
 	-- add the main config
-	InterfaceOptions_AddCategory(opt)
+	local category, _ = Settings.RegisterCanvasLayoutCategory(opt, opt.name)
+	category.ID = opt.name
+	Settings.RegisterAddOnCategory(category)
+	-- InterfaceOptions_AddCategory(opt)
 
 	-- add sub-categories
-	InterfaceOptions_AddCategory(profiles)
-	InterfaceOptions_AddCategory(custom_targets)
-	InterfaceOptions_AddCategory(interrupts)
-	InterfaceOptions_AddCategory(aura_colors)
-	InterfaceOptions_AddCategory(unit_names)
-	InterfaceOptions_AddCategory(unit_filter)
-	InterfaceOptions_AddCategory(cvars)
+	local _, _ = Settings.RegisterCanvasLayoutSubcategory(category, profiles, profiles.name)
+	local _, _ = Settings.RegisterCanvasLayoutSubcategory(category, custom_targets, custom_targets.name)
+	local _, _ = Settings.RegisterCanvasLayoutSubcategory(category, interrupts, interrupts.name)
+	local _, _ = Settings.RegisterCanvasLayoutSubcategory(category, aura_colors, aura_colors.name)
+	local _, _ = Settings.RegisterCanvasLayoutSubcategory(category, unit_names, unit_names.name)
+	local _, _ = Settings.RegisterCanvasLayoutSubcategory(category, unit_filter, unit_filter.name)
+	local _, _ = Settings.RegisterCanvasLayoutSubcategory(category, cvars, cvars.name)
 	
 	-- create main panel
 	mod:CreateMainPanel(opt)
@@ -363,7 +366,7 @@ function mod:LoadConfigUi()
 end
 
 function KuiTargetHelper_OnAddonCompartmentClick(addonName, buttonName)
-	InterfaceOptionsFrame_OpenToCategory(opt)
+	Settings.OpenToCategory(opt.name)
 end
 
 function opt:ReloadGlobalData()
