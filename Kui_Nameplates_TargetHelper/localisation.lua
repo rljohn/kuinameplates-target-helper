@@ -158,8 +158,8 @@ function opt:SetupLocale()
 		SpecialTargetsTooltip = 'Explosive Orbs, Chaotic Essence, etc...',
 
 		SeasonTooltip = 'The War Within: Season One',
-		SeasonTooltipText = 'Add enemies from |cff9966ffThe War Within: Season One|r dungeons',
-		SeasonTooltipInterruptsText = 'Add interrupts from |cff9966ffThe War Within: Season One|r dungeons and raids.',
+		SeasonTooltipText = 'Add enemies from |cFFDDAF30The War Within: Season One|r dungeons',
+		SeasonTooltipInterruptsText = 'Add interrupts from |cFFDDAF30The War Within: Season One|r dungeons and raids.',
 
 		ClearInterrupts = 'Clear Interrupts',
 		ClearInterruptsTooltip = 'Resets the interrupts list.',

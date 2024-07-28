@@ -507,66 +507,69 @@ DragonFlightS4Targets =
 WarWithinS0Targets =
 {
 	[1] = {
-		name = "Priory of the Sacred Flame - The War Within S0",
+		name = "Priory of the Sacred Flame - The War Within - Dungeon",
 		frontals = {
 		},
 		notable = {
-			-- Devout Priest
+			206697 -- Devout Priest
 		},
 		casters = {
-			-- Risen Mage
+			221760 -- Risen Mage
 		},
 		cast_interrupt = {
-			-- Cinderblast
-			-- Battle Cry
-			-- Burning Light
-			-- Fireball Volley
+			424420, -- Cinderblast
+			424419, -- Battle Cry
+			423051, -- Burning Light
+			444743 -- Fireball Volley
 		},
 		cast_heal = {
-			-- Greater Heal
+			427356 -- Greater Heal
 		},
 		cast_stop = {
-			-- Defend
+			427342 -- Defend
 		}
 	},
 	[2] = {
-		name = "Cinderbrew Meadery - The War Within S0",
+		name = "Cinderbrew Meadery - The War Within - Dungeon",
 		frontals = {
-			-- Aldryr
-			-- Bee Wrangler
-			-- Careless Hopgoblin
+			210271, -- Brew Master Aldryr
+			210264, -- Bee Wrangler
+			223423 -- Careless Hopgoblin
 		},
 		notable = {
-			-- Flavor Scientist
+			222964 -- Flavor Scientist
 		},
 		casters = {
-			-- Venture Co. Pyromaniac
-			-- Royal Jelly Purveyor
+			218671, -- Venture Co. Pyromaniac
+			220141 -- Royal Jelly Purveyor
 		},
 		cast_interrupt = {
+			454319, -- Boiling Flames
+			440687 -- Honey Volley
 		},
 		cast_heal = {
+			441627 -- Rejuvenating Honey
 		},
 		cast_stop = {
 		}
 	},
 	[3] = {
-		name = "The Rookery - The War Within S0",
+		name = "The Rookery - The War Within - Dungeon",
 		frontals = {
-			-- Stormrider
-			-- Koratite
-			-- Unruly Stormrook
-			-- Voidstone Monstrocity
+			218334, -- Stormrider Vokmor
+			209801, -- Quartermaster Koratite
+			207186, -- Unruly Stormrook
+			207207 -- Voidstone Monstrocity
 		},
 		notable = {
 		},
 		casters = {
-			-- Corrupted Thunderer
-			-- Void Ascendant
+			214421, -- Corrupted Thunderer (Coalescing Void Diffuser?)
+			212793 -- Void Ascendant
 		},
 		cast_interrupt = {
-			-- Arcing Void
-			-- Void Volley
+			430805, -- Arcing Void
+			432959 -- Void Volley
 		},
 		cast_heal = {
 		},
@@ -574,22 +577,28 @@ WarWithinS0Targets =
 		}
 	},
 	[4] = {
-		name = "Darkflame Cleft - The War Within S0",
+		name = "Darkflame Cleft - The War Within - Dungeon",
 		frontals = {
-			-- Shuffling Horror
+			208456 -- Shuffling Horror
 		},
 		notable = {
 		},
 		casters = {
-			-- Lowly Moleherd
-			-- Blazing Fiend
-			-- Sootsnout
+			210818, -- Lowly Moleherd
+			223772, -- Blazing Fiend
+			212412 -- Sootsnout
 		},
 		cast_interrupt = {
+			425536, -- Mole Frenzy
+			424322, -- Explosive Flame
+			426295, -- Flaming Tether
+			426145, -- Paranoid Mind
+			427157 -- Call Darkspawn
 		},
 		cast_heal = {
 		},
 		cast_stop = {
+			422541 -- Drain Light
 		}
 	},
 }
@@ -597,193 +606,193 @@ WarWithinS0Targets =
 WarWithinS1Targets =
 {
 	[1] = {
-		name = "Ara-Kara - The War Within S1",
+		name = "Ara-Kara - The War Within - Season One",
 		frontals = {
-			-- Nakt
-			-- Atik
-			-- Anub'zekt
+			218324, -- Nakt
+			217533, -- Atik
+			215405 -- Anub'zekt
 		},
 		notable = {
-			-- Stagshell
-			-- Black Blood
+			213860, -- Stagshell
+			223207 -- Black Blood
 		},
 		casters = {
-			-- Trilling Attendant
-			-- Ixin
+			216293, -- Trilling Attendant
+			217531 -- Ixin
 		},
 		cast_interrupt = {
-			-- Horrifying Shrill
-			-- Resonant Barrage
-			-- Venom Volley
-			-- Web Wrap
+			434802, -- Horrifying Shrill
+			434793, -- Resonant Barrage
+			433841, -- Venom Volley
+			448239 -- Web Wrap
 		},
 		cast_heal = {
 		},
 		cast_stop = {
-			-- Alarm Shrill
-			-- Grasping Blood
+			432967, -- Alarm Shrill
+			432031 -- Grasping Blood
 		}
 	},
 	[2] = {
-		name = "City of Threads - The War Within S1",
+		name = "City of Threads - The War Within - Season One",
 		frontals = {
-			-- Royal Swarmguard
-			-- Krix'vizk
-			-- Eye of the Queen
-			-- Lord Vul'azak
-			-- Nx
-			-- Vx
-			-- Venomshell
-			-- Sureki Unnaturaler
+			220197, -- Royal Swarmguard
+			216619, -- Orator Krix'vizk
+			220003, -- Eye of the Queen (Hollows Resident?)
+			220423, -- Retired Lord Vul'azak
+			216648, -- Nx
+			216649, -- Vx
+			220730, -- Venomshell
+			216339 -- Sureki Unnaturaler
 		},
 		notable = {
 		},
 		casters = {
-			-- Sureki Silkbinder
-			-- Herald of Ansurek
-			-- Covert Webmancer
+			220195, -- Sureki Silkbinder
+			220196, -- Herald of Ansurek
+			224732 -- Covert Webmancer
 		},
 		cast_interrupt = {
-			-- Silk Binding
-			-- Twist Thoughts
-			-- Grimweave Blast
+			443430, -- Silk Binding
+			443433, -- Twist Thoughts
+			442536 -- Grimweave Blast
 		},
 		cast_heal = {
-			-- Mending Web
+			442536, -- Mending Web
 		},
 		cast_stop = {
 		}
 	},
 	[3] = {
-		name = "The Stonevault - The War Within S1",
+		name = "The Stonevault - The War Within - Season One",
 		frontals = {
-			-- Earth Infused Golem
-			-- Forge Loader
-			-- Cursedforge Honor Guard
+			210109, -- Earth Infused Golem
+			213343, -- Forge Loader
+			214264 -- Cursedforge Honor Guard
 		},
 		notable = {
-			-- Ghastly Voidsoul
-			-- Earth Burst Totem
+			212453, -- Ghastly Voidsoul
+			214287 -- Earth Burst Totem
 		},
 		casters = {
-			-- Invader
-			-- Turned Speaker
-			-- Void Bound Howler
-			-- Cursedforge Stoneshaper
+			212389, -- Cursedheart Invader
+			214350, -- Turned Speaker
+			221979, -- Void Bound Howler
+			214066 -- Cursedforge Stoneshaper
 		},
 		cast_interrupt = {
-			-- Arcing Void
-			-- Censoring Gear
-			-- Howling Fear
+			426283, -- Arcing Void
+			429545, -- Censoring Gear
+			449455 -- Howling Fear
 		},
 		cast_heal = {
-			-- Restoring Metals
+			429109 -- Restoring Metals
 		},
 		cast_stop = {
-			-- Earth Burst Totem
+			429427 -- Earth Burst Totem
 		}
 	},
 	[4] = {
-		name = "The Dawnbreaker - The War Within S1",
+		name = "The Dawnbreaker - The War Within - Season One",
 		frontals = {
-			-- Nightfall Tactician
-			-- Iken'tak
-			-- Anub'ikkaj
+			213934, -- Nightfall Tactician
+			211263, -- Iken'tak
+			211089 -- Anub'ikkaj
 		},
 		notable = {
-			-- Nightfall Darkcaster
+			229451, -- Nightfall Darkcaster
 		},
 		casters = {
-			-- Shadowmage
-			-- Commander
-			-- Sureki Militant
+			213892, -- Nightfall Shadowmage
+			214762, -- Nightfall Commander
+			213932, -- Sureki Militant
 		},
 		cast_interrupt = {
-			-- Ensnaring Shadow
-			-- Abyssal Howl
+			431309, -- Ensnaring Shadows
+			450756, -- Abyssal Howl
 		},
 		cast_heal = {
-			-- Silken Shell
+			451097 -- Silken Shell
 		},
 		cast_stop = {
-			-- Umbral Barrier
+			432520 -- Umbral Barrier
 		}
 	},
 	[5] = {
-		name = "Mists of Tirna Scithe - The War Within S1",
+		name = "Mists of Tirna Scithe - The War Within - Season One",
 		frontals = {
-			-- Tirnenn Villager
-			-- Mistveil Matriarch
+			165120, -- Tirnenn Villager
+			173655, -- Mistveil Matriarch
 		},
 		notable = {
-			-- Mistveil Tender
-			-- Spinemaw Staghorn
+			166299, -- Mistveil Tender
+			167111 -- Spinemaw Staghorn
 		},
 		casters = {
-			-- Drust Harvester
-			-- Mistveil Shaper
+			164921, -- Drust Harvester
+			166275 -- Mistveil Shaper
 		},
 		cast_interrupt = {
-			-- Harvest Essence
-			-- Bramblethorn Coat
-			-- Stimulate Resistance
+			322938, -- Harvest Essence
+			324776, -- Bramblethorn Coat
+			326046, -- Stimulate Resistance
 		},
 		cast_heal = {
-			-- Nourish the Forest
-			-- Stimulate Regeneration
+			324914, -- Nourish the Forest
+			340544 -- Stimulate Regeneration
 		},
 		cast_stop = {
 		}
 	},
 	[6] = {
-		name = "The Necrotic Wake - The War Within S1",
+		name = "The Necrotic Wake - The War Within - Season One",
 		frontals = {
-			-- Blightbone
-			-- Goregrind
+			162691, -- Blightbone
+			163621 -- Goregrind
 		},
 		notable = {
-			-- Zolramus Bonemender
-			-- Flesh Crafter
+			165222, -- Zolramus Bonemender
+			165872 -- Flesh Crafter
 		},
 		casters = {
-			-- Corpse Harvester
-			-- Skeletal Marauder
-			-- Corpse Collector
+			166302, -- Corpse Harvester
+			165919, -- Skeletal Marauder
+			173016 -- Corpse Collector
 		},
 		cast_interrupt = {
-			-- Drain Fluids
-			-- Rasping Scream
-			-- Goresplatter
+			334748, -- Drain Fluids
+			324293, -- Rasping Scream
+			338353 -- Goresplatter
 		},
 		cast_heal = {
-			-- Bonemend
-			-- Repair Flesh
+			335143, -- Bonemend
+			327127 -- Repair Flesh
 		},
 		cast_stop = {
-			-- Final Bargain
+			320822 -- Final Bargain
 		}
 	},
 	[7] = {
-		name = "Siege of Boralus - The War Within S1",
+		name = "Siege of Boralus - The War Within - Season One",
 		frontals = {
-			-- Scrimshaw Enforcer
-			-- Irontide Cleaver
-			-- Captain Lockwood
-			-- Darkfathom
-			-- Ashvane Cannoneer
+			129374, -- Scrimshaw Enforcer
+			129879, -- Irontide Cleaver
+			129208, -- Dread Captain Lockwood
+			130836, -- Hadal Darkfathom
+			136549, -- Ashvane Cannoneer
 		},
 		notable = {
-			-- Ashvane Commander
+			144169 -- Ashvane Commander
 		},
 		casters = {
-			-- Bilge Rat Pillager
-			-- Bilge Rat Tempest
+			135241, -- Bilge Rat Pillager
+			129367 -- Bilge Rat Tempest
 		},
 		cast_interrupt = {
-			-- Watertight Shell
-			-- Bolstering Shout
-			-- Stinky Vomit
-			-- Choking Waters
+			256957, -- Watertight Shell
+			275826, -- Bolstering Shout
+			454440, -- Stinky Vomit
+			272571 -- Choking Waters
 		},
 		cast_heal = {
 		},
@@ -791,22 +800,22 @@ WarWithinS1Targets =
 		}
 	},
 	[8] = {
-		name = "Grim Batol - The War Within S1",
+		name = "Grim Batol - The War Within - Season One",
 		frontals = {
-			-- Flamerender
-			-- Throngus
-			-- Lavabender
-			-- Valiona
+			224240, -- Flamerender
+			40177, -- Forgemaster Throngus
+			224249, -- Twilight Lavabender
+			45992 -- Valiona
 		},
 		notable = {
 		},
 		casters = {
-			-- Twilight Earthcaller
-			-- Twilight Beguiler
+			224219, -- Twilight Earthcaller
+			40167 -- Twilight Beguiler
 		},
 		cast_interrupt = {
-			-- Mass Tremor
-			-- Sear Mind
+			451871, -- Mass Tremor
+			76711 -- Sear Mind
 		},
 		cast_heal = {
 		},

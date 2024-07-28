@@ -165,14 +165,14 @@ function mod:AddTheWarWithinTargetsSeasonOne()
 	local notable_color = { r = 0.8,  g = 0.13,  b = 0.67,  a = 1.0 }
 
 	for count,dungeon in ipairs(WarWithinS0Targets) do
-		local color_context = 'FF8F7120'
-		mod:addDefaultTargets(frontal_color, color_context, dungeon.scary_npcs, dungeon.name)
+		local color_context = 'FFDDAF30'
+		mod:addDefaultTargets(frontal_color, color_context, dungeon.frontals, dungeon.name)
 		mod:addDefaultTargets(caster_color, color_context, dungeon.casters, dungeon.name)
 		mod:addDefaultTargets(notable_color, color_context, dungeon.notable, dungeon.name)
 	end
 	for count,dungeon in ipairs(WarWithinS1Targets) do
-		local color_context = 'FF8F7120'
-		mod:addDefaultTargets(frontal_color, color_context, dungeon.scary_npcs, dungeon.name)
+		local color_context = 'FFDDAF30'
+		mod:addDefaultTargets(frontal_color, color_context, dungeon.frontals, dungeon.name)
 		mod:addDefaultTargets(caster_color, color_context, dungeon.casters, dungeon.name)
 		mod:addDefaultTargets(notable_color, color_context, dungeon.notable, dungeon.name)
 	end
@@ -188,13 +188,13 @@ function mod:AddTheWarAithinCastsSeasonOne()
 		local stop_color = { r = 0.929, g = 0.243, b = 0, a = 1}
 
 		for count,dungeon in ipairs(WarWithinS0Targets) do
-			local color_context = 'FF8E89F3'
+			local color_context = 'FFDDAF30'
 			mod:addDefaultInterrupts(heal_color, color_context, dungeon.cast_heal, dungeon.name)
 			mod:addDefaultInterrupts(interrupt_color, color_context, dungeon.cast_interrupt, dungeon.name)
 			mod:addDefaultInterrupts(stop_color, color_context, dungeon.cast_stop, dungeon.name)
 		end
 		for count,dungeon in ipairs(WarWithinS1Targets) do
-			local color_context = 'FF8E89F3'
+			local color_context = 'FFDDAF30'
 			mod:addDefaultInterrupts(heal_color, color_context, dungeon.cast_heal, dungeon.name)
 			mod:addDefaultInterrupts(interrupt_color, color_context, dungeon.cast_interrupt, dungeon.name)
 			mod:addDefaultInterrupts(stop_color, color_context, dungeon.cast_stop, dungeon.name)
