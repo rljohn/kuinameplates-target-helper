@@ -6,8 +6,8 @@ MythicPlusTargets = {
 	[1] = {
 		name = "Mythic+",
 		npcs = {
-			120651, -- Explosives
-			189706, -- Chaotic Essence
+			-- 120651, -- Explosives
+			-- 189706, -- Chaotic Essence
 			174773, -- Spiteful Shade
 		},
 	},
@@ -502,4 +502,315 @@ DragonFlightS4Targets =
 			186420, -- Earthen Weaver
 		}
 	}
+}
+
+WarWithinS0Targets =
+{
+	[1] = {
+		name = "Priory of the Sacred Flame - The War Within S0",
+		frontals = {
+		},
+		notable = {
+			-- Devout Priest
+		},
+		casters = {
+			-- Risen Mage
+		},
+		cast_interrupt = {
+			-- Cinderblast
+			-- Battle Cry
+			-- Burning Light
+			-- Fireball Volley
+		},
+		cast_heal = {
+			-- Greater Heal
+		},
+		cast_stop = {
+			-- Defend
+		}
+	},
+	[2] = {
+		name = "Cinderbrew Meadery - The War Within S0",
+		frontals = {
+			-- Aldryr
+			-- Bee Wrangler
+			-- Careless Hopgoblin
+		},
+		notable = {
+			-- Flavor Scientist
+		},
+		casters = {
+			-- Venture Co. Pyromaniac
+			-- Royal Jelly Purveyor
+		},
+		cast_interrupt = {
+		},
+		cast_heal = {
+		},
+		cast_stop = {
+		}
+	},
+	[3] = {
+		name = "The Rookery - The War Within S0",
+		frontals = {
+			-- Stormrider
+			-- Koratite
+			-- Unruly Stormrook
+			-- Voidstone Monstrocity
+		},
+		notable = {
+		},
+		casters = {
+			-- Corrupted Thunderer
+			-- Void Ascendant
+		},
+		cast_interrupt = {
+			-- Arcing Void
+			-- Void Volley
+		},
+		cast_heal = {
+		},
+		cast_stop = {
+		}
+	},
+	[4] = {
+		name = "Darkflame Cleft - The War Within S0",
+		frontals = {
+			-- Shuffling Horror
+		},
+		notable = {
+		},
+		casters = {
+			-- Lowly Moleherd
+			-- Blazing Fiend
+			-- Sootsnout
+		},
+		cast_interrupt = {
+		},
+		cast_heal = {
+		},
+		cast_stop = {
+		}
+	},
+}
+
+WarWithinS1Targets =
+{
+	[1] = {
+		name = "Ara-Kara - The War Within S1",
+		frontals = {
+			-- Nakt
+			-- Atik
+			-- Anub'zekt
+		},
+		notable = {
+			-- Stagshell
+			-- Black Blood
+		},
+		casters = {
+			-- Trilling Attendant
+			-- Ixin
+		},
+		cast_interrupt = {
+			-- Horrifying Shrill
+			-- Resonant Barrage
+			-- Venom Volley
+			-- Web Wrap
+		},
+		cast_heal = {
+		},
+		cast_stop = {
+			-- Alarm Shrill
+			-- Grasping Blood
+		}
+	},
+	[2] = {
+		name = "City of Threads - The War Within S1",
+		frontals = {
+			-- Royal Swarmguard
+			-- Krix'vizk
+			-- Eye of the Queen
+			-- Lord Vul'azak
+			-- Nx
+			-- Vx
+			-- Venomshell
+			-- Sureki Unnaturaler
+		},
+		notable = {
+		},
+		casters = {
+			-- Sureki Silkbinder
+			-- Herald of Ansurek
+			-- Covert Webmancer
+		},
+		cast_interrupt = {
+			-- Silk Binding
+			-- Twist Thoughts
+			-- Grimweave Blast
+		},
+		cast_heal = {
+			-- Mending Web
+		},
+		cast_stop = {
+		}
+	},
+	[3] = {
+		name = "The Stonevault - The War Within S1",
+		frontals = {
+			-- Earth Infused Golem
+			-- Forge Loader
+			-- Cursedforge Honor Guard
+		},
+		notable = {
+			-- Ghastly Voidsoul
+			-- Earth Burst Totem
+		},
+		casters = {
+			-- Invader
+			-- Turned Speaker
+			-- Void Bound Howler
+			-- Cursedforge Stoneshaper
+		},
+		cast_interrupt = {
+			-- Arcing Void
+			-- Censoring Gear
+			-- Howling Fear
+		},
+		cast_heal = {
+			-- Restoring Metals
+		},
+		cast_stop = {
+			-- Earth Burst Totem
+		}
+	},
+	[4] = {
+		name = "The Dawnbreaker - The War Within S1",
+		frontals = {
+			-- Nightfall Tactician
+			-- Iken'tak
+			-- Anub'ikkaj
+		},
+		notable = {
+			-- Nightfall Darkcaster
+		},
+		casters = {
+			-- Shadowmage
+			-- Commander
+			-- Sureki Militant
+		},
+		cast_interrupt = {
+			-- Ensnaring Shadow
+			-- Abyssal Howl
+		},
+		cast_heal = {
+			-- Silken Shell
+		},
+		cast_stop = {
+			-- Umbral Barrier
+		}
+	},
+	[5] = {
+		name = "Mists of Tirna Scithe - The War Within S1",
+		frontals = {
+			-- Tirnenn Villager
+			-- Mistveil Matriarch
+		},
+		notable = {
+			-- Mistveil Tender
+			-- Spinemaw Staghorn
+		},
+		casters = {
+			-- Drust Harvester
+			-- Mistveil Shaper
+		},
+		cast_interrupt = {
+			-- Harvest Essence
+			-- Bramblethorn Coat
+			-- Stimulate Resistance
+		},
+		cast_heal = {
+			-- Nourish the Forest
+			-- Stimulate Regeneration
+		},
+		cast_stop = {
+		}
+	},
+	[6] = {
+		name = "The Necrotic Wake - The War Within S1",
+		frontals = {
+			-- Blightbone
+			-- Goregrind
+		},
+		notable = {
+			-- Zolramus Bonemender
+			-- Flesh Crafter
+		},
+		casters = {
+			-- Corpse Harvester
+			-- Skeletal Marauder
+			-- Corpse Collector
+		},
+		cast_interrupt = {
+			-- Drain Fluids
+			-- Rasping Scream
+			-- Goresplatter
+		},
+		cast_heal = {
+			-- Bonemend
+			-- Repair Flesh
+		},
+		cast_stop = {
+			-- Final Bargain
+		}
+	},
+	[7] = {
+		name = "Siege of Boralus - The War Within S1",
+		frontals = {
+			-- Scrimshaw Enforcer
+			-- Irontide Cleaver
+			-- Captain Lockwood
+			-- Darkfathom
+			-- Ashvane Cannoneer
+		},
+		notable = {
+			-- Ashvane Commander
+		},
+		casters = {
+			-- Bilge Rat Pillager
+			-- Bilge Rat Tempest
+		},
+		cast_interrupt = {
+			-- Watertight Shell
+			-- Bolstering Shout
+			-- Stinky Vomit
+			-- Choking Waters
+		},
+		cast_heal = {
+		},
+		cast_stop = {
+		}
+	},
+	[8] = {
+		name = "Grim Batol - The War Within S1",
+		frontals = {
+			-- Flamerender
+			-- Throngus
+			-- Lavabender
+			-- Valiona
+		},
+		notable = {
+		},
+		casters = {
+			-- Twilight Earthcaller
+			-- Twilight Beguiler
+		},
+		cast_interrupt = {
+			-- Mass Tremor
+			-- Sear Mind
+		},
+		cast_heal = {
+		},
+		cast_stop = {
+		}
+	},
 }

@@ -157,9 +157,9 @@ function opt:SetupLocale()
 		SpecialTargets = 'Mythic+ and Raid Targets',
 		SpecialTargetsTooltip = 'Explosive Orbs, Chaotic Essence, etc...',
 
-		SeasonTooltip = 'Dragonflight: Season Four',
-		SeasonTooltipText = 'Add enemies from Dragonflight Season Four dungeons',
-		SeasonTooltipInterruptsText = 'Add interrupts from Dragonflight Season Four dungeons and raids.',
+		SeasonTooltip = 'The War Within: Season One',
+		SeasonTooltipText = 'Add enemies from |cff9966ffThe War Within: Season One|r dungeons',
+		SeasonTooltipInterruptsText = 'Add interrupts from |cff9966ffThe War Within: Season One|r dungeons and raids.',
 
 		ClearInterrupts = 'Clear Interrupts',
 		ClearInterruptsTooltip = 'Resets the interrupts list.',

@@ -761,12 +761,12 @@ StaticPopupDialogs["KUI_TargetHelper_MPlusConfirm"] = {
 	preferredIndex = 3,
 }
 
-StaticPopupDialogs["KUI_TargetHelper_S4Confirm"] = {
-	text = "Do you want to import enemies from Dragonflight Season Four?",
+StaticPopupDialogs["KUI_TargetHelper_SeasonConfirm"] = {
+	text = "Do you want to import enemies from The War Within Season One?",
 	button1 = "Yes",
 	button2 = "No",
 	OnAccept = function(self, data, data2)
-		mod:AddDragonFlightTargetsSeasonFour(data)
+		mod:AddTheWarWithinTargetsSeasonOne(data)
 	end,
 	timeout = 0,
   	whileDead = true,
@@ -775,7 +775,7 @@ StaticPopupDialogs["KUI_TargetHelper_S4Confirm"] = {
 }
 
 StaticPopupDialogs["KUI_TargetHelper_InterruptsConfirm"] = {
-	text = "Do you want to import interrupts from Dragonflight Season Four?",
+	text = "Do you want to import interrupts from The War Within Season One?",
 	button1 = "Yes",
 	button2 = "No",
 	OnAccept = function(self, data, data2)

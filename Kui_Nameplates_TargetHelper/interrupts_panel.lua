@@ -43,14 +43,12 @@ end
 
 function mod:InterruptsWidgets(parent)
 
-	--[[
     local season1 = opt:CreateIcon(parent, nil, 4734167, 32, 32)
 	season1:SetPoint('BOTTOMRIGHT', opt.ui.interruptsArea, 'TOPRIGHT', 28, 16)
 	season1:SetScript('OnClick', function(self)
 		local dialog = StaticPopup_Show("KUI_TargetHelper_InterruptsConfirm")
 	end)
 	opt:AddTooltip(season1, opt.titles.SeasonTooltip, opt.titles.SeasonTooltipInterruptsText)
-	--]]
 
     local clear = opt:CreateIcon(parent, nil, 4200126, 32, 32)
 	clear:SetPoint('TOPRIGHT', season1, 'TOPLEFT', -8, 0)
@@ -320,7 +318,7 @@ function mod:InterruptPanelUpdate()
 end
 
 function mod:AddSeasonalInterrupts()
-	mod:AddDragonFlightCastsSeasonThree()
+	mod:AddWarWithinCastsSeasonOne()
 end
 
 function opt:ConfirmInterruptDelete()
