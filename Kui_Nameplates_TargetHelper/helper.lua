@@ -708,6 +708,19 @@ StaticPopupDialogs["KUI_TargetHelper_DeleteFilterConfirm"] = {
   preferredIndex = 3,
 }
 
+StaticPopupDialogs["KUI_TargetHelper_DeleteAuraFilterConfirm"] = {
+	text = "Are you sure you want to remove |cff9966ff%s|r? This cannot be undone!",
+	button1 = "Yes",
+	button2 = "No",
+	OnAccept = function(self, data, data2)
+		opt:ConfirmAuraFilterDelete()
+	end,
+	timeout = 0,
+	whileDead = true,
+	hideOnEscape = true,
+	preferredIndex = 3,
+}
+
 StaticPopupDialogs["KUI_TargetHelper_DeleteRenameConfirm"] = {
   text = "Are you sure you want to remove custom name for |cff9966ff%s|r? This cannot be undone!",
   button1 = "Yes",

@@ -368,6 +368,36 @@ function mod:CreateFilterPanel(parent)
 
 end
 
+function mod:CreateAuraFilterPanel(parent)
+
+	-- if KUI spell list config is loaded, we dont need this feature
+    if (KuiSpellListConfig) then
+        local KSLText = parent:CreateFontString(nil, 'ARTWORK', 'GameFontNormalLarge')
+        KSLText:SetText('This panel is incompatible with Kui SpellListConfig')
+        KSLText:SetPoint('TOPLEFT', parent, 'TOPLEFT', SCROLL_X + TITLE_X, -16)
+        return
+    end
+
+	opt.ui.auraFilterScrollArea = opt:CreateScrollArea(parent, 'AuraFilterArea', GetScrollWidth(), SCROLL_H)
+	opt.ui.auraFilterScrollArea:SetPoint('TOPLEFT', parent, 'TOPLEFT', SCROLL_X, SCROLL_Y)
+	
+	opt.ui.auraFilterTitle = parent:CreateFontString(nil, 'ARTWORK', 'GameFontNormalLarge')
+	opt.ui.auraFilterTitle:SetText(opt.titles["AuraFilterTitle"])
+	opt.ui.auraFilterTitle:SetPoint('BOTTOMLEFT', opt.ui.auraFilterScrollArea, 'TOPLEFT', TITLE_X, TITLE_Y)
+	
+	opt.ui.auraFilterHeader = parent:CreateFontString(nil, 'ARTWORK', 'GameFontWhite')
+	opt.ui.auraFilterHeader:SetText(opt.titles["AuraFilterHeader"])
+	opt.ui.auraFilterHeader:SetPoint('TOPLEFT', opt.ui.auraFilterTitle, 'BOTTOMLEFT', 0, -8)
+	
+	opt.ui.auraFilterFooter = parent:CreateFontString(nil, 'ARTWORK', 'GameFontNormalSmall')
+	opt.ui.auraFilterFooter:SetText(opt.titles["AuraFilterFooter"])
+	opt.ui.auraFilterFooter:SetTextColor(1,1,1,0.5)
+	opt.ui.auraFilterFooter:SetPoint(FOOTER_ANCHOR_POINT, FOOTER_X, FOOTER_Y)
+
+	mod:AddAuraFilterWidgets(parent)
+
+end
+
 function mod:CreateCVarPanel(parent)
 
 	local panel = opt:CreatePanel(parent, nil, GetScrollWidth(), SCROLL_H)

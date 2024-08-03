@@ -140,6 +140,13 @@ function opt:SetupLocale()
 		UnitFilterTooltip = "Add the name of a unit to hide its name.",
 		UnitFilterBtn = "Filter Unit",
 		RemoveUnitTooltip = 'Right click to remove this unit.',
+
+		-- aura filter panel
+		AuraFilterTitle = 'Aura Filter',
+		AuraFilterHeader = "Configure a list of additional auras to track on enemy nameplates.",
+		AuraFilterTooltip = "Add the name of an aura to filter",
+		AuraFilterBtn = "Filter Aura",
+		RemoveAuraTooltip = "Right click to stop tracking this aura",
 		
 		-- footers
 		ProfilesFooter = 'KuiNameplates: Target Helper (Profiles)',

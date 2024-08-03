@@ -52,6 +52,10 @@ local unit_filter = CreateFrame('FRAME', 'knpthunitfilter', opt)
 unit_filter.parent = opt.name
 unit_filter.name = 'Unit Filter'
 
+local aura_filter = CreateFrame('FRAME', 'knpthspells', opt)
+aura_filter.parent = opt.name
+aura_filter.name = 'Aura Filter'
+
 -- child frame for console variables
 local cvars = CreateFrame('FRAME', 'knpthcvars', opt)
 cvars.parent = opt.name
@@ -86,7 +90,8 @@ opt.ui = {
 	auras = {},
 	renames = {},
 	filters = {},
-	cvarframes = {}
+	cvarframes = {},
+	aurafilters = {},
 }
 
 -- misc local vars
@@ -135,6 +140,7 @@ function mod:LoadMissingValues()
 	SetDefaultValue('CustomAuraColors', {})
 	SetDefaultValue('Renames', {})
 	SetDefaultValue('FilterTargets', {})
+	SetDefaultValue('FilterAuras', {})
 	SetDefaultValue('TargetScale', 1.0)
 	SetDefaultValue('Priority', 3)
 	SetDefaultValue('DisableAlpha', true)
@@ -326,6 +332,7 @@ function mod:Initialised()
 	mod:RefreshInterrupts()
 	mod:RefreshRenameTargets()
 	mod:RefreshFilterTargets()
+	mod:RefreshAuraFilter()
 	
 	-- hook scripts
 	opt:HookScript("OnUpdate", UpdateTick)
@@ -348,6 +355,7 @@ function mod:LoadConfigUi()
 	local _, _ = Settings.RegisterCanvasLayoutSubcategory(category, custom_targets, custom_targets.name)
 	local _, _ = Settings.RegisterCanvasLayoutSubcategory(category, interrupts, interrupts.name)
 	local _, _ = Settings.RegisterCanvasLayoutSubcategory(category, aura_colors, aura_colors.name)
+	local _, _ = Settings.RegisterCanvasLayoutSubcategory(category, aura_filter, aura_filter.name)
 	local _, _ = Settings.RegisterCanvasLayoutSubcategory(category, unit_names, unit_names.name)
 	local _, _ = Settings.RegisterCanvasLayoutSubcategory(category, unit_filter, unit_filter.name)
 	local _, _ = Settings.RegisterCanvasLayoutSubcategory(category, cvars, cvars.name)
@@ -362,6 +370,7 @@ function mod:LoadConfigUi()
 	mod:CreateCustomAurasPanel(aura_colors)
 	mod:CreateRenamesPanel(unit_names)
 	mod:CreateFilterPanel(unit_filter)
+	mod:CreateAuraFilterPanel(aura_filter)
 	mod:CreateCVarPanel(cvars)
 end
 

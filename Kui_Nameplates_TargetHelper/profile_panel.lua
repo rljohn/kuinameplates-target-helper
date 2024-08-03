@@ -34,6 +34,7 @@ local function ExportSettings()
 	data.renames = opt.env.Renames
 	data.auras = opt.env.CustomAuraColors
 	data.filters = opt.env.FilterTargets
+	data.aurafilter = opt.env.FilterAuras
 
 	local serialized = LibSerialize:Serialize(data)
     local compressed = LibDeflate:CompressDeflate(serialized)
@@ -95,18 +96,21 @@ function mod:ImportProfileData(data)
 	opt.env.Renames = data.renames
 	opt.env.CustomAuraColors = data.auras
 	opt.env.FilterTargets = data.filters
+	opt.env.FilterAuras = data.aurafilter
 
 	rlPrintf("Imported %d enemy colors.", tablelength(opt.env.CustomTargets))
 	rlPrintf("Imported %d interrupts colors.", tablelength(opt.env.CustomInterrupts))
 	rlPrintf("Imported %d unit renames.", tablelength(opt.env.Renames))
 	rlPrintf("Imported %d debuff colors.", tablelength(opt.env.CustomAuraColors))
 	rlPrintf("Imported %d filtered units.", tablelength(opt.env.FilterTargets))
+	rlPrintf("Imported %d aura filters.", tablelength(opt.env.FilterAuras))
 
 	mod:RefreshCustomTargets()
 	mod:RefreshClassAuras()
 	mod:RefreshRenameTargets()
 	mod:RefreshFilterTargets()
 	mod:RefreshInterrupts()
+	mod:RefreshAuraFilter()
 
 	opt:EvaluateFilter()
 	opt:ResetFrames()
