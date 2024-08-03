@@ -52,6 +52,7 @@ local unit_filter = CreateFrame('FRAME', 'knpthunitfilter', opt)
 unit_filter.parent = opt.name
 unit_filter.name = 'Unit Filter'
 
+-- child frame for spell list
 local aura_filter = CreateFrame('FRAME', 'knpthspells', opt)
 aura_filter.parent = opt.name
 aura_filter.name = 'Aura Filter'
