@@ -133,9 +133,15 @@ function opt:AddTooltip2(frame, title, text, text2)
 	frame.tooltipText = text
 	frame.tooltipText2 = text2
 	frame:SetScript('OnEnter',function(self)
+			if self.highlight then
+				self.highlight:Show()
+			end
 			opt:OnTooltipEnter(self)
 		end)
     frame:SetScript('OnLeave',function(self)
+			if self.highlight then
+				self.highlight:Hide()
+			end
 			opt:OnTooltipLeave(self)
 		end)
 
@@ -224,7 +230,6 @@ function opt:NeedsSpellListConfig(spellid)
 end
 
 function opt:AddToSpellList(spellid)
-	local name, rank, icon, castTime, minRange, maxRange  = GetSpellInfo(spellid)
 	if KSL then
 		if not KSL:SpellExcluded(spellid) then
 			KSL:AddSpell(spellid, true, false)

@@ -169,7 +169,7 @@ function mod:CreateAuraFilter(key,aura)
 		end)
 	end
 
-    local spell_icon = key and select(3,GetSpellInfo(key))
+    local spell_icon = key and C_Spell.GetSpellTexture(key)
     if spell_icon then
         f.icon:SetTexture(spell_icon)
     end
@@ -235,7 +235,7 @@ local function FilterAura(id_or_name)
         end
     end
 
-    spell_name = GetSpellInfo(spell_id)
+    spell_name = C_Spell.GetSpellInfo(spell_id)
     if not spell_name then return end
 
 	opt.env.FilterAuras[spell_id] = {}

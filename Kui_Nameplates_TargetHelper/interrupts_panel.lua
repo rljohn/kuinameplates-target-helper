@@ -152,7 +152,7 @@ function mod:CreateInterruptFrame(spellId, color)
 		tinsert( opt.ui.interrupt_frames, f );
 
 		f:EnableMouse(true)
-		f:SetSize(520, 20)
+		f:SetSize(520, 24)
 		
         f.highlight = f:CreateTexture('HIGHLIGHT')
         f.highlight:SetTexture('Interface/BUTTONS/UI-Listbox-Highlight')
@@ -162,7 +162,7 @@ function mod:CreateInterruptFrame(spellId, color)
 		f.highlight:SetAllPoints(f);
 		
 		f.icon = CreateFrame("Button", nil, f, "BackdropTemplate");
-		f.icon:SetSize(30,16);
+		f.icon:SetSize(30,20);
 		f.icon:SetPoint('LEFT');
 		f.icon:SetScript("OnClick", function(self, event, ...)
 			opt:CustomInterruptsOnClick(self)
@@ -174,10 +174,14 @@ function mod:CreateInterruptFrame(spellId, color)
             insets={top=2,right=2,bottom=2,left=2}
         })
 		opt:AddTooltip(f.icon, opt.titles.CustomColorTooltipTitle, opt.titles.CustomColorTooltipText)
+
+		f.spell_icon = f:CreateTexture('ARTWORK')
+        f.spell_icon:SetPoint('LEFT', f.icon, 'RIGHT', 4, 0)
+        f.spell_icon:SetSize(24, 20)
 		
 		f.name = f:CreateFontString(nil, 'ARTWORK', 'GameFontNormal')
 		f.name:SetSize(520, 18)
-        f.name:SetPoint('LEFT', f.icon, 'RIGHT', 10, 0)
+        f.name:SetPoint('LEFT', f.spell_icon, 'RIGHT', 4, 0)
         f.name:SetJustifyH('LEFT')
 				
 		f:SetScript('OnMouseUp', function(self, button)
@@ -190,6 +194,7 @@ function mod:CreateInterruptFrame(spellId, color)
 		end)
 		
 		f:SetScript('OnEnter', function(self)
+			print('show')
 			self.highlight:Show()
 			opt:OnTooltipEnter(self)
 		end)
@@ -199,14 +204,20 @@ function mod:CreateInterruptFrame(spellId, color)
 		end)
 	end
 	
-	local spell_name = GetSpellInfo(spellId)
-	local text = string.format("%d (%s)", spellId, spell_name)
+	local spell_name = C_Spell.GetSpellName(spellId)
+	local spell_icon = C_Spell.GetSpellTexture(spellId)
+	local text = string.format("%s (%d)", spell_name, spellId)
 
 	f.id = spellId;
 	f.name:SetText(text);
 	f.name:SetTextColor(color.r, color.g, color.b)
 	f.icon:SetBackdropBorderColor(.5,.5,.5)
 	f.icon:SetBackdropColor (color.r, color.g, color.b, 1)
+
+    if spell_icon then
+        f.spell_icon:SetTexture(spell_icon)
+    end
+
 	f.active = true
 	return f;
 	
@@ -337,10 +348,12 @@ function mod:UpdateInterruptTooltip(f, context, context_color)
 		displayName = name .. ' |cffc8d975[' .. opt.titles.ContextCustom .. ']|r'
 	end
 
+	local desc = C_Spell.GetSpellDescription(f.id)
 	if (f.tooltipTitle) then
 		f.tooltipTitle = displayName
+		f.tooltipText = desc
 	else
-		opt:AddTooltip(f, displayName, opt.titles.RemoveInterruptTooltip)
+		opt:AddTooltip2(f, displayName, desc, opt.titles.RemoveInterruptTooltip)
 	end
 end
 
