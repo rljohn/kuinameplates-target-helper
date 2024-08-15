@@ -373,7 +373,8 @@ function mod:AddClassAuras(specId, abilities)
 				
 				abilitySum = abilitySum + v
 				
-				local name, rank, icon, castTime, minRange, maxRange = GetSpellInfo(v)
+				local name = C_Spell.GetSpellName(v)
+				local icon = C_Spell.GetSpellTexture(v)
 				abilityString = abilityString .. name
 				
 				if (icon1 == nil) then
@@ -392,7 +393,8 @@ function mod:AddClassAuras(specId, abilities)
 			f = mod:CreateAbilityFrame ( abilitySum, abilityString, icon1, icon2, icon3, icon4);
 			
 		else
-			local name, rank, icon, castTime, minRange, maxRange = GetSpellInfo(abilityNum)
+			local name = C_Spell.GetSpellName(abilityNum)
+			local icon = C_Spell.GetSpellTexture(abilityNum)
 			abilityString = abilityString .. name
 			
 			f = mod:CreateAbilityFrame ( abilityNum, name, icon, nil);

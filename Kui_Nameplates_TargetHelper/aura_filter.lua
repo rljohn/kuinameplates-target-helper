@@ -229,7 +229,7 @@ local function FilterAura(id_or_name)
     local spell_id = tonumber(id_or_name)
 
     if not spell_id then
-        spell_id = select(7,GetSpellInfo(id_or_name))
+        spell_id = select(7,C_Spell.GetSpellInfo(id_or_name))
         if not spell_id then
             print('Unknown spell: ' .. id_or_name)
         end
