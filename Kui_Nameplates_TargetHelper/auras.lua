@@ -132,5 +132,8 @@ KuiTargetAuraList = {
 	},
 	[65] = {	-- Paladin (HOLY)
 		287280	-- Glimmer of Light
+	},
+	[70] = {	-- RETRIBUTION PALADIN
+		197277	-- Judgment
 	}
 }
