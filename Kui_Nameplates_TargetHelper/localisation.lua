@@ -108,11 +108,11 @@ function opt:SetupLocale()
 		AddNameEdit = 'Remove',
 
 		-- custom target panel
-		CustomTarget = 'Enemy Colors',
+		CustomTarget = 'Enemy Nameplates',
 		CustomTargetHeader = "Configure custom colors to use for enemy nameplates based on their name.",
 
 		-- interrupts
-		Interrupts = "Spell Casts",
+		Interrupts = "Enemy Spell Casts",
 		InterruptsHeader = "Configure custom castbar colors for enemy spell casts.",
 		AddInterrupt = 'Add / Update Spell ID',
 		CustomColorInterruptTooltipText = 'Select a color to apply to this spell ID.',
@@ -135,25 +135,27 @@ function opt:SetupLocale()
 		UnitNamesTxtNew = "New:",
 		
 		-- unit filter panel
-		UnitFilterTitle = "Unit Filter",
+		UnitFilterTitle = "Hide Nameplates",
 		UnitFilterHeader = "Configure a list of enemies which will have their nameplates automatically hidden.",
 		UnitFilterTooltip = "Add the name of a unit to hide its name.",
 		UnitFilterBtn = "Filter Unit",
 		RemoveUnitTooltip = 'Right click to remove this unit.',
 
 		-- aura filter panel
-		AuraFilterTitle = 'Aura Filter',
+		AuraFilterTitle = 'Spell Filter',
 		AuraFilterHeader = "Configure a list of additional auras to track on enemy nameplates.",
 		AuraFilterTooltip = "Add the name of an aura to filter",
-		AuraFilterBtn = "Filter Aura",
+		AuraFilterBtn = "Add Spell",
 		RemoveAuraTooltip = "Right click to stop tracking this aura",
 		
 		-- footers
 		ProfilesFooter = 'KuiNameplates: Target Helper (Profiles)',
-		CustomTargetFooter = 'KuiNameplates: Target Helper (Enemy Colors)',
+		CustomTargetFooter = 'KuiNameplates: Target Helper (Enemy Nameplates)',
+		InterruptsFooter = "KuiNameplates: Target Helper (Enemy Spell Casts)",
 		ClassAurasFooter = "KuiNameplates: Target Helper (Debuff Colors)",
+		AuraFilterFooter = "KuiNameplates: Target Helper (Spell Filter)",
 		UnitNamesFooter = "KuiNameplates: Target Helper (Rename Units)",
-		UnitFilterFooter = "KuiNameplates: Target Helper (Unit Filter)",
+		UnitFilterFooter = "KuiNameplates: Target Helper (Hide Nameplates)",
 		CVarsFooter  = 'KuiNameplates: Target Helper (Console Variables)',
 
 		-- preset name lists

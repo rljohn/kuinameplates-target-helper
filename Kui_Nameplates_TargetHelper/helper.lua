@@ -224,6 +224,8 @@ function opt:NeedsSpellListConfig(spellid)
 	-- holy paladin support for now
 	if spellid == 287280 then
 		return true
+	elseif spellid == 217200 then
+		return true
 	end
 
 	return false
@@ -253,6 +255,8 @@ function ClassAuraCheckboxOnClick(self)
 	if self:GetChecked() then
 		if opt:NeedsSpellListConfig(spellid) then
 			opt:AddToSpellList(spellid)
+			mod:FilterAura(spellid)
+			mod:RefreshAuraFilter()
 		end
 	end
 end
@@ -277,6 +281,8 @@ function opt:SetClassAuraChecked(check, spellid)
 	if enabled then
 		if opt:NeedsSpellListConfig(spellid) then
 			opt:AddToSpellList(spellid)
+			mod:FilterAura(spellid)
+			mod:RefreshAuraFilter()
 		end
 	end
 end

@@ -26,7 +26,7 @@ local function ToggleCheck(check)
 end
 
 local function UpdateSpellList(spell_id)
-    aura = opt.env.FilterAuras[spell_id]
+    local aura = opt.env.FilterAuras[spell_id]
     if (KSL and aura) then
         if (aura.deny) then
             KSL:RemoveSpell(spell_id, true, false)
@@ -209,6 +209,7 @@ function mod:RefreshAuraFilter()
 	
 	for key,aura in pairs ( opt.env.FilterAuras ) do
         
+        aura.spell_name = C_Spell.GetSpellName(key)
 		local f = mod:CreateAuraFilter(key, aura);
 		
 		if previousFrame then
@@ -223,7 +224,7 @@ function mod:RefreshAuraFilter()
     
 end
 
-local function FilterAura(id_or_name)
+function mod:FilterAura(id_or_name)
 
     local spell_name = nil
     local spell_id = tonumber(id_or_name)
@@ -235,7 +236,7 @@ local function FilterAura(id_or_name)
         end
     end
 
-    spell_name = C_Spell.GetSpellInfo(spell_id)
+    spell_name = C_Spell.GetSpellName(spell_id)
     if not spell_name then return end
 
 	opt.env.FilterAuras[spell_id] = {}
@@ -282,7 +283,7 @@ local function ClearFilterBoxAuraName()
 end
 
 local function addFilterAuraBtnOnClick()
-	FilterAura(opt.ui.aurafilterText:GetText())
+	mod:FilterAura(opt.ui.aurafilterText:GetText())
 	ClearFilterBoxAuraName()
 end
 

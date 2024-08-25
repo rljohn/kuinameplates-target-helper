@@ -75,7 +75,7 @@ KuiTargetAuraList = {
 		194310,	-- Festering Wound
 	},
 	[253] = {	-- BEAST MASTERY HUNTER
-		217200,
+		217200,	-- Barbed Shot
 	},
 	[254] = {	-- MARKSMAN HUNTER
 		271788,	-- Serpent Sting
@@ -132,8 +132,5 @@ KuiTargetAuraList = {
 	},
 	[65] = {	-- Paladin (HOLY)
 		287280	-- Glimmer of Light
-	},
-	[70] = {	-- RETRIBUTION PALADIN
-		197277	-- Judgment
 	}
 }

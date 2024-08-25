@@ -30,12 +30,12 @@ profiles.name = 'Profiles'
 -- child frame for custom targets
 local custom_targets = CreateFrame('FRAME', 'knpthcustomtargets', opt)
 custom_targets.parent = opt.name
-custom_targets.name = 'Enemy Colors'
+custom_targets.name = 'Enemy Nameplates'
 
 -- child frame for interrupts
 local interrupts  = CreateFrame('FRAME', 'knpthinterupts', opt)
 interrupts.parent = opt.name
-interrupts.name = 'Spell Casts'
+interrupts.name = 'Enemy Spell Casts'
 
 -- child frame for class auras
 local aura_colors = CreateFrame('FRAME', 'knpthauracolors', opt)
@@ -50,17 +50,17 @@ unit_names.name = 'Rename Units'
 -- child frame for unit filter
 local unit_filter = CreateFrame('FRAME', 'knpthunitfilter', opt)
 unit_filter.parent = opt.name
-unit_filter.name = 'Unit Filter'
+unit_filter.name = 'Hide Nameplates'
 
 -- child frame for spell list
 local aura_filter = CreateFrame('FRAME', 'knpthspells', opt)
 aura_filter.parent = opt.name
-aura_filter.name = 'Aura Filter'
+aura_filter.name = 'Spell Filter'
 
 -- child frame for console variables
 local cvars = CreateFrame('FRAME', 'knpthcvars', opt)
 cvars.parent = opt.name
-cvars.name = 'CVars'
+cvars.name = 'Console Variables'
 
 -- class info
 opt.class = {}

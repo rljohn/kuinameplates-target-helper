@@ -288,6 +288,11 @@ function mod:CreateInterruptsPanel(parent)
 	opt.ui.interruptsHeader:SetText(opt.titles["InterruptsHeader"])
 	opt.ui.interruptsHeader:SetPoint('TOPLEFT', opt.ui.interruptsTitle, 'BOTTOMLEFT', 0, -8)
 
+	opt.ui.interruptsFooter = parent:CreateFontString(nil, 'ARTWORK', 'GameFontNormalSmall')
+	opt.ui.interruptsFooter:SetText(opt.titles["InterruptsFooter"])
+	opt.ui.interruptsFooter:SetTextColor(1,1,1,0.5)
+	opt.ui.interruptsFooter:SetPoint(FOOTER_ANCHOR_POINT, FOOTER_X, FOOTER_Y)
+
 	mod:InterruptsWidgets(parent)
 	
 end
