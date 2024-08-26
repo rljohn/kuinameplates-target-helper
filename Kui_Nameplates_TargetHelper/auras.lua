@@ -108,10 +108,7 @@ KuiTargetAuraList = {
 	[262] = {	-- ELEMENTAL SHAMAN
 		188389,	--	Flame Shock
 		197209,	-- 	Lightning Rod
-		382089,	-- 	Electrified Shocks
 		{188389,197209}, -- Flame Shock + Lightning Rod
-		{188389,382089}, -- Flame Shock + Electrified Shocks
-		{188389,197209,382089} -- Flame Shock + Lightning Rod + Electrified Shocks
 
 	},
 	[263] = {	-- ENHANCE SHAMAN
