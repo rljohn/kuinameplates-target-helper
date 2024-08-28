@@ -144,7 +144,7 @@ function opt:SetupLocale()
 		-- aura filter panel
 		AuraFilterTitle = 'Spell Filter',
 		AuraFilterHeader = "Configure a list of additional auras to track on enemy nameplates.",
-		AuraFilterTooltip = "Add the name of an aura to filter",
+		AuraFilterTooltip = "Add the Spell ID of an aura to filter",
 		AuraFilterBtn = "Add Spell",
 		RemoveAuraTooltip = "Right click to stop tracking this aura",
 		

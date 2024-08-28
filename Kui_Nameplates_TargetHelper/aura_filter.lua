@@ -224,16 +224,15 @@ function mod:RefreshAuraFilter()
     
 end
 
+
 function mod:FilterAura(id_or_name)
 
     local spell_name = nil
     local spell_id = tonumber(id_or_name)
 
     if not spell_id then
-        spell_id = select(7,C_Spell.GetSpellInfo(id_or_name))
-        if not spell_id then
-            print('Unknown spell: ' .. id_or_name)
-        end
+        print('Unknown spell: ' .. id_or_name .. '. Use Spell ID.')
+        return
     end
 
     spell_name = C_Spell.GetSpellName(spell_id)
