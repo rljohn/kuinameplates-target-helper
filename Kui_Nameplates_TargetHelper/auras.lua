@@ -94,9 +94,10 @@ KuiTargetAuraList = {
 		228358,	--  Winter's Chill
 	},
 	[259] = {	-- ASSASSINATION ROGUE
+		457052, -- Deathstalker's Mark
+		{703,1943}, -- Garrote + Rupture
 		703,	--	Garrote
 		1943,	--	Rupture
-		{703,1943}, -- Garrote + Rupture
 		394036,	-- Serrated Bone Spike
 	},
 	[261] = { 	-- SUBLETY ROGUE
@@ -106,15 +107,14 @@ KuiTargetAuraList = {
 		384631, -- Flagellation
 	},
 	[262] = {	-- ELEMENTAL SHAMAN
-		188389,	--	Flame Shock
-		197209,	-- 	Lightning Rod
 		{188389,197209}, -- Flame Shock + Lightning Rod
-
+		188389,	--	Flame Shock
+		197209	-- 	Lightning Rod
 	},
 	[263] = {	-- ENHANCE SHAMAN
+		{188389,334168}, -- Flame Shock + Lashing Flames
 		188389,	--	Flame Shock,
 		334168, --  Lashing Flames
-		{188389,334168} -- Flame Shock + Lashing Flames
 	},
 	[71] = {	-- ARMS WARRIOR
 		262111,	--	Mastery: Deep Wounds
@@ -126,8 +126,5 @@ KuiTargetAuraList = {
 	},
 	[581] = {	-- DEMON HUNTER (VENGEANCE)
 		207771	-- Fiery Brand
-	},
-	[65] = {	-- Paladin (HOLY)
-		287280	-- Glimmer of Light
 	}
 }
