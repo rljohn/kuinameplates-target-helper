@@ -185,7 +185,7 @@ function mod:CreateAbilityFrame(spellid, name, icon, icon2, icon3, icon4)
 	
 	opt.env.CustomAuraColors[spellid].name = name
 	
-	local tt_text = 'Modify the color of your enemy health bars when your |cff9966ff' .. name .. '|r is applied. \n\nMake sure |cff9966ffKUI Spell List|r is tracking this ability.'
+	local tt_text = 'Modify the color of your enemy health bars when your |cff9966ff' .. name .. '|r is applied. \n\nMake sure |cff9966ffKUI|r is tracking this ability and enable in the Spell Filter if necessary.'
 	f.id = spellid;
 	f.tooltipTitle = name
 	f.icon:SetBackdropBorderColor(.5,.5,.5)
