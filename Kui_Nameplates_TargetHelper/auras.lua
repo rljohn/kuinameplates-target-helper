@@ -99,16 +99,19 @@ KuiTargetAuraList = {
 	[64] = {	-- FROST MAGE
 		228358,	--  Winter's Chill
 	},
-	[259] = {	-- ASSASSINATION ROGUE
-		457052, -- Deathstalker's Mark
+	[259] = { -- ASSASSINATION ROGUE
+		{703,1943,457129}, -- Garrote + Rupture + Deathstalker's Mark
+		{457129,1943}, -- Deathstalker's Mark + Rupture
 		{703,1943}, -- Garrote + Rupture
-		703,	--	Garrote
-		1943,	--	Rupture
-		394036,	-- Serrated Bone Spike
+		457129, -- Deathstalker's Mark
+		703, -- Garrote
+		1943, -- Rupture
+		394036, -- Serrated Bone Spike
 	},
-	[261] = { 	-- SUBLETY ROGUE
+	[261] = { -- SUBLETY ROGUE
+		457129, -- Deathstalker's Mark
 		316220, -- Find Weakness
-		1943,	-- Rupture
+		1943, -- Rupture
 		385408, -- Sepsis
 		384631, -- Flagellation
 	},
