@@ -78,6 +78,7 @@ opt.ui = {
 	preferaura = nil,
 	preferauracustom = nil,
 	disablealpha = nil,
+	fadecoloredenemies = nil,
 	nametext = nil,
 	elitebordercolor = nil,
 	focustargetcolor = nil,
@@ -145,6 +146,7 @@ function mod:LoadMissingValues()
 	SetDefaultValue('TargetScale', 1.0)
 	SetDefaultValue('Priority', 3)
 	SetDefaultValue('DisableAlpha', true)
+	SetDefaultValue('FadeColoredEnemies', false)
 	SetDefaultValue('ColorTarget', false)
 	SetDefaultValue('EnableEliteBorder', true)
 	SetDefaultValue('EnableFocusBorder', true)
@@ -173,6 +175,7 @@ function mod:ResetUi()
 	opt.ui.preferaura:SetChecked(false)
 	opt.ui.preferauracustom:SetChecked(false)
 	opt.ui.disablealpha:SetChecked(false)
+	opt.ui.fadecoloredenemies:SetChecked(false)
 	opt.ui.nametext:SetChecked(false)
 	opt.ui.enableeliteborder:SetChecked(false)
 	opt.ui.enablefocusborder:SetChecked(false)
@@ -206,6 +209,7 @@ function mod:ReloadValues(spec_changed)
 	opt.ui.preferaura:SetChecked(opt.env.PreferAura)
 	opt.ui.preferauracustom:SetChecked(opt.env.PreferAuraCustom)
 	opt.ui.disablealpha:SetChecked(opt.env.DisableAlpha)
+	opt.ui.fadecoloredenemies:SetChecked(opt.env.FadeColoredEnemies)
 	opt.ui.nametext:SetChecked(opt.env.NameText)
 	opt.ui.enableeliteborder:SetChecked(opt.env.EnableEliteBorder)
 	opt.ui.enablefocusborder:SetChecked(opt.env.EnableFocusBorder)

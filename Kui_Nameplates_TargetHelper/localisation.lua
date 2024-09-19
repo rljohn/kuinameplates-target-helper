@@ -74,6 +74,8 @@ function opt:SetupLocale()
 		PreferAuraCustomTooltip = "When a target is debuffed, prefer to use the Debuff color over the Custom Enemy color.",
 		DisableAlpha = "Disable fade of tracked enemies",
 		DisableAlphaTooltip = "Nameplates in your Enemy Color list will always be shown with full opacity.",
+		FadeColoredEnemies = "Use default fading rules for debuff coloring",
+		FadeColoredEnemiesTooltip = "Nameplates in your Debuff colors list will use default fading rules.",
 		
 		-- custom target contexts
 		ContextCustom = 'Custom',
