@@ -81,7 +81,7 @@ function mod.Fading_FadeRulesReset()
     plugin_fading:AddFadeRule(function(f)
 		
 		-- non-targets with aura should be drawn
-		if (f.state.hasAura == 1 and opt.env.FadeColoredEnemies) then
+		if (f.state.hasAura == 1 and not opt.env.FadeColoredEnemies) then
 			return 1
 		end
 		
