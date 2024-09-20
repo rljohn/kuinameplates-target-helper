@@ -65,7 +65,7 @@ function mod:CreateMainPanel(parent)
 	))
 	
 	-- top panel
-	opt.ui.toppanel = opt:CreatePanel(parent, "TopFrame", 330, 170)
+	opt.ui.toppanel = opt:CreatePanel(parent, "TopFrame", 330, 180)
 	opt.ui.toppanel:SetPoint('TOPLEFT', 25, -40)
 	
 	opt.ui.topPanelTitle = parent:CreateFontString(nil, 'ARTWORK', 'GameFontNormalLarge')
@@ -75,7 +75,7 @@ function mod:CreateMainPanel(parent)
 	-- target color
 	
 	opt.ui.colortarget = opt:CreateCheckBox(opt.ui.toppanel, 'ColorTarget')
-	opt.ui.colortarget:SetPoint("TOPLEFT", opt.ui.toppanel, "TOPLEFT", 0, -5)
+	opt.ui.colortarget:SetPoint("TOPLEFT", opt.ui.toppanel, "TOPLEFT", 0, 0)
 	opt:AddTooltip(opt.ui.colortarget, opt.titles.ColorTarget, opt.titles.ColorTargetTooltip)
 	
 	opt.ui.targetcolor = opt:CreateColorTexture(opt.ui.toppanel, 'TargetColor', 160, 24,opt.env.TargetColor.r, opt.env.TargetColor.g, opt.env.TargetColor.b, opt.env.TargetColor.a)
@@ -84,7 +84,7 @@ function mod:CreateMainPanel(parent)
 	-- disable in pvp
 	
 	opt.ui.disablepvp = opt:CreateCheckBox(opt.ui.toppanel, 'DisablePvP')
-	opt.ui.disablepvp:SetPoint("TOPLEFT", opt.ui.colortarget, "BOTTOMLEFT", 0, -8)
+	opt.ui.disablepvp:SetPoint("TOPLEFT", opt.ui.colortarget, "BOTTOMLEFT", 0, -5)
 	opt:AddTooltip2(opt.ui.disablepvp, opt.titles.DisablePvP, opt.titles.DisablePvPTooltip)
 	
 	-- recolor target name
@@ -96,18 +96,23 @@ function mod:CreateMainPanel(parent)
 	-- prefer auras over target
 	
 	opt.ui.preferaura = opt:CreateCheckBox(opt.ui.toppanel, 'PreferAura')
-	opt.ui.preferaura:SetPoint("TOPLEFT", opt.ui.disablepvp, "BOTTOMLEFT", 0, -8)
+	opt.ui.preferaura:SetPoint("TOPLEFT", opt.ui.disablepvp, "BOTTOMLEFT", 0, -5)
 	opt:AddTooltip2(opt.ui.preferaura, opt.titles.PreferAura, opt.titles.PreferAuraTooltip)
 	
 	-- prefer auras over custom
 	
 	opt.ui.preferauracustom = opt:CreateCheckBox(opt.ui.toppanel, 'PreferAuraCustom')
-	opt.ui.preferauracustom:SetPoint("TOPLEFT", opt.ui.preferaura, "BOTTOMLEFT", 0, -8)
+	opt.ui.preferauracustom:SetPoint("TOPLEFT", opt.ui.preferaura, "BOTTOMLEFT", 0, -5)
 	opt:AddTooltip2(opt.ui.preferauracustom, opt.titles.PreferAuraCustom, opt.titles.PreferAuraCustomTooltip)
 	
 	opt.ui.disablealpha = opt:CreateCheckBox(opt.ui.toppanel, 'DisableAlpha')
-	opt.ui.disablealpha:SetPoint("TOPLEFT", opt.ui.preferauracustom, "BOTTOMLEFT", 0, -8)
+	opt.ui.disablealpha:SetPoint("TOPLEFT", opt.ui.preferauracustom, "BOTTOMLEFT", 0, -5)
 	opt:AddTooltip2(opt.ui.disablealpha, opt.titles.DisableAlpha, opt.titles.DisableAlphaTooltip)
+	
+	-- fade colored enemies
+	opt.ui.fadecoloredenemies = opt:CreateCheckBox(opt.ui.toppanel, 'FadeColoredEnemies')
+	opt.ui.fadecoloredenemies:SetPoint("TOPLEFT", opt.ui.disablealpha, "BOTTOMLEFT", 0, -5)
+	opt:AddTooltip2(opt.ui.disablealpha, opt.titles.FadeColoredEnemies, opt.titles.FadeColoredEnemiesTooltip)
 	
 	-- 'border options' panel
 	
