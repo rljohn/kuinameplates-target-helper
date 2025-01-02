@@ -84,6 +84,7 @@ KuiTargetAuraList = {
 		217200,	-- Barbed Shot
 	},
 	[254] = {	-- MARKSMAN HUNTER
+		430703, -- Black Arrow
 		271788,	-- Serpent Sting
 		385638, -- Razor Fragments
 		378015,	-- Latent Poison
@@ -121,9 +122,9 @@ KuiTargetAuraList = {
 		197209	-- 	Lightning Rod
 	},
 	[263] = {	-- ENHANCE SHAMAN
-		{188389,334168}, -- Flame Shock + Lashing Flames
+		{188389,210689}, -- Flame Shock + Lightning Rod
 		188389,	--	Flame Shock,
-		334168, --  Lashing Flames
+		210689, --  Lightning Rod
 	},
 	[71] = {	-- ARMS WARRIOR
 		262111,	--	Mastery: Deep Wounds
