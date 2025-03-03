@@ -38,7 +38,7 @@ KuiTargetAuraList = {
 		423583, -- Doom Brand
 	},
 	[267] = {	-- DESTRUCTION WARLOCK
-		445465, -- Wither
+		445474, -- Wither
 		157736,	-- Immolate
 		80240,	-- Havoc
 	},
@@ -84,7 +84,7 @@ KuiTargetAuraList = {
 		217200,	-- Barbed Shot
 	},
 	[254] = {	-- MARKSMAN HUNTER
-		430703, -- Black Arrow
+		466932, -- Black Arrow
 		271788,	-- Serpent Sting
 		385638, -- Razor Fragments
 		378015,	-- Latent Poison
