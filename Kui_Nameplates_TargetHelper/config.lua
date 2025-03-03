@@ -439,9 +439,8 @@ function events:PLAYER_LOGOUT()
 		HasSetGlobalData = false
 	end
 	
-	-- store the 'enable global data' flag in both locations. we'll only read from per-character.
+	-- store the 'enable global data' flag per-character.
 	KuiTargetHelperConfigCharSaved.EnableGlobalData = opt.env.EnableGlobalData
-	KuiTargetHelperConfigSaved.EnableGlobalData = opt.env.EnableGlobalData
 	
 	-- do we need to save global data?
 	if (opt.env.EnableGlobalData == true) then
