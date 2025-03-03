@@ -19,15 +19,15 @@ KuiTargetAuraList = {
 		34914, 	-- Vampiric Touch
 	},
 	[265] = {	-- AFFLICTION WARLOCK
-		{445465,980,316099,48181}, -- Wither + Agony + UA + Haunt
-		{445465,980,316099}, -- Wither + Agony + Unstable Affliction
-		{445465,980,48181}, -- Wither + Agony + Haunt
-		{445465,980}, -- Wither + Agony
+		{445474,980,316099,48181}, -- Wither + Agony + UA + Haunt
+		{445474,980,316099}, -- Wither + Agony + Unstable Affliction
+		{445474,980,48181}, -- Wither + Agony + Haunt
+		{445474,980}, -- Wither + Agony
 		{146739,980,316099,48181}, -- Corruption + Agony + UA + Haunt
 		{146739,980,316099}, -- Corruption + Agony + Unstable Affliction
 		{146739,980,48181}, -- Corruption + Agony + Haunt
 		{146739,980}, -- Corruption + Agony
-		445465,	--	Wither
+		445474,	--	Wither
 		146739, --  Corruption
 		980,	--	Agony
 		316099,	-- 	Unstable Affliction
