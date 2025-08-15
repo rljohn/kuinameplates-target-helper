@@ -39,7 +39,7 @@ function mod:addDefaultTargets(color, context_color, keys, source)
 	C_Timer.After(1, function()
 		-- add any targets not already tracked
 		table.foreach(keys, function(k,v)
-			
+
 			local id = v
 			local name = mod:ConvertNpcIdToName(id)
 
@@ -53,7 +53,7 @@ function mod:addDefaultTargets(color, context_color, keys, source)
 end
 
 function mod:ConvertNpcIdToName(npcid)
-	
+
 	local info = C_TooltipInfo.GetHyperlink(("unit:Creature-0-0-0-0-%d"):format(npcid))
 
 	if info and info.lines and info.lines[1] then
@@ -79,7 +79,7 @@ function mod:AddMythicPlusTargets()
 end
 
 function mod:AddDragonFlightTargetsSeasonOne()
-	local color = { 
+	local color = {
 		r = 0.66,
 		g = 0.89,
 		b = 1,
@@ -122,7 +122,7 @@ end
 function mod:AddWarWithinCastsSeasonOne()
 
 	mod:LoadInterruptData()
-	
+
 	C_Timer.After(1, function()
 		local heal_color = { r = 0.49, g = 0.89, b = 0.28, a = 1 }
 		local interrupt_color = { r = 0.5, g = 1, b = 0.96, a = 1 }
@@ -157,30 +157,30 @@ function mod:AddDragonFlightTargetsSeasonFour()
 	end
 end
 
-function mod:AddTheWarWithinTargetsSeasonOne()
+function mod:AddTheWarWithinTargetsSeasonTwo()
 
-	local frontal_color = {  r = 1.0, g = 0.57, b = 0, a = 1 }
-	local caster_color = {  r = 0.66, g = 0.89, b = 1, a = 1 }
-	local notable_color = { r = 0.8,  g = 0.13,  b = 0.67,  a = 1.0 }
+    local color1 = { r = 0.58, g = 0.44, b = 0.86, a = 1.00 } -- mediumpurple
+    local color2 = { r = 1.00, g = 1.00, b = 0.00, a = 1.00 } -- yellow
+    local color3 = { r = 1.00, g = 0.84, b = 0.00, a = 1.00 } -- gold
+    local color4 = { r = 1.00, g = 0.00, b = 1.00, a = 1.00 } -- magenta
+    local color5 = { r = 0.00, g = 0.75, b = 1.00, a = 1.00 } -- deepskyblue
+    local color6 = { r = 0.00, g = 0.00, b = 1.00, a = 1.00 } -- blue
 
-	for count,dungeon in ipairs(WarWithinS0Targets) do
+	for count,dungeon in ipairs(WarWithinS2MobClassifications) do
 		local color_context = 'FFDDAF30'
-		mod:addDefaultTargets(frontal_color, color_context, dungeon.frontals, dungeon.name)
-		mod:addDefaultTargets(caster_color, color_context, dungeon.casters, dungeon.name)
-		mod:addDefaultTargets(notable_color, color_context, dungeon.notable, dungeon.name)
-	end
-	for count,dungeon in ipairs(WarWithinS1Targets) do
-		local color_context = 'FFDDAF30'
-		mod:addDefaultTargets(frontal_color, color_context, dungeon.frontals, dungeon.name)
-		mod:addDefaultTargets(caster_color, color_context, dungeon.casters, dungeon.name)
-		mod:addDefaultTargets(notable_color, color_context, dungeon.notable, dungeon.name)
+        mod:addDefaultTargets(color1, color_context, dungeon.classification_1, dungeon.name)
+        mod:addDefaultTargets(color2, color_context, dungeon.classification_2, dungeon.name)
+        mod:addDefaultTargets(color3, color_context, dungeon.classification_3, dungeon.name)
+        mod:addDefaultTargets(color4, color_context, dungeon.classification_4, dungeon.name)
+        mod:addDefaultTargets(color5, color_context, dungeon.classification_5, dungeon.name)
+        mod:addDefaultTargets(color6, color_context, dungeon.classification_6, dungeon.name)
 	end
 end
 
 function mod:AddTheWarAithinCastsSeasonOne()
 
 	mod:LoadInterruptData()
-	
+
 	C_Timer.After(1, function()
 		local heal_color = { r = 0.49, g = 0.89, b = 0.28, a = 1 }
 		local interrupt_color = { r = 0.5, g = 1, b = 0.96, a = 1 }

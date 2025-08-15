@@ -3,9 +3,9 @@ local opt = KuiConfigTargetHelper
 function opt:SetupLocale()
 
 	local LOCALE = GetLocale()
-	
+
 	opt.titles = {
-	
+
 		-- main options
 		TargetOptions = 'Nameplate Options',
 		ColorTarget = 'Enable Target Color',
@@ -14,23 +14,23 @@ function opt:SetupLocale()
 		DisablePvPTooltip = "Disable target and debuff colors for player frames",
 		NameText = "Name Color",
 		NameTextTooltip = "Name text color will be updated for custom enemy colors. This is useful for tank mode and execute mode.",
-		
+
 		-- reset
 		ResetAll = 'Reset',
 		ResetTooltip = "Reset the |cff9966ffTarget Helper|r to base settings.",
-		
+
 		-- plugin priority
 		PriorityText = "Plugin Priority",
 		PriorityTooltip = "Plugins with a higher priority value will take precedence over lower priority plugins.",
 		PriorityTankMode = "Set the priority for the Target Helper plugin.\n\nAny value over '5' will override KUI tank mode.\n\nAny value over '4' will override KUI execute mode.",
-		
+
 		-- cvar options
 		CVarTitle = 'Nameplate CVars',
 		CVarTitlePanel = 'Nameplate Console Variables',
 		CVarTitleHeader = 'Modify console variables that change the behaviour of nameplates. Advanced users only.',
 		EnableCVars = "Enable CVar Modification",
 		EnableCVarsTooltip = "Enables the CVar panel, allowing KUI |cff9966ffTarget Helper|r to modify CVars.",
-		
+
 		-- profiles
 		ProfilesTitle = 'Profile Settings',
 		ProfilesHeader = "Select either per-character or per-account settings.",
@@ -45,7 +45,7 @@ function opt:SetupLocale()
 		ExportTitle = 'Export',
 		ExportTooltip = 'Export to a string.',
 		ImportTooltip = 'Import from a string.',
-		
+
 		-- borders
 		BorderOptions = 'Border Options',
 
@@ -66,7 +66,7 @@ function opt:SetupLocale()
 		EnableExecuteBorderTooltip = 'Adds a border around targets in execute range.\n\nYou must enable execute health bars in the KuiNameplates Core addon.',
 		ExecuteEdgeSize = "Width",
 		ExecuteEdgeSizeTooltip = "Width of the execute border",
-		
+
 		-- preferences
 		PreferAura = "Prefer Debuff Colors over Target Color",
 		PreferAuraTooltip = "When a target is debuffed, prefer to use the Debuff color over the Target color.",
@@ -76,7 +76,7 @@ function opt:SetupLocale()
 		DisableAlphaTooltip = "Nameplates in your Enemy Color list will always be shown with full opacity.",
 		FadeColoredEnemies = "Use default fading rules for debuff coloring",
 		FadeColoredEnemiesTooltip = "Nameplates in your Debuff colors list will use default fading rules.",
-		
+
 		-- custom target contexts
 		ContextCustom = 'Custom',
 		ContextBuiltIn = 'Default',
@@ -84,7 +84,7 @@ function opt:SetupLocale()
 		ContextSLRaids = 'Shadowlands Raids',
 		ClassAuras = 'Class Debuffs',
 		ClassAurasNone = 'We do not currently support debuff colors for this talent specialization.\n\nIf you would like to request support for your class, please open an issue on Curseforge.',
-		
+
 		-- custom targets
 		AddTarget = 'Add / Update Enemy',
 		AddTargetTooltipTitle = "Add Enemy",
@@ -100,7 +100,7 @@ function opt:SetupLocale()
 		CopyTargetTooltip = 'Copy your current non-player target into the text box.',
 		SavedColors = 'Saved Colors',
 		SavedColor = 'Left click to select.\n\nRight click to modify.',
-		
+
 		-- names
 		AddName = 'Custom Name',
 		AddNameTooltipTitle = 'Custom Name',
@@ -128,14 +128,14 @@ function opt:SetupLocale()
 		-- class auras panel
 		ClassAurasHeader = "Configure custom colors to use for enemy nameplates based on your debuffs.",
 		SpellListWarning = 'This plugin only supports debuffs that are shown on KUI Nameplates.\n\nYou may need to download and configure KuiSpellListConfig to see them.',
-		
+
 		-- unit names panel
 		UnitNamesTitle = "Rename Units",
 		UnitNamesHeader = "Configure custom names for enemies to make them easier to identify in combat.",
 		UnitNamesBtn = "Rename Unit",
 		UnitNamesTxtOriginal = "Original:",
 		UnitNamesTxtNew = "New:",
-		
+
 		-- unit filter panel
 		UnitFilterTitle = "Hide Nameplates",
 		UnitFilterHeader = "Configure a list of enemies which will have their nameplates automatically hidden.",
@@ -149,7 +149,7 @@ function opt:SetupLocale()
 		AuraFilterTooltip = "Add the Spell ID of an aura to filter",
 		AuraFilterBtn = "Add Spell",
 		RemoveAuraTooltip = "Right click to stop tracking this aura",
-		
+
 		-- footers
 		ProfilesFooter = 'KuiNameplates: Target Helper (Profiles)',
 		CustomTargetFooter = 'KuiNameplates: Target Helper (Enemy Nameplates)',
@@ -164,13 +164,13 @@ function opt:SetupLocale()
 
 		ClearTargets = 'Clear Targets',
 		ClearTargetsTooltip = 'Resets the enemy colors list.',
-		
+
 		SpecialTargets = 'Mythic+ and Raid Targets',
 		SpecialTargetsTooltip = 'Explosive Orbs, Chaotic Essence, etc...',
 
-		SeasonTooltip = 'The War Within: Season One',
-		SeasonTooltipText = 'Add enemies from |cFFDDAF30The War Within: Season One|r dungeons',
-		SeasonTooltipInterruptsText = 'Add interrupts from |cFFDDAF30The War Within: Season One|r dungeons and raids.',
+		SeasonTooltip = 'The War Within: Season Two',
+		SeasonTooltipText = 'Add enemies from |cFFDDAF30The War Within: Season Two|r dungeons',
+		SeasonTooltipInterruptsText = 'Add interrupts from |cFFDDAF30The War Within: Season Two|r dungeons and raids.',
 
 		ClearInterrupts = 'Clear Interrupts',
 		ClearInterruptsTooltip = 'Resets the interrupts list.',

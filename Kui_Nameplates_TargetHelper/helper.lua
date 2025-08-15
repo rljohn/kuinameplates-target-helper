@@ -52,7 +52,7 @@ function opt:ShouldFilterUnit(name)
 			return true
 		end
 	end
-	
+
 	return false
 end
 
@@ -62,7 +62,7 @@ function opt:EvaluateFilter()
 
 	-- iterate all active namepaltes
 	for _, f in pairs(C_NamePlate.GetNamePlates()) do
-		
+
 		-- get the unit name, see if we are meant to unfilter
 		local unit = f.namePlateUnitToken
 		local name = GetUnitName(unit)
@@ -97,24 +97,24 @@ end
 -- Tooltips
 
 function opt:OnTooltipEnter(self)
-	
+
 	if not self.tooltipText then
 		return
 	end
-	
+
 	GameTooltip:SetOwner(self,'ANCHOR_TOPLEFT')
     GameTooltip:SetWidth(400)
-	
+
 	if self.tooltipTitle then
 		GameTooltip:AddLine(self.tooltipTitle)
 	end
-	
+
 	GameTooltip:AddLine(self.tooltipText, 1, 1, 1, true)
-	
+
 	if self.tooltipText2 then
 		GameTooltip:AddLine(self.tooltipText2, 1, 1, 1, true)
 	end
-	
+
 	GameTooltip:Show()
 end
 
@@ -122,7 +122,7 @@ function opt:OnTooltipLeave(self)
 	if not self.tooltipText then
 		return
 	end
-	
+
     GameTooltip:Hide()
 end
 
@@ -158,13 +158,13 @@ end
 
 local function CheckBoxOnClick(self)
 	opt.env[self:GetName()] = self:GetChecked()
-		
+
 	if self:GetChecked() then
-		PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON) 
+		PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON)
 	else
 		PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF)
 	end
-	
+
 	if (self:GetName() == "EnableCVars") then
 		if self:GetChecked() then
 			opt:EnableCVars()
@@ -172,21 +172,21 @@ local function CheckBoxOnClick(self)
 			opt:DisableCVars()
 		end
 	end
-	
+
 	if (self:GetName() == "EnableGlobalData") then
 		if self:GetChecked() then
 			opt:ReloadGlobalData()
 		end
 	end
-	
+
 	opt:ResetFrames()
 end
-	
+
 function opt:CreateCheckBox(parent, name)
 	local check = CreateFrame('CheckButton', name, parent, 'OptionsBaseCheckButtonTemplate')
 	check:SetScript('OnClick',CheckBoxOnClick)
 	check:Raise()
-	
+
 	check.label = check:CreateFontString(nil, 'ARTWORK', 'GameFontWhite')
 	check.label:SetText(opt.titles[name] or name or '!MissingTitle')
 	check.label:SetPoint('LEFT', check, 'RIGHT')
@@ -196,14 +196,14 @@ function opt:CreateCheckBox(parent, name)
 			self.check:Click()
 		end
 	end)
-	
+
 	check:SetChecked(opt.env[name])
-	
+
 	return check
 end
 
 function opt:EnsureSpecEnabledValid(spellid)
-	
+
 	local entry = opt.env.CustomAuraColors[spellid]
 	if (entry[opt.class.specId] == nil) then
 		entry[opt.class.specId] = {}
@@ -240,13 +240,13 @@ function opt:AddToSpellList(spellid)
 end
 
 function ClassAuraCheckboxOnClick(self)
-	
+
 	local spellid = self.spellid
 	opt:EnsureSpecEnabledValid(spellid)
 
 	if self:GetChecked() then
 		opt.env.CustomAuraColors[self.spellid][opt.class.specId].enabled = true
-		PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON) 
+		PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON)
 	else
 		opt.env.CustomAuraColors[self.spellid][opt.class.specId].enabled = false
 		PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF)
@@ -294,11 +294,11 @@ function opt:CreateClassAuraCheckBox(parent, spellid, spellname)
 	check.spellid = spellid
 	check:SetScript('OnClick',ClassAuraCheckboxOnClick)
 	check:Raise()
-	
+
 	check.label = parent:CreateFontString(nil, 'ARTWORK', 'GameFontWhite', 7)
 	check.label:SetText(spellname)
 	check.label:SetPoint('LEFT', check, 'RIGHT')
-	
+
 	opt:EnsureSpecEnabledValid(spellid)
 	return check
 end
@@ -307,13 +307,13 @@ end
 
 local function slider_OnValueChanged(self, value)
 	local strval = string.format("%.2f", value)
-	
+
 	opt.env[self:GetName()] = value
 	self.label:SetText(strval)
-	
+
 	opt.ShouldResetFrames = true
 end
-	
+
 function opt:CreateSlider(parent, name, minval, maxval, stepvalue, width, notitle)
 	local slider = CreateFrame("Slider", name, parent, "OptionsSliderTemplate")
 	slider:SetOrientation("HORIZONTAL")
@@ -323,21 +323,21 @@ function opt:CreateSlider(parent, name, minval, maxval, stepvalue, width, notitl
 	slider:SetHeight(16)
 	slider:SetValueStep(stepvalue)
 	slider:SetObeyStepOnDrag(true)
-	
+
 	if (notitle == false) then
 		slider.title = opt.titles[name]
 	end
-	
+
 	getglobal(name .. 'Low'):SetText(tostring(minval)); --Sets the left-side slider text (default is "Low").
 	getglobal(name .. 'High'):SetText(tostring(maxval)); --Sets the right-side slider text (default is "High").
-	
+
 	if (notitle == false) then
 		getglobal(name .. 'Text'):SetText(opt.titles[name] or name or '!MissingTitle'); --Sets the "title" text (top-centre of slider).
 	end
- 
+
  	slider:SetValue(opt.env[name])
 	slider:SetScript("OnValueChanged", slider_OnValueChanged)
-	
+
 	local strval = string.format("%.2f", opt.env[name])
 	slider.label = parent:CreateFontString(nil, 'ARTWORK', 'GameFontHighlight')
 	slider.label:SetText(strval)
@@ -356,22 +356,22 @@ local function myColorCallback(red, green, blue, alpha)
 
  -- Update our internal storage.
  r, g, b, a = red, green, blue, alpha;
- 
+
  -- And update any UI elements that use this color...
- if (colorPicker) then	
+ if (colorPicker) then
 	colorPicker:SetBackdropColor(r, g, b, a)
 	opt.env[colorPicker:GetName()].r = r
 	opt.env[colorPicker:GetName()].g = g
 	opt.env[colorPicker:GetName()].b = b
 	opt.env[colorPicker:GetName()].a = a
  end
- 
+
  opt.ShouldResetFrames = true
 end
 
 function opt:ShowColorPicker(red, green, blue, alpha, changedCallback)
 
-	local info = 
+	local info =
 	{
 		swatchFunc = function()
 			local r, g, b = ColorPickerFrame:GetColorRGB()
@@ -387,7 +387,7 @@ function opt:ShowColorPicker(red, green, blue, alpha, changedCallback)
 		g = green,
 		b = blue,
 		opacity = alpha
-	} 
+	}
 
 	ColorPickerFrame:SetupColorPickerAndShow(info)
 end
@@ -395,12 +395,12 @@ end
 function opt:ColorPickerOnClick(self)
 	colorPicker = self;
 	colorEdit = nil
-	
+
 	r = opt.env[colorPicker:GetName()].r
 	g = opt.env[colorPicker:GetName()].g
 	b = opt.env[colorPicker:GetName()].b
 	a = opt.env[colorPicker:GetName()].a
-	
+
 	opt:ShowColorPicker(r, g, b, a, myColorCallback)
 end
 
@@ -408,11 +408,11 @@ local function editColorCallback(red, green, blue, alpha)
 
 	-- Update our internal storage.
 	r, g, b, a = red, green, blue, alpha
-	
+
 	if colorEdit then
 		-- And update any UI elements that use this color...
 		colorEdit:SetBackdropColor(r, g, b, a)
-		
+
 		if colorEdit:GetParent() then
 
 			if opt.env.CustomTargets[colorEdit:GetParent().id] then
@@ -422,7 +422,7 @@ local function editColorCallback(red, green, blue, alpha)
 				opt.env.CustomTargets[colorEdit:GetParent().id].b = b
 				opt.env.CustomTargets[colorEdit:GetParent().id].a = a
 				colorEdit:GetParent().name:SetTextColor(r, g, b)
-				
+
 				opt.env.NewColor.r = r
 				opt.env.NewColor.g = g
 				opt.env.NewColor.b = b
@@ -430,13 +430,13 @@ local function editColorCallback(red, green, blue, alpha)
 				opt.ui.addtargetcolor:SetBackdropColor(r, g, b, a)
 
 			elseif opt.env.CustomInterrupts[colorEdit:GetParent().id] then
-				
+
 				opt.env.CustomInterrupts[colorEdit:GetParent().id].r = r
 				opt.env.CustomInterrupts[colorEdit:GetParent().id].g = g
 				opt.env.CustomInterrupts[colorEdit:GetParent().id].b = b
 				opt.env.CustomInterrupts[colorEdit:GetParent().id].a = a
 				colorEdit:GetParent().name:SetTextColor(r, g, b)
-				
+
 				opt.env.NewInterruptColor.r = r
 				opt.env.NewInterruptColor.g = g
 				opt.env.NewInterruptColor.b = b
@@ -447,14 +447,14 @@ local function editColorCallback(red, green, blue, alpha)
 
 		end
 	end
-	
+
 	opt.ShouldResetFrames = true
 end
 
 function opt:CustomTargetColorOnClick(self)
 	colorPicker = nil
 	colorEdit = self
-	
+
 	local clr = opt.env.CustomTargets[self:GetParent().id]
 	opt:ShowColorPicker(clr.r, clr.g, clr.b, clr.a, editColorCallback)
 end
@@ -462,7 +462,7 @@ end
 function opt:CustomInterruptsOnClick(self)
 	colorPicker = nil
 	colorEdit = self
-	
+
 	local clr = opt.env.CustomInterrupts[self:GetParent().id]
 	opt:ShowColorPicker(clr.r, clr.g, clr.b, clr.a, editColorCallback)
 end
@@ -470,38 +470,38 @@ end
 local function editAuraColorCallback(red, green, blue, alpha)
 
 	r, g, b, a = red, green, blue, alpha
-	
+
 	local id = auraEdit:GetParent().id
 	if auraEdit then
 		-- And update any UI elements that use this color...
 		auraEdit:SetBackdropColor(r, g, b, a)
-		
+
 		if auraEdit:GetParent() then
 			if (opt.env.CustomAuraColors[id].color == nil) then
 				opt.env.CustomAuraColors[id].color = {}
 			end
-		
+
 			opt.env.CustomAuraColors[id].color.r = r
 			opt.env.CustomAuraColors[id].color.g = g
 			opt.env.CustomAuraColors[id].color.b = b
 			opt.env.CustomAuraColors[id].color.a = a
 		end
 	end
-	
+
 	opt.ShouldResetFrames = true
 end
 
 function opt:AuraColorOnClick(self)
 	colorPicker = nil
 	auraEdit = self
-	
+
 	local clr
 	if (opt.env.CustomAuraColors[self:GetParent().id] == nil or opt.env.CustomAuraColors[self:GetParent().id].color == nil) then
 		clr = { r = 1.0, g = 1.0, b = 1.0, a = 1.0 }
 	else
 		clr = opt.env.CustomAuraColors[self:GetParent().id].color
 	end
-	
+
 	opt:ShowColorPicker(clr.r, clr.g, clr.b, clr.a, editAuraColorCallback)
 end
 
@@ -514,7 +514,7 @@ function opt:CreateColorTexture(parent, name, w, h, red, green, blue, alpha)
 	frame:SetScript("OnClick", function(self, event, ...)
 			opt:ColorPickerOnClick(self)
 		end)
-	
+
 	frame:SetBackdrop({
             bgFile='interface/buttons/white8x8',
             edgeFile='interface/buttons/white8x8',
@@ -523,24 +523,24 @@ function opt:CreateColorTexture(parent, name, w, h, red, green, blue, alpha)
         })
 	frame:SetBackdropBorderColor(.5,.5,.5)
 	frame:SetBackdropColor(red, green, blue, alpha)
-	
+
 	frame:Show()
-	
+
 	return frame;
 end
 
 -- Scroll Area
 
 function opt:CreateScrollArea(parent, name, width, height)
-	
+
 	local panel = CreateFrame('Frame', nil, parent)
 	panel:SetSize(width, height);
-	
+
 	local scroll = CreateFrame("ScrollFrame", name, parent, 'UIPanelScrollFrameTemplate')
 	scroll:SetSize(width, height)
 	scroll:SetScrollChild(panel)
 	scroll.panel = panel
-	
+
 	local bg = CreateFrame('Frame', nil, parent, "BackdropTemplate")
 	bg:SetBackdrop({
         bgFile = 'interface/buttons/white8x8',
@@ -553,7 +553,7 @@ function opt:CreateScrollArea(parent, name, width, height)
 	bg:SetPoint('TOPLEFT', scroll, -10, 10)
 	bg:SetPoint('BOTTOMRIGHT', scroll, 30, -10)
 	bg:SetFrameStrata("MEDIUM")
-	
+
 	return scroll
 end
 
@@ -583,7 +583,7 @@ end
 function opt:CreatePanel(parent, name, width, height)
 	local panel = CreateFrame("Frame", name, parent)
 	panel:SetSize(width, height)
-	
+
 	local bg = CreateFrame('Frame', nil, panel, "BackdropTemplate")
 	bg:SetBackdrop({
         bgFile = 'interface/buttons/white8x8',
@@ -591,14 +591,14 @@ function opt:CreatePanel(parent, name, width, height)
 		edgeSize = 16,
 		insets = { left = 4, right = 4, top = 4, bottom = 4 }
 	})
-	
+
 	bg:SetBackdropColor(.1,.1,.1,.3)
 	bg:SetBackdropBorderColor(1, 1, 1)
 	bg:SetPoint('TOPLEFT', panel, -10, 10)
 	bg:SetPoint('BOTTOMRIGHT', panel, 30, -10)
 	bg:SetFrameStrata("MEDIUM")
 	--bg:SetFrameLevel(1)
-	
+
 	return panel
 end
 
@@ -786,11 +786,11 @@ StaticPopupDialogs["KUI_TargetHelper_MPlusConfirm"] = {
 }
 
 StaticPopupDialogs["KUI_TargetHelper_SeasonConfirm"] = {
-	text = "Do you want to import enemies from The War Within Season One?",
+	text = "Do you want to import enemies from The War Within Season Two?",
 	button1 = "Yes",
 	button2 = "No",
 	OnAccept = function(self, data, data2)
-		mod:AddTheWarWithinTargetsSeasonOne(data)
+		mod:AddTheWarWithinTargetsSeasonTwo(data)
 	end,
 	timeout = 0,
   	whileDead = true,
@@ -841,16 +841,16 @@ StaticPopupDialogs["KUI_TargetHelper_DeleteInterruptConfirm"] = {
 
 local function slider_OnValueChangedReload(self, value)
 	local strval = string.format("%.2f", value)
-	
+
 	opt.env[self:GetName()] = value
 	self.label:SetText(strval)
-	
+
 	if (ReloadWarningShown == false) then
 		ReloadWarningShown = true
 		StaticPopup_Show("KUI_TargetHelper_ReloadUiConfirm")
 	end
 end
-	
+
 function opt:CreateSliderWithReload(parent, name, minval, maxval, stepvalue, width)
 	local slider = CreateFrame("Slider", name, parent, "OptionsSliderTemplate")
 	slider:SetOrientation("HORIZONTAL")
@@ -861,14 +861,14 @@ function opt:CreateSliderWithReload(parent, name, minval, maxval, stepvalue, wid
 	slider:SetValueStep(stepvalue)
 	slider:SetObeyStepOnDrag(true)
 	slider.title = opt.titles[name]
-	
+
 	getglobal(name .. 'Low'):SetText(tostring(minval)); --Sets the left-side slider text (default is "Low").
 	getglobal(name .. 'High'):SetText(tostring(maxval)); --Sets the right-side slider text (default is "High").
 	getglobal(name .. 'Text'):SetText(opt.titles[name] or name or '!MissingTitle'); --Sets the "title" text (top-centre of slider).
- 
+
  	slider:SetValue(opt.env[name])
 	slider:SetScript("OnValueChanged", slider_OnValueChangedReload)
-	
+
 	local strval = string.format("%.2f", opt.env[name])
 	slider.label = parent:CreateFontString(nil, 'ARTWORK', 'GameFontHighlight')
 	slider.label:SetText(strval)
@@ -891,6 +891,6 @@ function opt:CreateIcon(parent, name, icon, w, h)
 	frame:SetBackdropBorderColor(1, 1, 1, 0.25)
 	frame:SetBackdropColor(1, 1, 1, 1)
 	frame:Show()
-	
+
 	return frame;
 end

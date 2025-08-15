@@ -14,7 +14,7 @@ MythicPlusTargets = {
 }
 
 DragonFlightS1Targets = {
-	
+
 	[1] = {
 		name = "Algeth'ar Academy - Dragonflight Season One",
 		npcs = {
@@ -400,8 +400,7 @@ DragonFlightS3Targets = {
 	}
 }
 
-DragonFlightS4Targets = 
-{
+DragonFlightS4Targets =  {
 	[1] = {
 		name = "Algeth'ar Academy - Dragonflight Season Four",
 		scary_npcs = {
@@ -504,107 +503,7 @@ DragonFlightS4Targets =
 	}
 }
 
-WarWithinS0Targets =
-{
-	[1] = {
-		name = "Priory of the Sacred Flame - The War Within - Dungeon",
-		frontals = {
-		},
-		notable = {
-			206697 -- Devout Priest
-		},
-		casters = {
-			221760 -- Risen Mage
-		},
-		cast_interrupt = {
-			424420, -- Cinderblast
-			424419, -- Battle Cry
-			423051, -- Burning Light
-			444743 -- Fireball Volley
-		},
-		cast_heal = {
-			427356 -- Greater Heal
-		},
-		cast_stop = {
-			427342 -- Defend
-		}
-	},
-	[2] = {
-		name = "Cinderbrew Meadery - The War Within - Dungeon",
-		frontals = {
-			210271, -- Brew Master Aldryr
-			210264, -- Bee Wrangler
-			223423 -- Careless Hopgoblin
-		},
-		notable = {
-			222964 -- Flavor Scientist
-		},
-		casters = {
-			218671, -- Venture Co. Pyromaniac
-			220141 -- Royal Jelly Purveyor
-		},
-		cast_interrupt = {
-			454319, -- Boiling Flames
-			440687 -- Honey Volley
-		},
-		cast_heal = {
-			441627 -- Rejuvenating Honey
-		},
-		cast_stop = {
-		}
-	},
-	[3] = {
-		name = "The Rookery - The War Within - Dungeon",
-		frontals = {
-			218334, -- Stormrider Vokmor
-			209801, -- Quartermaster Koratite
-			207186, -- Unruly Stormrook
-			207207 -- Voidstone Monstrocity
-		},
-		notable = {
-		},
-		casters = {
-			214421, -- Corrupted Thunderer (Coalescing Void Diffuser?)
-			212793 -- Void Ascendant
-		},
-		cast_interrupt = {
-			430805, -- Arcing Void
-			432959 -- Void Volley
-		},
-		cast_heal = {
-		},
-		cast_stop = {
-		}
-	},
-	[4] = {
-		name = "Darkflame Cleft - The War Within - Dungeon",
-		frontals = {
-			208456 -- Shuffling Horror
-		},
-		notable = {
-		},
-		casters = {
-			210818, -- Lowly Moleherd
-			223772, -- Blazing Fiend
-			212412 -- Sootsnout
-		},
-		cast_interrupt = {
-			425536, -- Mole Frenzy
-			424322, -- Explosive Flame
-			426295, -- Flaming Tether
-			426145, -- Paranoid Mind
-			427157 -- Call Darkspawn
-		},
-		cast_heal = {
-		},
-		cast_stop = {
-			422541 -- Drain Light
-		}
-	},
-}
-
-WarWithinS1Targets =
-{
+WarWithinS1Targets = {
 	[1] = {
 		name = "Ara-Kara - The War Within - Season One",
 		frontals = {
@@ -822,4 +721,261 @@ WarWithinS1Targets =
 		cast_stop = {
 		}
 	},
+}
+
+
+WarWithinS2MobClassifications = {
+    [1] = {
+        name = "Operation: Floodgate",
+        classification_1 = {
+            229251, -- Venture Co. Architect
+            231197, -- Bubbles
+            231325, -- Darkfuse Jumpstarter
+        },
+        classification_2 = {
+            231176, -- Scaffolding
+        },
+        classification_3 = {
+        },
+        classification_4 = {
+            230740, -- Shreddinator 3000
+            230748, -- Darkfuse Bloodwarper
+        },
+        classification_5 = {
+            228424, -- Darkfuse Mechadrone
+            229069, -- Mechadrone Sniper
+            229686, -- Venture Co. Surveyor
+            231223, -- Disturbed Kelp
+            231312, -- Venture Co. Electrician
+            231380, -- Undercrawler
+        },
+        classification_6 = {
+            229252, -- Darkfuse Hyena
+            231496, -- Venture Co. Diver
+        },
+    },
+    [2] = {
+        name = "Priory of the Sacred Flame",
+        classification_1 = {
+            206696, -- Arathi Knight
+            206704, -- Ardent Paladin
+        },
+        classification_2 = {
+        },
+        classification_3 = {
+        },
+        classification_4 = {
+            211289, -- Taener Duelmal
+            211290, -- Elaena Emberlanz
+            211291, -- Sergeant Shaynemail
+            212826, -- Guard Captain Suleyman
+            212827, -- High Priest Aemya
+            212831, -- Forge Master Damian
+            217658, -- Sir Braunpyke
+            239833, -- Elaena Emberlanz
+            239834, -- Taener Duelmal
+            239836, -- Sergeant Shaynemail
+        },
+        classification_5 = {
+            206697, -- Devout Priest
+        },
+        classification_6 = {
+            206698, -- Fanatical Conjuror
+            221760, -- Risen Mage
+        },
+    },
+    [3] = {
+        name = "The Rookery",
+        classification_1 = {
+            212739, -- Radiating Voidstone
+            212786, -- Voidrider
+            214421, -- Coalescing Void Diffuser
+        },
+        classification_2 = {
+        },
+        classification_3 = {
+        },
+        classification_4 = {
+            209801, -- Quartermaster Koratite
+            212793, -- Void Ascendant
+        },
+        classification_5 = {
+            207198, -- Cursed Thunderer
+            207202, -- Void Fragment
+            214439, -- Corrupted Oracle
+        },
+        classification_6 = {
+            207199, -- Cursed Rooktender
+        },
+    },
+    [4] = {
+        name = "Darkflame Cleft",
+        classification_1 = {
+            208450, -- Wandering Candle
+            210539, -- Corridor Creeper
+            211121, -- Rank Overseer
+            212411, -- Torchsnarl
+            220616, -- Corridor Sleeper
+        },
+        classification_2 = {
+            213751, -- Dynamite Mine Cart
+        },
+        classification_3 = {
+        },
+        classification_4 = {
+            212412, -- Sootsnout
+        },
+        classification_5 = {
+            210812, -- Royal Wicklighter
+            213913, -- Kobold Flametender
+        },
+        classification_6 = {
+            208456, -- Shuffling Horror
+            210818, -- Lowly Moleherd
+            211228, -- Blazing Fiend
+            220815, -- Blazing Fiend
+            223770, -- Blazing Fiend
+            223772, -- Blazing Fiend
+            223773, -- Blazing Fiend
+            223774, -- Blazing Fiend
+            223775, -- Blazing Fiend
+            223776, -- Blazing Fiend
+            223777, -- Blazing Fiend
+        },
+    },
+    [5] = {
+        name = "Cinderbrew Meadery",
+        classification_1 = {
+            210269, -- Hired Muscle
+            220946, -- Venture Co. Honey Harvester
+            223423, -- Careless Hopgoblin
+        },
+        classification_2 = {
+            220368, -- Failed Batch
+        },
+        classification_3 = {
+        },
+        classification_4 = {
+            214697, -- Chef Chewie
+        },
+        classification_5 = {
+            220060, -- Taste Tester
+            220141, -- Royal Jelly Purveyor
+        },
+        classification_6 = {
+            210264, -- Bee Wrangler
+            214673, -- Flavor Scientist
+            218671, -- Venture Co. Pyromaniac
+            222964, -- Flavor Scientist
+        },
+    },
+    [6] = {
+        name = "Theater of Pain",
+        classification_1 = {
+            162744, -- Nekthara the Mangler
+            162763, -- Soulforged Bonereaver
+            163086, -- Rancid Gasbag
+            164451, -- Dessia the Decapitator
+            167532, -- Heavin the Breaker
+            167533, -- Advent Nevermore
+            167534, -- Rek the Hardened
+            167536, -- Harugia the Bloodthirsty
+            167538, -- Dokigg the Brutalizer
+            167998, -- Portal Guardian
+        },
+        classification_2 = {
+        },
+        classification_3 = {
+        },
+        classification_4 = {
+            164506, -- Ancient Captain
+            169893, -- Nefarious Darkspeaker
+            169927, -- Putrid Butcher
+            170234, -- Oppressive Banner
+            170850, -- Raging Bloodhorn
+            234443, -- Jundies
+        },
+        classification_5 = {
+            160495, -- Maniacal Soulbinder
+            164461, -- Sathel the Accursed
+            166524, -- Deathwalker
+            174197, -- Battlefield Ritualist
+            174210, -- Blighted Sludge-Spewer
+        },
+        classification_6 = {
+            164510, -- Shambling Arbalest
+            169875, -- Shackled Soul
+            170690, -- Diseased Horror
+            170882, -- Bone Magus
+        },
+    },
+    [7] = {
+        name = "Operation: Mechagon",
+        classification_1 = {
+            144293, -- Waste Processing Unit
+            144296, -- Spider Tank
+            150160, -- Scrapbone Bully
+            150253, -- Weaponized Crawler
+            151476, -- Blastatron X-80
+        },
+        classification_2 = {
+            189878, -- Nathrezim Infiltrator
+        },
+        classification_3 = {
+            120651, -- Explosives
+        },
+        classification_4 = {
+            144298, -- Defense Bot Mk III
+            150146, -- Scrapbone Shaman
+            150168, -- Toxic Monstrosity
+            150292, -- Mechagon Cavalry
+            151325, -- Alarm-o-Bot
+            152033, -- Inconspicuous Plant
+            154744, -- Toxic Monstrosity
+            154758, -- Toxic Monstrosity
+            190174, -- Hypnosis Bat
+        },
+        classification_5 = {
+            144294, -- Mechagon Tinkerer
+            150142, -- Scrapbone Trashtosser
+            150165, -- Slime Elemental
+            150250, -- Pistonhead Blaster
+            151657, -- Bomb Tonk
+            155090, -- Anodized Coilbearer
+        },
+        classification_6 = {
+            144295, -- Mechagon Mechanic
+            150143, -- Scrapbone Grinder
+            150169, -- Toxic Lurker
+            150251, -- Pistonhead Mechanic
+            150297, -- Mechagon Renormalizer
+        },
+    },
+    [8] = {
+        name = "The MOTHERLODE!!",
+        classification_1 = {
+            130435, -- Addled Thug
+            133430, -- Venture Co. Mastermind
+            133463, -- Venture Co. War Machine
+            134012, -- Taskmaster Askari
+            136643, -- Azerite Extractor
+        },
+        classification_2 = {
+        },
+        classification_3 = {
+        },
+        classification_4 = {
+            130485, -- Mechanized Peacekeeper
+            136139, -- Mechanized Peacekeeper
+        },
+        classification_5 = {
+            130635, -- Stonefury
+            133432, -- Venture Co. Alchemist
+            136470, -- Refreshment Vendor
+        },
+        classification_6 = {
+            130661, -- Venture Co. Earthshaper
+            134232, -- Hired Assassin
+        },
+    },
 }
