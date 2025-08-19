@@ -798,12 +798,38 @@ StaticPopupDialogs["KUI_TargetHelper_SeasonConfirm"] = {
 	preferredIndex = 3,
 }
 
+StaticPopupDialogs["KUI_TargetHelper_SeasonThreeConfirm"] = {
+	text = "Do you want to import enemies from The War Within Season Three?",
+	button1 = "Yes",
+	button2 = "No",
+	OnAccept = function(self, data, data2)
+		mod:AddTheWarWithinTargetsSeasonThree(data)
+	end,
+	timeout = 0,
+  	whileDead = true,
+	hideOnEscape = true,
+	preferredIndex = 3,
+}
+
 StaticPopupDialogs["KUI_TargetHelper_InterruptsConfirm"] = {
 	text = "Do you want to import interrupts from The War Within Season One?",
 	button1 = "Yes",
 	button2 = "No",
 	OnAccept = function(self, data, data2)
 		mod:AddSeasonalInterrupts()
+	end,
+	timeout = 0,
+  	whileDead = true,
+	hideOnEscape = true,
+	preferredIndex = 3,
+}
+
+StaticPopupDialogs["KUI_TargetHelper_InterruptsSeasonThreeConfirm"] = {
+	text = "Do you want to import interrupts from The War Within Season Three?",
+	button1 = "Yes",
+	button2 = "No",
+	OnAccept = function(self, data, data2)
+		mod:AddSeasonThreeInterrupts()
 	end,
 	timeout = 0,
   	whileDead = true,

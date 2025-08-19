@@ -823,3 +823,196 @@ WarWithinS1Targets =
 		}
 	},
 }
+
+WarWithinS3Targets = 
+{
+	[1] = {
+		name = "Ara-Kara - The War Within - Season Three",
+		frontals = {
+			218324, -- Nakt
+			217533, -- Atik
+			215405 -- Anub'zekt
+		},
+		notable = {
+			213860, -- Stagshell
+			223207 -- Black Blood
+		},
+		casters = {
+			216293, -- Trilling Attendant
+			217531 -- Ixin
+		},
+		cast_interrupt = {
+			434802, -- Horrifying Shrill
+			434793, -- Resonant Barrage
+			433841, -- Venom Volley
+			448239 -- Web Wrap
+		},
+		cast_heal = {
+		},
+		cast_stop = {
+			432967, -- Alarm Shrill
+			432031 -- Grasping Blood
+		}
+	},
+	[2] = {
+		name = "The Dawnbreaker - The War Within - Season One",
+		frontals = {
+			213934, -- Nightfall Tactician
+			211263, -- Iken'tak
+			211089 -- Anub'ikkaj
+		},
+		notable = {
+			229451, -- Nightfall Darkcaster
+		},
+		casters = {
+			213892, -- Nightfall Shadowmage
+			214762, -- Nightfall Commander
+			213932, -- Sureki Militant
+		},
+		cast_interrupt = {
+			431309, -- Ensnaring Shadows
+			450756, -- Abyssal Howl
+		},
+		cast_heal = {
+			451097 -- Silken Shell
+		},
+		cast_stop = {
+			432520 -- Umbral Barrier
+		}
+	},
+	[3] = {
+		name = "Priory of the Sacred Flame - The War Within - Dungeon",
+		frontals = {
+		},
+		notable = {
+			206697 -- Devout Priest
+		},
+		casters = {
+			221760 -- Risen Mage
+		},
+		cast_interrupt = {
+			424420, -- Cinderblast
+			424419, -- Battle Cry
+			423051, -- Burning Light
+			444743 -- Fireball Volley
+		},
+		cast_heal = {
+			427356 -- Greater Heal
+		},
+		cast_stop = {
+			427342 -- Defend
+		}
+	},
+	[4] = {
+		name = "Operation:Flood Gate - The War Within - Season Three",
+		frontals = {
+			230740
+		},
+		notable = {
+			230748
+		},
+		casters = {
+			231223,
+			229069,
+			229686,  -- Surveyor
+		},
+		cast_interrupt = {
+			1214468,
+			462771
+		},
+		cast_heal = {
+
+		},
+		cast_stop = {
+			471736
+		}
+	},
+	[5] = {
+		name = "Eco-dome - The War Within - Season Three",
+		frontals = {
+			242631
+		},
+		notable = {
+			244302,
+			235151
+		},
+		casters = {
+			234955,
+			234962,
+			234957,
+			242209
+		},
+		cast_interrupt = {
+			1229510,
+		
+		},
+		cast_heal = {
+			1223000
+		},
+		cast_stop = {
+		}
+	},
+	[6] = {
+		name = "Halls of Atonement - The War Within - Season Three",
+		frontals = {
+		},
+		notable = {
+			164562,
+		},
+		casters = {
+			165529
+		},
+		cast_interrupt = {
+			325701,
+			326450
+		},
+		cast_heal = {
+		},
+		cast_stop = {
+		}
+	},
+	[7] = {
+		name = "Tazavesh: Streets of Wonder - The War Within - Season Three",
+		frontals = {
+			
+		},
+		notable = {
+			176396,
+			179840
+		},
+		casters = {
+			179841
+		},
+		cast_interrupt = {
+			355642
+		},
+		cast_heal = {
+		},
+		cast_stop = {
+			347721,
+			355640
+		}
+	},
+	[8] = {
+		name = "Tazavesh: So'leah's Gambit - The War Within - Season Three",
+		frontals = {
+			
+		},
+		notable = {
+			179733
+		},
+		casters = {
+			178139,
+			180431
+		},
+		cast_interrupt = {
+			355057,
+			357260
+		},
+		cast_heal = {
+		},
+		cast_stop = {
+		}
+	},
+
+}

@@ -170,6 +170,9 @@ function opt:SetupLocale()
 
 		SeasonTooltip = 'The War Within: Season One',
 		SeasonTooltipText = 'Add enemies from |cFFDDAF30The War Within: Season One|r dungeons',
+		SeasonThreeTooltip = 'The War Within: Season Three',
+		SeasonThreeTooltipText = 'Add enemies from |cFFDDAF30The War Within: Season Three|r dungeons',
+		SeasonThreeTooltipInterruptsText = 'Add interrupts from |cFFDDAF30The War Within: Season One|r dungeons and raids.',
 		SeasonTooltipInterruptsText = 'Add interrupts from |cFFDDAF30The War Within: Season One|r dungeons and raids.',
 
 		ClearInterrupts = 'Clear Interrupts',
