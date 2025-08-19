@@ -177,13 +177,14 @@ function mod:AddTheWarWithinTargetsSeasonOne()
 	end
 end
 
-function mod:AddTheWarWithinCastsSeasonOne()
+function mod:AddTheWarAithinCastsSeasonOne()
 
 	mod:LoadInterruptData()
 	
 	C_Timer.After(1, function()
 		local heal_color = { r = 0.49, g = 0.89, b = 0.28, a = 1 }
 		local interrupt_color = { r = 0.5, g = 1, b = 0.96, a = 1 }
+		local stop_color = { r = 0.929, g = 0.243, b = 0, a = 1}
 
 		for count,dungeon in ipairs(WarWithinS0Targets) do
 			local color_context = 'FFDDAF30'
