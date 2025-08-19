@@ -166,7 +166,7 @@ function mod:AddTheWarWithinTargetsSeasonTwo()
     local color5 = { r = 0.00, g = 0.75, b = 1.00, a = 1.00 } -- deepskyblue
     local color6 = { r = 0.00, g = 0.00, b = 1.00, a = 1.00 } -- blue
 
-	for count,dungeon in ipairs(WarWithinS2MobClassifications) do
+	for count,dungeon in ipairs(WarWithinS3MobClassifications) do
 		local color_context = 'FFDDAF30'
         mod:addDefaultTargets(color1, color_context, dungeon.classification_1, dungeon.name)
         mod:addDefaultTargets(color2, color_context, dungeon.classification_2, dungeon.name)

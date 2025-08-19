@@ -724,7 +724,7 @@ WarWithinS1Targets = {
 }
 
 
-WarWithinS2MobClassifications = {
+WarWithinS3MobClassifications = {
     [1] = {
         name = "Operation: Floodgate",
         classification_1 = {
@@ -785,197 +785,179 @@ WarWithinS2MobClassifications = {
         },
     },
     [3] = {
-        name = "The Rookery",
+        name = "Ara-Kara, City of Echoes",
         classification_1 = {
-            212739, -- Radiating Voidstone
-            212786, -- Voidrider
-            214421, -- Coalescing Void Diffuser
+            216338, -- Hulking Bloodguard
+            217039, -- Nerubian Hauler
+            228015, -- Hulking Bloodguard
         },
         classification_2 = {
         },
         classification_3 = {
         },
         classification_4 = {
-            209801, -- Quartermaster Koratite
-            212793, -- Void Ascendant
+            216340, -- Sentry Stagshell
+            216364, -- Blood Overseer
+            217531, -- Ixin
+            217533, -- Atik
+            218324, -- Nakt
+            218961, -- Starved Crawler
         },
         classification_5 = {
-            207198, -- Cursed Thunderer
-            207202, -- Void Fragment
-            214439, -- Corrupted Oracle
+            220599, -- Bloodstained Webmage
+            223253, -- Bloodstained Webmage
         },
         classification_6 = {
-            207199, -- Cursed Rooktender
+            216293, -- Trilling Attendant
         },
     },
     [4] = {
-        name = "Darkflame Cleft",
+        name = "The Dawnbreaker",
         classification_1 = {
-            208450, -- Wandering Candle
-            210539, -- Corridor Creeper
-            211121, -- Rank Overseer
-            212411, -- Torchsnarl
-            220616, -- Corridor Sleeper
+            211341, -- Manifested Shadow
+            213932, -- Sureki Militant
+            214761, -- Nightfall Ritualist
         },
         classification_2 = {
-            213751, -- Dynamite Mine Cart
         },
         classification_3 = {
         },
         classification_4 = {
-            212412, -- Sootsnout
+            211261, -- Ascendant Vis'coxria
+            211262, -- Ixkreten the Unbreakable
+            211263, -- Deathscreamer Iken'tak
+            213885, -- Nightfall Dark Architect
+            214762, -- Nightfall Commander
         },
         classification_5 = {
-            210812, -- Royal Wicklighter
-            213913, -- Kobold Flametender
+            213892, -- Nightfall Shadowmage
+            213893, -- Nightfall Darkcaster
+            223994, -- Nightfall Shadowmage
+            225605, -- Nightfall Darkcaster
+            228539, -- Nightfall Darkcaster
+            228540, -- Nightfall Shadowmage
         },
         classification_6 = {
-            208456, -- Shuffling Horror
-            210818, -- Lowly Moleherd
-            211228, -- Blazing Fiend
-            220815, -- Blazing Fiend
-            223770, -- Blazing Fiend
-            223772, -- Blazing Fiend
-            223773, -- Blazing Fiend
-            223774, -- Blazing Fiend
-            223775, -- Blazing Fiend
-            223776, -- Blazing Fiend
-            223777, -- Blazing Fiend
+            210966, -- Sureki Webmage
+            225479, -- Sureki Webmage
         },
     },
     [5] = {
-        name = "Cinderbrew Meadery",
+        name = "Tazavesh, the Veiled Market",
         classification_1 = {
-            210269, -- Hired Muscle
-            220946, -- Venture Co. Honey Harvester
-            223423, -- Careless Hopgoblin
+            177808, -- Armored Overseer
+            178165, -- Coastwalker Goliath
+            179837, -- Tracker Zo'korss
+            180348, -- Cartel Muscle
+            180429, -- Adorned Starseer
+            180495, -- Enraged Direhorn
+            246285, -- Bazaar Overseer
         },
         classification_2 = {
-            220368, -- Failed Batch
+            175576, -- Containment Cell
+            179733, -- Invigorating Fish Stick
         },
         classification_3 = {
         },
         classification_4 = {
-            214697, -- Chef Chewie
+            178141, -- Murkbrine Scalebinder
+            178171, -- Stormforged Guardian
+            178392, -- Gatewarden Zo'mazz
+            179269, -- Oasis Security
+            179334, -- Portalmancer Zo'dahh
+            179821, -- Commander Zo'far
+            179842, -- Commerce Enforcer
+            180091, -- Ancient Core Hound
+            180399, -- Evaile
+            180433, -- Wandering Pulsar
+            180640, -- Stormbound Breaker
         },
         classification_5 = {
-            220060, -- Taste Tester
-            220141, -- Royal Jelly Purveyor
+            176551, -- Vault Purifier
+            176565, -- Disruptive Patron
+            177716, -- So' Cartel Assassin
+            178142, -- Murkbrine Fishmancer
+            179388, -- Hourglass Tidesage
+            179841, -- Veteran Sparkcaster
+            180336, -- Cartel Wiseguy
+            180431, -- Focused Ritualist
         },
         classification_6 = {
-            210264, -- Bee Wrangler
-            214673, -- Flavor Scientist
-            218671, -- Venture Co. Pyromaniac
-            222964, -- Flavor Scientist
+            176395, -- Overloaded Mailemental
+            178139, -- Murkbrine Shellcrusher
+            180335, -- Cartel Smuggler
         },
     },
     [6] = {
-        name = "Theater of Pain",
+        name = "Halls of Atonement",
         classification_1 = {
-            162744, -- Nekthara the Mangler
-            162763, -- Soulforged Bonereaver
-            163086, -- Rancid Gasbag
-            164451, -- Dessia the Decapitator
-            167532, -- Heavin the Breaker
-            167533, -- Advent Nevermore
-            167534, -- Rek the Hardened
-            167536, -- Harugia the Bloodthirsty
-            167538, -- Dokigg the Brutalizer
-            167998, -- Portal Guardian
+            164557, -- Shard of Halkias
+            167612, -- Stoneborn Reaver
         },
         classification_2 = {
         },
         classification_3 = {
         },
         classification_4 = {
-            164506, -- Ancient Captain
-            169893, -- Nefarious Darkspeaker
-            169927, -- Putrid Butcher
-            170234, -- Oppressive Banner
-            170850, -- Raging Bloodhorn
-            234443, -- Jundies
+            165913, -- Ghastly Parishioner
+            167607, -- Stoneborn Slasher
+            167876, -- Inquisitor Sigar
+            173729, -- Manifestation of Pride
         },
         classification_5 = {
-            160495, -- Maniacal Soulbinder
-            164461, -- Sathel the Accursed
-            166524, -- Deathwalker
-            174197, -- Battlefield Ritualist
-            174210, -- Blighted Sludge-Spewer
+            165414, -- Depraved Obliterator
         },
         classification_6 = {
-            164510, -- Shambling Arbalest
-            169875, -- Shackled Soul
-            170690, -- Diseased Horror
-            170882, -- Bone Magus
+            164363, -- Undying Stonefiend
+            164562, -- Depraved Houndmaster
+            165529, -- Depraved Collector
         },
     },
     [7] = {
-        name = "Operation: Mechagon",
+        name = "Eco-Dome Al'dani",
         classification_1 = {
-            144293, -- Waste Processing Unit
-            144296, -- Spider Tank
-            150160, -- Scrapbone Bully
-            150253, -- Weaponized Crawler
-            151476, -- Blastatron X-80
+            236995, -- Ravenous Destroyer
+            245092, -- Burrowing Creeper
         },
         classification_2 = {
-            189878, -- Nathrezim Infiltrator
+            240952, -- Evoked Spirit
         },
         classification_3 = {
-            120651, -- Explosives
         },
         classification_4 = {
-            144298, -- Defense Bot Mk III
-            150146, -- Scrapbone Shaman
-            150168, -- Toxic Monstrosity
-            150292, -- Mechagon Cavalry
-            151325, -- Alarm-o-Bot
-            152033, -- Inconspicuous Plant
-            154744, -- Toxic Monstrosity
-            154758, -- Toxic Monstrosity
-            190174, -- Hypnosis Bat
+            234955, -- Wastelander Pactspeaker
+            242631, -- Overcharged Sentinel
         },
         classification_5 = {
-            144294, -- Mechagon Tinkerer
-            150142, -- Scrapbone Trashtosser
-            150165, -- Slime Elemental
-            150250, -- Pistonhead Blaster
-            151657, -- Bomb Tonk
-            155090, -- Anodized Coilbearer
+            234957, -- Wastelander Ritualist
+            242209, -- Overgorged Mite
         },
         classification_6 = {
-            144295, -- Mechagon Mechanic
-            150143, -- Scrapbone Grinder
-            150169, -- Toxic Lurker
-            150251, -- Pistonhead Mechanic
-            150297, -- Mechagon Renormalizer
+            234962, -- Wastelander Farstalker
+            235151, -- K'aresh Elemental
         },
     },
     [8] = {
-        name = "The MOTHERLODE!!",
+        name = "Manaforge Omega",
         classification_1 = {
-            130435, -- Addled Thug
-            133430, -- Venture Co. Mastermind
-            133463, -- Venture Co. War Machine
-            134012, -- Taskmaster Askari
-            136643, -- Azerite Extractor
+            241800, -- Manaforged Titan
+            245222, -- Pargoth
+            245255, -- Artoshion
         },
         classification_2 = {
         },
         classification_3 = {
         },
         classification_4 = {
-            130485, -- Mechanized Peacekeeper
-            136139, -- Mechanized Peacekeeper
+            248589, -- Nullbinder
         },
         classification_5 = {
-            130635, -- Stonefury
-            133432, -- Venture Co. Alchemist
-            136470, -- Refreshment Vendor
+            237981, -- Shadowguard Mage
+            241798, -- Nexus-Prince Xevvos
+            241803, -- Nexus-Prince Ky'vor
         },
         classification_6 = {
-            130661, -- Venture Co. Earthshaper
-            134232, -- Hired Assassin
         },
     },
+
 }
