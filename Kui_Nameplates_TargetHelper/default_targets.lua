@@ -201,6 +201,40 @@ function mod:AddTheWarAithinCastsSeasonOne()
 	end)
 end
 
+function mod:AddTheWarWithinTargetsSeasonThree()
+	
+	local scary_color = {  r = 1.0, g = 0.57, b = 0, a = 1 }
+	local frontal_color = {  r = 1.0, g = 0.57, b = 0, a = 1 }
+	local caster_color = {  r = 0.66, g = 0.89, b = 1, a = 1 }
+	local notable_color = { r = 0.8,  g = 0.13,  b = 0.67,  a = 1.0 }
+
+	for count,dungeon in ipairs(WarWithinS3Targets) do
+		local color_context = 'FFDDAF30'
+		mod:addDefaultTargets(scary_color, color_context, dungeon.scary_npcs, dungeon.name)
+		mod:addDefaultTargets(frontal_color, color_context, dungeon.frontals, dungeon.name)
+		mod:addDefaultTargets(caster_color, color_context, dungeon.casters, dungeon.name)
+		mod:addDefaultTargets(notable_color, color_context, dungeon.notable, dungeon.name)
+	end
+end
+
+function mod:AddTheWarWithinCastsSeasonThree()
+
+	mod:LoadInterruptData()
+	
+	C_Timer.After(1, function()
+		local heal_color = { r = 0.49, g = 0.89, b = 0.28, a = 1 }
+		local interrupt_color = { r = 0.5, g = 1, b = 0.96, a = 1 }
+		local stop_color = { r = 0.929, g = 0.243, b = 0, a = 1}
+
+		for count,dungeon in ipairs(WarWithinS3Targets) do
+			local color_context = 'FFDDAF30'
+			mod:addDefaultInterrupts(heal_color, color_context, dungeon.cast_heal, dungeon.name)
+			mod:addDefaultInterrupts(interrupt_color, color_context, dungeon.cast_interrupt, dungeon.name)
+			mod:addDefaultInterrupts(stop_color, color_context, dungeon.cast_stop, dungeon.name)
+		end
+	end)
+end
+
 
 function mod:addDefaultInterrupts(color, context_color, keys, source)
 	if (keys == nil) then return end
@@ -225,6 +259,11 @@ function mod:LoadInterruptData()
 		self:LoadInterruptsFor(dungeon.cast_stop)
 	end
 	for count,dungeon in ipairs(WarWithinS1Targets) do
+		self:LoadInterruptsFor(dungeon.cast_heal)
+		self:LoadInterruptsFor(dungeon.cast_interrupt)
+		self:LoadInterruptsFor(dungeon.cast_stop)
+	end
+	for count,dungeon in ipairs(WarWithinS3Targets) do
 		self:LoadInterruptsFor(dungeon.cast_heal)
 		self:LoadInterruptsFor(dungeon.cast_interrupt)
 		self:LoadInterruptsFor(dungeon.cast_stop)

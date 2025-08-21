@@ -50,8 +50,15 @@ function mod:InterruptsWidgets(parent)
 	end)
 	opt:AddTooltip(season1, opt.titles.SeasonTooltip, opt.titles.SeasonTooltipInterruptsText)
 
+	local season3 = opt:CreateIcon(parent, nil, 4734167, 32, 32)
+	season3:SetPoint('TOPRIGHT', season1, 'TOPLEFT', -8, 0)
+	season3:SetScript('OnClick', function(self)
+		local dialog = StaticPopup_Show("KUI_TargetHelper_InterruptsSeasonThreeConfirm")
+	end)
+	opt:AddTooltip(season3, opt.titles.SeasonThreeTooltip, opt.titles.SeasonThreeTooltipInterruptsText)
+
     local clear = opt:CreateIcon(parent, nil, 4200126, 32, 32)
-	clear:SetPoint('TOPRIGHT', season1, 'TOPLEFT', -8, 0)
+	clear:SetPoint('TOPRIGHT', season3, 'TOPLEFT', -8, 0)
 	clear:SetScript('OnClick', function(self)
 		local dialog = StaticPopup_Show("KUI_TargetHelper_ClearInterruptsConfirm")
 	end)
@@ -330,6 +337,10 @@ end
 
 function mod:AddSeasonalInterrupts()
 	mod:AddWarWithinCastsSeasonOne()
+end
+
+function mod:AddSeasonThreeInterrupts()
+	mod:AddTheWarWithinCastsSeasonThree()
 end
 
 function opt:ConfirmInterruptDelete()
