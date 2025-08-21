@@ -4,7 +4,7 @@ import os
 from shutil import copytree, ignore_patterns
 from subprocess import check_output
 
-version = "1.5.14"
+version = "1.5.16"
 type = "release"
 
 addon_name = "Kui_Nameplates_TargetHelper"
